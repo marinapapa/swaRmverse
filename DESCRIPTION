@@ -1,0 +1,21 @@
+Package: swarmyverse
+Type: Package
+Title: Swarm Space Creation
+Version: 0.1.0
+Author: person("Marina", "Papadopoulou", , "m.papadopoulou.rug@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-6478-8365"))
+Maintainer: Marina Papadopoulou <m.papadopoulou.rug@gmail.com>
+Description: The package provides a pipeline for the comparative analysis of of collective motion data in a swarm space.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Imports:
+  pracma,
+  dplyr,
+  parallel,
+  shotGroups,
+  raster,
+  purrr,
+  reshape2,
+  data.table

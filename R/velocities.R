@@ -1,0 +1,93 @@
+#' @title Velocity calculations in parallel
+#' @description Calculates velocity and headings based on two location points and the time taken to travel between those points
+#' @param data Time series with individual's positional data through time. Columns must include: id, time, lon, lat.
+#' @param pos_label_x column name of x position column, default = 'lon'.
+#' @param pos_label_y column name of y position column, default = 'lat'.
+#' @param id_label column name of individual local identifier column, default = 'id'.
+#' @param sample_step An integer, the step over which to calculate the velocities, in timesteps.
+#' @param min_displacement Minimum distance traveled to constitute movement, default = '0.1'.
+#' @param lonlat whether positions are geographic coordinates, default = FALSE.
+#' @param verbose whether to post updates on progress
+#' @param step2time the sampling frequency, the relation between a time step and real time in seconds
+#' @return a list of velocities over time
+#' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+add_velocities_parallel <- function(
+    data,
+    pos_label_x = 'lon',
+    pos_label_y = 'lat',
+    id_label = 'id',
+    sample_step = 1,
+    min_displacement = 0.1,
+    lonlat = FALSE,
+    verbose = FALSE,
+    step2time = 1
+)
+{
+  if (sample_step < 1) { stop('sample_step is in timesteps not real time, use an integer larger or equal to 1.')}
+
+  if (verbose) { print('Calculating heading timeseries in parallel...') }
+  secs <- sample_step * step2time
+
+  data$headx <- data$heady <- data$velx <- data$vely <- data$speed <- NA
+
+  data$id <- as.character(data[,id_label])
+  per_id <- split(data, data[,id_label])
+
+  parallel_per_id <- function(per_id, sample_step, pos_label_x, posy_label, min_displacement, lonlat, secs)
+  {
+    # vector_magnitude <- function(x, y)
+    # {
+    #   return(sqrt(x*x + y*y))
+    # }
+
+    for (i in (sample_step+1):nrow(per_id))
+    {
+      x0 <- per_id[i-sample_step, pos_label_x]
+      x1 <- per_id[i, pos_label_x]
+      y0 <- per_id[i-sample_step, posy_label]
+      y1 <- per_id[i, posy_label]
+
+      dx <- x1-x0
+      dy <- y1-y0
+
+      dist_moved <- raster::pointDistance(c(x0, y0), c(x1, y1), lonlat = lonlat)
+
+      if (length(dist_moved) < 1 || is.na(dist_moved) || dist_moved < min_displacement ) {
+        per_id[i-sample_step, 'speed'] <- 0
+        per_id[i-sample_step, 'headx'] <- per_id[i-sample_step, 'heady'] <- NA
+        per_id[i-sample_step, 'velx'] <- per_id[i-sample_step, 'vely'] <- NA
+        next
+      }
+
+      per_id[i-sample_step, 'speed'] <- dist_moved/secs
+      per_id[i-sample_step, 'velx'] <- dx
+      per_id[i-sample_step, 'headx'] <- dx/vector_magnitude(dx, dy)
+      per_id[i-sample_step, 'vely'] <- dy
+      per_id[i-sample_step, 'heady'] <- dy/vector_magnitude(dx, dy)
+    }
+    return(per_id)
+  }
+
+  numCores <- parallel::detectCores()
+  cl <- parallel::makeCluster(numCores - 2)
+
+  res <- parallel::parLapply(cl,
+                             per_id,
+                             parallel_per_id,
+                             sample_step = sample_step,
+                             pos_label_x = pos_label_x,
+                             pos_label_y = pos_label_y,
+                             min_displacement = min_displacement,
+                             lonlat = lonlat,
+                             secs = secs
+
+  )
+
+  parallel::stopCluster(cl)
+  if (verbose) { print('Parallel computation done, preparing return data...') }
+
+  res <- dplyr::bind_rows(res)
+
+  return(res)
+}
+
