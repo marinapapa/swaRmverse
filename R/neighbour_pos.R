@@ -16,7 +16,6 @@
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @seealso \code{\link{rad_between}}, \code{\link{bearing_angle}}, \code{\link{perpDot}}
 #' @export
-
 neighb_rel_pos_timeseries_parallel <- function(
     data,
     date_label = 'date',
@@ -34,7 +33,7 @@ neighb_rel_pos_timeseries_parallel <- function(
 {
   savecsv = FALSE
 
-  if (!return_df & is.na(out_csv_dir) & is.na(out_csv_dir)){
+  if (!return_df & is.na(out_csv_dir) & is.na(out_csv_name)){
     stop("No output selected: either set return_df to TRUE or input a valid saving directory and filename.")
   }
   if (is.na(out_csv_dir) & !is.na(out_csv_name)){

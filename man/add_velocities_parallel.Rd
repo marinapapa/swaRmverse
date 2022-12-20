@@ -10,7 +10,6 @@ add_velocities_parallel(
   pos_label_y = "lat",
   id_label = "id",
   sample_step = 1,
-  min_displacement = 0.1,
   lonlat = FALSE,
   verbose = FALSE,
   step2time = 1
@@ -26,8 +25,6 @@ add_velocities_parallel(
 \item{id_label}{column name of individual local identifier column, default = 'id'.}
 
 \item{sample_step}{An integer, the step over which to calculate the velocities, in timesteps.}
-
-\item{min_displacement}{Minimum distance traveled to constitute movement, default = '0.1'.}
 
 \item{lonlat}{whether positions are geographic coordinates, default = FALSE.}
 

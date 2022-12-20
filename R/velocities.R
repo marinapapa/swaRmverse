@@ -5,19 +5,18 @@
 #' @param pos_label_y column name of y position column, default = 'lat'.
 #' @param id_label column name of individual local identifier column, default = 'id'.
 #' @param sample_step An integer, the step over which to calculate the velocities, in timesteps.
-#' @param min_displacement Minimum distance traveled to constitute movement, default = '0.1'.
 #' @param lonlat whether positions are geographic coordinates, default = FALSE.
 #' @param verbose whether to post updates on progress
 #' @param step2time the sampling frequency, the relation between a time step and real time in seconds
 #' @return a list of velocities over time
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#' @export
 add_velocities_parallel <- function(
     data,
     pos_label_x = 'lon',
     pos_label_y = 'lat',
     id_label = 'id',
     sample_step = 1,
-    min_displacement = 0.1,
     lonlat = FALSE,
     verbose = FALSE,
     step2time = 1
@@ -33,7 +32,7 @@ add_velocities_parallel <- function(
   data$id <- as.character(data[,id_label])
   per_id <- split(data, data[,id_label])
 
-  parallel_per_id <- function(per_id, sample_step, pos_label_x, posy_label, min_displacement, lonlat, secs)
+  parallel_per_id <- function(per_id, sample_step, pos_label_x, posy_label, lonlat, secs)
   {
     # vector_magnitude <- function(x, y)
     # {
@@ -52,7 +51,7 @@ add_velocities_parallel <- function(
 
       dist_moved <- raster::pointDistance(c(x0, y0), c(x1, y1), lonlat = lonlat)
 
-      if (length(dist_moved) < 1 || is.na(dist_moved) || dist_moved < min_displacement ) {
+      if (length(dist_moved) < 1 || is.na(dist_moved) ) {
         per_id[i-sample_step, 'speed'] <- 0
         per_id[i-sample_step, 'headx'] <- per_id[i-sample_step, 'heady'] <- NA
         per_id[i-sample_step, 'velx'] <- per_id[i-sample_step, 'vely'] <- NA
@@ -77,7 +76,6 @@ add_velocities_parallel <- function(
                              sample_step = sample_step,
                              pos_label_x = pos_label_x,
                              pos_label_y = pos_label_y,
-                             min_displacement = min_displacement,
                              lonlat = lonlat,
                              secs = secs
 

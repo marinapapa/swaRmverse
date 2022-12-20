@@ -1,5 +1,4 @@
 #' @title Frontness
-#' @author Marina Papadopoulou
 #' @description Calculates how in front or behind the neighbor is based on the bearing angle from the focal individual to the neighbor.
 #' @param bangls A vector of bearing angles in rads.
 #' @return a vector with doubles, the frontness metric (values 0 to 1) relative to the input vector

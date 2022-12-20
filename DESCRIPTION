@@ -13,9 +13,11 @@ RoxygenNote: 7.2.3
 Imports:
   pracma,
   dplyr,
+  tidyr,
   parallel,
   shotGroups,
   raster,
   purrr,
   reshape2,
-  data.table
+  data.table,
+  Rtsne

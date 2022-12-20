@@ -16,7 +16,5 @@ a vector with doubles, the frontness metric (values 0 to 1) relative to the inpu
 Calculates how in front or behind the neighbor is based on the bearing angle from the focal individual to the neighbor.
 }
 \author{
-Marina Papadopoulou
-
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}
 }
