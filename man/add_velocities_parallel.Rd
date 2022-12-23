@@ -6,9 +6,6 @@
 \usage{
 add_velocities_parallel(
   data,
-  pos_label_x = "lon",
-  pos_label_y = "lat",
-  id_label = "id",
   sample_step = 1,
   lonlat = FALSE,
   verbose = FALSE,
@@ -17,12 +14,6 @@ add_velocities_parallel(
 }
 \arguments{
 \item{data}{Time series with individual's positional data through time. Columns must include: id, time, lon, lat.}
-
-\item{pos_label_x}{column name of x position column, default = 'lon'.}
-
-\item{pos_label_y}{column name of y position column, default = 'lat'.}
-
-\item{id_label}{column name of individual local identifier column, default = 'id'.}
 
 \item{sample_step}{An integer, the step over which to calculate the velocities, in timesteps.}
 

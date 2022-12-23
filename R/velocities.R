@@ -1,9 +1,6 @@
 #' @title Velocity calculations in parallel
 #' @description Calculates velocity and headings based on two location points and the time taken to travel between those points
 #' @param data Time series with individual's positional data through time. Columns must include: id, time, lon, lat.
-#' @param pos_label_x column name of x position column, default = 'lon'.
-#' @param pos_label_y column name of y position column, default = 'lat'.
-#' @param id_label column name of individual local identifier column, default = 'id'.
 #' @param sample_step An integer, the step over which to calculate the velocities, in timesteps.
 #' @param lonlat whether positions are geographic coordinates, default = FALSE.
 #' @param verbose whether to post updates on progress
@@ -13,9 +10,6 @@
 #' @export
 add_velocities_parallel <- function(
     data,
-    pos_label_x = 'lon',
-    pos_label_y = 'lat',
-    id_label = 'id',
     sample_step = 1,
     lonlat = FALSE,
     verbose = FALSE,
@@ -26,25 +20,31 @@ add_velocities_parallel <- function(
 
   if (verbose) { print('Calculating heading timeseries in parallel...') }
   secs <- sample_step * step2time
+  data$headx <- data$heady <- data$velx <- data$vely <- data$speed <- NA_real_
 
-  data$headx <- data$heady <- data$velx <- data$vely <- data$speed <- NA
+  data$id <- as.character(data$id)
+  per_id <- split(data, data$id)
 
-  data$id <- as.character(data[,id_label])
-  per_id <- split(data, data[,id_label])
-
-  parallel_per_id <- function(per_id, sample_step, pos_label_x, posy_label, lonlat, secs)
+  parallel_per_id <- function(per_id, sample_step, lonlat, secs)
   {
     # vector_magnitude <- function(x, y)
     # {
     #   return(sqrt(x*x + y*y))
     # }
+    per_id <- as.data.frame(per_id)
+
+    if (nrow(per_id) < sample_step+1)
+    {
+      warning('Some ids have not enough data for the input sample step.')
+      return(per_id)
+    }
 
     for (i in (sample_step+1):nrow(per_id))
     {
-      x0 <- per_id[i-sample_step, pos_label_x]
-      x1 <- per_id[i, pos_label_x]
-      y0 <- per_id[i-sample_step, posy_label]
-      y1 <- per_id[i, posy_label]
+      x0 <- per_id$x[i-sample_step]
+      x1 <- per_id$x[i]
+      y0 <- per_id$y[i-sample_step]
+      y1 <- per_id$y[i]
 
       dx <- x1-x0
       dy <- y1-y0
@@ -74,8 +74,6 @@ add_velocities_parallel <- function(
                              per_id,
                              parallel_per_id,
                              sample_step = sample_step,
-                             pos_label_x = pos_label_x,
-                             pos_label_y = pos_label_y,
                              lonlat = lonlat,
                              secs = secs
 

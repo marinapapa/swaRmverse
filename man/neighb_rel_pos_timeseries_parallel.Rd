@@ -6,23 +6,16 @@
 \usage{
 neighb_rel_pos_timeseries_parallel(
   data,
-  date_label = "date",
   return_df = TRUE,
   out_csv_dir = NA,
   out_csv_name = NA,
   add_coords = FALSE,
   lonlat = FALSE,
-  pos_label_x = "lon",
-  pos_label_y = "lat",
-  head_label_x = "headx",
-  head_label_y = "heady",
   verbose = FALSE
 )
 }
 \arguments{
 \item{data}{Dataframe with group's timeseries. Column names must include: id, time.}
-
-\item{date_label}{column name of date, default = 'date'.}
 
 \item{return_df}{logical, whether to return the result dataframe or not.}
 
@@ -33,14 +26,6 @@ neighb_rel_pos_timeseries_parallel(
 \item{add_coords}{whether data is converted to geographic coordinates, default = 'FALSE'.}
 
 \item{lonlat}{whether positions are geographic coordinates, default = FALSE.}
-
-\item{pos_label_x}{column name of x position column, default = 'lon'.}
-
-\item{pos_label_y}{column name of y position column, default = 'lat'.}
-
-\item{head_label_x}{column name of x heading column, default = 'headx'.}
-
-\item{head_label_y}{column name of y heading column, default = 'heady'.}
 
 \item{verbose}{whether to post updates on progress}
 }

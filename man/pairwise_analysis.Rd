@@ -7,16 +7,10 @@
 pairwise_analysis(
   data_dates_list,
   max_n_rank_to_return = 4,
-  date_label = "date",
   return_df = TRUE,
   out_csv_dir = NA,
-  out_csv_name = "pairwise_",
   add_coords = FALSE,
   lonlat = FALSE,
-  pos_label_x = "lon",
-  pos_label_y = "lat",
-  head_label_x = "headx",
-  head_label_y = "heady",
   verbose = FALSE
 )
 }
@@ -25,25 +19,13 @@ pairwise_analysis(
 
 \item{max_n_rank_to_return}{Max rank of neighbor (e.g. 4th closest) to save/return data for}
 
-\item{date_label}{column name of date, default = 'date'.}
-
 \item{return_df}{logical, whether to return the result dataframes or not.}
 
 \item{out_csv_dir}{directory output is saved to.}
 
-\item{out_csv_name}{names of files that will be exported.}
-
 \item{add_coords}{whether data is converted to geographic coordinates, default = 'FALSE'.}
 
 \item{lonlat}{logical, whether positions are geographic coordinates, default = FALSE.}
-
-\item{pos_label_x}{column name of x position column, default = 'lon'.}
-
-\item{pos_label_y}{column name of y position column, default = 'lat'.}
-
-\item{head_label_x}{column name of x heading column, default = 'headx'.}
-
-\item{head_label_y}{column name of y heading column, default = 'heady'.}
 
 \item{verbose}{whether to post updates on progress}
 }

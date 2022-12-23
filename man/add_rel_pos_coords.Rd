@@ -4,20 +4,11 @@
 \alias{add_rel_pos_coords}
 \title{Relative position coordinates}
 \usage{
-add_rel_pos_coords(
-  data,
-  bearing_angle_label = "bangl",
-  distance_label = "dist",
-  focal_heading = c(0, 1)
-)
+add_rel_pos_coords(data, focal_heading = c(0, 1))
 }
 \arguments{
 \item{data}{Dataframe with the bearaing angle and distance of each individual to specific neighbors.
 Column names must include: id, time. Can be the output of the neighb_rel_pos_timeseries in long_dataframe format.}
-
-\item{bearing_angle_label}{column name of bearing angle of neighbor, default = 'bangl'.}
-
-\item{distance_label}{column name of distance to neighbor, default = 'dist'.}
 
 \item{focal_heading}{the heading of the focal individual, default = c(0,1) for plotting neighbor heading north.}
 }

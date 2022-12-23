@@ -3,11 +3,6 @@
 #' @param data Dataframe with group's timeseries. Column names must include: id, time.
 #' @param return_df logical, whether to return the result dataframe or not.
 #' @param lonlat whether positions are geographic coordinates, default = FALSE.
-#' @param pos_label_x column name of x position column, default = 'lon'.
-#' @param pos_label_y column name of y position column, default = 'lat'.
-#' @param head_label_x column name of x heading column, default = 'headx'.
-#' @param head_label_y column name of y heading column, default = 'heady'.
-#' @param date_label column name of date, default = 'date'.
 #' @param out_csv_dir directory output is saved to.
 #' @param out_csv_name names of files that will be exported.
 #' @param add_coords whether data is converted to geographic coordinates, default = 'FALSE'.
@@ -18,16 +13,11 @@
 #' @export
 neighb_rel_pos_timeseries_parallel <- function(
     data,
-    date_label = 'date',
     return_df = TRUE,
     out_csv_dir = NA,
     out_csv_name = NA,
     add_coords = FALSE,
     lonlat = FALSE,
-    pos_label_x = 'lon',
-    pos_label_y = 'lat',
-    head_label_x = 'headx',
-    head_label_y = 'heady',
     verbose = FALSE
 )
 {
@@ -36,40 +26,34 @@ neighb_rel_pos_timeseries_parallel <- function(
   if (!return_df & is.na(out_csv_dir) & is.na(out_csv_name)){
     stop("No output selected: either set return_df to TRUE or input a valid saving directory and filename.")
   }
-  if (is.na(out_csv_dir) & !is.na(out_csv_name)){
-    question1 <- readline("Your output input is a csv name without a path. Results won't be saved, are you sure you
+  if (is.na(out_csv_dir) & !(is.na(out_csv_name))){
+    question1 <- readline("Your output input is a csv name without a path. Results won't be saved, \n are you sure you
                           want to continue? (Y/N)")
     if(regexpr(question1, 'y', ignore.case = TRUE) == 1){
     } else if (regexpr(question1, 'n', ignore.case = TRUE) == 1){
       stop("Check input variables: out_csv_dir and out_csv_name.")
     }
   }
-  if (!is.na(out_csv_dir) & is.na(out_csv_name)){
-    question1 <- readline("You output input is a saving csv path without a file name. Results won't be saved, are you sure you
+  if (!(is.na(out_csv_dir)) & is.na(out_csv_name)){
+    question1 <- readline("You output input is a saving csv path without a file name. Results won't be saved,\n are you sure you
                           want to continue? (Y/N)")
     if(regexpr(question1, 'y', ignore.case = TRUE) == 1){
     } else if (regexpr(question1, 'n', ignore.case = TRUE) == 1){
       stop("Check input variables: out_csv_dir and out_csv_name.")
     }
   }
-  if (!is.na(out_csv_dir)) {
+  if (!(is.na(out_csv_dir))) {
     if (dir.exists(out_csv_dir)) {
       savecsv <- TRUE
     } else { stop('Input saving directory does not exist, check your out_csv_dir variable.') }
   }
 
-  N <- length(unique(data$id))
+  #N <- length(unique(data$id))
   if (verbose) { print('Measuring relative positions in parallel...')}
 
   thists <- split(data, data$time)
 
   pairwise_data <- function(thists,
-                            N,
-                            pos_label_x,
-                            pos_label_y,
-                            head_label_x,
-                            head_label_y,
-                            date_label,
                             lonlat = lonlat)
 
 
@@ -106,13 +90,14 @@ neighb_rel_pos_timeseries_parallel <- function(
     thists <- as.data.frame(thists)
     timestep <- as.character(thists$time[1])
     id_names <- unique(thists$id)
-    def_head <- c(date_label, 'time', 'id')
-    if (length(id_names) < N){
-      h <- c(date_label, "time", "id", "neighb", "dist", "bangl", "rank", "head_dev")
-      emptydf <- data.frame(matrix(NA, ncol = length(h), nrow = 0))
-      colnames(emptydf) <- h
-      return(emptydf)
-    }
+    N <- length(id_names)
+    def_head <- c("date", 'time', 'id')
+    # if (length(id_names) < N){
+    #   h <- c("date", "time", "id", "neighb", "dist", "bangl", "rank", "head_dev")
+    #   emptydf <- data.frame(matrix(NA, ncol = length(h), nrow = 0))
+    #   colnames(emptydf) <- h
+    #   return(emptydf)
+    # }
 
     df_bangls <- data.frame(matrix(NA, ncol = length(def_head) + N, nrow = N))
     df_dists <- data.frame(matrix(NA, ncol = length(def_head) + N, nrow = N))
@@ -124,7 +109,7 @@ neighb_rel_pos_timeseries_parallel <- function(
     cnam_bangl <- cnam_dist <- cnam_rank  <- cnam_devs <- colNnames
 
     k <- length(def_head) + 1
-    for (i in 1:N)
+    for (i in 1:length(id_names))
     {
       cnam_bangl[k] <- paste0('bAngl2n', id_names[i]);
       cnam_dist[k] <- paste0('dist2n', id_names[i]);
@@ -140,10 +125,10 @@ neighb_rel_pos_timeseries_parallel <- function(
     dfrow <- 1
     for (id in id_names)
     {
-      posa_x <- thists[thists$id == id, pos_label_x] # one individual
-      posa_y <- thists[thists$id == id, pos_label_y]
-      ha_x <- thists[thists$id == id, head_label_x] # one individual
-      ha_y <- thists[thists$id == id, head_label_y]
+      posa_x <- thists$x[thists$id == id] # one individual
+      posa_y <- thists$y[thists$id == id]
+      ha_x <- thists$headx[thists$id == id] # one individual
+      ha_y <- thists$heady[thists$id == id]
 
       if (length(posa_x) > 1){warning('Duplicated ids present.')}
       posa_x <- posa_x[1]
@@ -154,15 +139,15 @@ neighb_rel_pos_timeseries_parallel <- function(
 
 
       other_ids <- id_names[id_names != id]
-      df_bangls[dfrow, 1:length(def_head)] <- df_dists[dfrow, 1:length(def_head)] <- df_rank[dfrow, 1:length(def_head)] <- c(as.character(thists[1, date_label]), timestep, id)
-      df_devs[dfrow, 1:length(def_head)] <- c(as.character(thists[1, date_label]), timestep, id)
+      df_bangls[dfrow, 1:length(def_head)] <- df_dists[dfrow, 1:length(def_head)] <- df_rank[dfrow, 1:length(def_head)] <- c(as.character(thists$date[1]), timestep, id)
+      df_devs[dfrow, 1:length(def_head)] <- c(as.character(thists$date[1]), timestep, id)
       for (m in other_ids)
       {
-        posb_x <- as.numeric(unlist(thists[thists$id == m, pos_label_x])) # vector of all else
-        posb_y <-  as.numeric(unlist(thists[thists$id == m, pos_label_y]))
+        posb_x <- as.numeric(unlist(thists[thists$id == m, "x"])) # vector of all else
+        posb_y <-  as.numeric(unlist(thists[thists$id == m, "y"]))
 
-        headb_x <- as.numeric(unlist(thists[thists$id == m, head_label_x])) # vector of all else
-        headb_y <-  as.numeric(unlist(thists[thists$id == m, head_label_y]))
+        headb_x <- as.numeric(unlist(thists[thists$id == m, "headx"])) # vector of all else
+        headb_y <-  as.numeric(unlist(thists[thists$id == m, "heady"]))
 
         if (length(posb_x) > 1) { warning('Duplicated ids per timestep present..') }
         posb_x <- posb_x[1]
@@ -191,26 +176,26 @@ neighb_rel_pos_timeseries_parallel <- function(
       dfrow <- dfrow + 1
     }
 
-    df_dists <- reshape2::melt(df_dists, variables = c(date_label, "time", "id"))
+    df_dists <- reshape2::melt(df_dists, variables = c("date", "time", "id"))
     df_dists$variable <- gsub("dist2n","", df_dists$variable)
-    colnames(df_dists) <- c(date_label, 'time', 'id', 'neighb', 'dist')
+    colnames(df_dists) <- c("date", 'time', 'id', 'neighb', 'dist')
 
-    df_bangls <- reshape2::melt(df_bangls, variables = c(date_label,"time", "id"))
+    df_bangls <- reshape2::melt(df_bangls, variables = c("date","time", "id"))
     df_bangls$variable <- gsub("bAngl2n","", df_bangls$variable)
-    colnames(df_bangls) <- c(date_label, 'time', 'id', 'neighb', 'bangl')
+    colnames(df_bangls) <- c("date", 'time', 'id', 'neighb', 'bangl')
 
-    df_rank <- reshape2::melt(df_rank, variables = c(date_label, "time", "id"))
+    df_rank <- reshape2::melt(df_rank, variables = c("date", "time", "id"))
     df_rank$variable <- gsub("rankOfn", "", df_rank$variable)
-    colnames(df_rank) <- c(date_label, 'time', 'id', 'neighb', 'rank')
+    colnames(df_rank) <- c("date", 'time', 'id', 'neighb', 'rank')
 
-    df_devs <- reshape2::melt(df_devs, variables = c(date_label, "time", "id"))
+    df_devs <- reshape2::melt(df_devs, variables = c("date", "time", "id"))
     df_devs$variable <- gsub("headdev2n", "", df_devs$variable)
-    colnames(df_devs) <- c(date_label, 'time', 'id', 'neighb', 'head_dev')
+    colnames(df_devs) <- c("date", 'time', 'id', 'neighb', 'head_dev')
 
 
-    toreturn <- dplyr::full_join(df_bangls, df_dists, by = c(date_label, "time", "id", "neighb"))
-    toreturn <- dplyr::full_join(toreturn, df_rank, by = c(date_label, "time", "id", "neighb"))
-    toreturn <- dplyr::full_join(toreturn, df_devs, by = c(date_label, "time", "id", "neighb"))
+    toreturn <- dplyr::full_join(df_bangls, df_dists, by = c("date", "time", "id", "neighb"))
+    toreturn <- dplyr::full_join(toreturn, df_rank, by = c("date", "time", "id", "neighb"))
+    toreturn <- dplyr::full_join(toreturn, df_devs, by = c("date", "time", "id", "neighb"))
 
     toreturn <- toreturn[toreturn$id != toreturn$neighb,]
     toreturn$time <- as.numeric(toreturn$time)
@@ -223,14 +208,9 @@ neighb_rel_pos_timeseries_parallel <- function(
   res <- parallel::parLapply(cl,
                              thists,
                              pairwise_data,
-                             N = N,
-                             pos_label_x = pos_label_x,
-                             pos_label_y = pos_label_y,
-                             head_label_x = head_label_x,
-                             head_label_y = head_label_y,
-                             date_label = date_label,
                              lonlat = lonlat)
 
+ # pbapply::pblapply()
   parallel::stopCluster(cl)
   if (verbose) { print('Parallel run done! Preparing output...')}
 
@@ -240,7 +220,7 @@ neighb_rel_pos_timeseries_parallel <- function(
   if ( add_coords )
   {
     res$time <- as.numeric(res$time)
-    res <- add_rel_pos_coords(res,  bearing_angle_label = 'bangl')
+    res <- add_rel_pos_coords(res)
   }
 
   if (savecsv) { data.table::fwrite(res, paste0(out_csv_dir, out_csv_name), row.names = FALSE) }

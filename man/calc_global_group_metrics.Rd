@@ -8,13 +8,7 @@ calc_global_group_metrics(
   data_dates_list,
   mov_av_time_window,
   return_df = TRUE,
-  out_csv_dir = NA,
-  id_label = "id",
-  date_label = "date",
-  pos_label_x = "posx",
-  pos_label_y = "posy",
-  head_label_x = "headx",
-  head_label_y = "heady"
+  out_csv_dir = NA
 )
 }
 \arguments{
@@ -25,18 +19,6 @@ calc_global_group_metrics(
 \item{return_df}{logical, whether to return the result dataframes or not.}
 
 \item{out_csv_dir}{directory output is saved to.}
-
-\item{id_label}{column name of individual local identifier column, default = 'id'.}
-
-\item{date_label}{column name of date, default = 'date'.}
-
-\item{pos_label_x}{column name of x position column, default = 'posx'.}
-
-\item{pos_label_y}{column name of y position column, default = 'posy'.}
-
-\item{head_label_x}{column name of x heading column, default = 'headx'.}
-
-\item{head_label_y}{column name of y heading column, default = 'heady'.}
 }
 \value{
 a dataframe with a column for neighbor id, bearing angle, distance and heading deviation for each individual through time.

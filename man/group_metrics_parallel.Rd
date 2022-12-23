@@ -4,31 +4,11 @@
 \alias{group_metrics_parallel}
 \title{Calculation of group metrics in parallel}
 \usage{
-group_metrics_parallel(
-  data,
-  id_label = "id",
-  date_label = "date",
-  pos_label_x = "posx",
-  pos_label_y = "posy",
-  head_label_x = "headx",
-  head_label_y = "heady"
-)
+group_metrics_parallel(data)
 }
 \arguments{
 \item{data}{A dataframe of (ordered) time series of headings, positions and speeds per individual.
 The dataframe may contain several individuals. Should include column for: id, time, speed, headx, heady, posx, posy.}
-
-\item{id_label}{the name of the column with individual id information}
-
-\item{date_label}{the name of the column with date information}
-
-\item{pos_label_x}{the name of the column with x coordinate of individual position}
-
-\item{pos_label_y}{the name of the column with y coordinate of individual position}
-
-\item{head_label_x}{the name of the column with x coordinate of individual heading}
-
-\item{head_label_y}{the name of the column with y coordinate of individual heading}
 }
 \value{
 A dataframe with the group average timeseries, with columns:

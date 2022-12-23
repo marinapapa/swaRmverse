@@ -9,29 +9,17 @@ group_motion_timeseries(
   speed_sliding_window = 1,
   step2time = 1,
   lonlat = TRUE,
-  date_label = "date",
-  pos_label_x = "posx",
-  pos_label_y = "posy",
-  id_label = "id",
   verbose = TRUE
 )
 }
 \arguments{
-\item{data}{A data frame with time series of individual's positional data through time. Columns must include: id, date, time, posx, posy}
+\item{data}{A data frame with time series of individual's positional data through time.}
 
 \item{speed_sliding_window}{An integer, the step over which to calculate the velocities, in timesteps.}
 
 \item{step2time}{the sampling frequency, the relation between a time step and real time in seconds}
 
 \item{lonlat}{logical, whether positions are geographic coordinates, default = FALSE.}
-
-\item{date_label}{column name for date, default = 'date'.}
-
-\item{pos_label_x}{column name of x position column, default = 'posx'.}
-
-\item{pos_label_y}{column name of y position column, default = 'posy'.}
-
-\item{id_label}{column name of individual local identifier column, default = 'id'.}
 
 \item{verbose}{whether to post updates on progress}
 }

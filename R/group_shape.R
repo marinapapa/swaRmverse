@@ -2,18 +2,14 @@
 #' @author Marina Papadopoulou
 #' @description Creates the oriented bounded box of a group in one time step
 #' @param df_self_timestep Dataframe with focal individuals data for 1 timestep, needs position columns.
-#' @param pos_label_x the name of the column with x coordinate of individual position
-#' @param pos_label_y the name of the column with y coordinate of individual position
 #' @return a bounding box around all input positions
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
 make_obb <- function(
-    df_self_timestep,
-    pos_label_x = 'posx',
-    pos_label_y = 'posy'
+    df_self_timestep
 )
 {
-  xy <- as.matrix(df_self_timestep[,c(pos_label_x, pos_label_y)], nrow = 2, ncol = 2)
+  xy <- as.matrix(df_self_timestep[,c('x', 'y')], nrow = 2, ncol = 2)
   bb <- shotGroups::getMinBBox(xy)                     # minimum bounding box
 
   bb$dirx <- sin(pracma::deg2rad(bb$angle))
@@ -42,15 +38,11 @@ bb_angl_dev <- function(
 #' @title Group shape - Oblong deviation
 #' @description Calculates a metric of group shape: the deviation of the longest side of a bounding box around all group member from the groups' heading.
 #' @param df_self Dataframe with individual data over time, needs a time and position columns.
-#' @param pos_label_x the name of the column with x coordinate of individual position
-#' @param pos_label_y the name of the column with y coordinate of individual position
 #' @return a vector of doubles, the deviation (angle) of the bounding box of a group to its heading over time.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
 group_shape_oblong_dev <- function(
-    df_self,
-    pos_label_x = 'posx',
-    pos_label_y = 'posy'
+    df_self
 )
 {
   tstps <- split(df_self, df_self$time)
@@ -60,7 +52,7 @@ group_shape_oblong_dev <- function(
     group_headx <- mean(tt$headx)
     group_heady <-  mean(tt$heady)
 
-    dev <- bb_angl_dev(c(group_headx, group_heady), make_obb(tt, pos_label_x, pos_label_y))
+    dev <- bb_angl_dev(c(group_headx, group_heady), make_obb(tt))
     return(dev)
   })
   return(unlist(devs))

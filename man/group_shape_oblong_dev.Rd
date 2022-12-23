@@ -4,14 +4,10 @@
 \alias{group_shape_oblong_dev}
 \title{Group shape - Oblong deviation}
 \usage{
-group_shape_oblong_dev(df_self, pos_label_x = "posx", pos_label_y = "posy")
+group_shape_oblong_dev(df_self)
 }
 \arguments{
 \item{df_self}{Dataframe with individual data over time, needs a time and position columns.}
-
-\item{pos_label_x}{the name of the column with x coordinate of individual position}
-
-\item{pos_label_y}{the name of the column with y coordinate of individual position}
 }
 \value{
 a vector of doubles, the deviation (angle) of the bounding box of a group to its heading over time.

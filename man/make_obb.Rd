@@ -4,14 +4,10 @@
 \alias{make_obb}
 \title{Make oriented bounding box}
 \usage{
-make_obb(df_self_timestep, pos_label_x = "posx", pos_label_y = "posy")
+make_obb(df_self_timestep)
 }
 \arguments{
 \item{df_self_timestep}{Dataframe with focal individuals data for 1 timestep, needs position columns.}
-
-\item{pos_label_x}{the name of the column with x coordinate of individual position}
-
-\item{pos_label_y}{the name of the column with y coordinate of individual position}
 }
 \value{
 a bounding box around all input positions
