@@ -22,3 +22,7 @@ Imports:
   data.table,
   Rtsne,
   trackdf
+Suggests:
+  knitr,
+  rmarkdown
+VignetteBuilder: knitr
