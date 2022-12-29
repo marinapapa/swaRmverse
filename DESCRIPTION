@@ -24,5 +24,6 @@ Imports:
   trackdf
 Suggests:
   knitr,
-  rmarkdown
+  rmarkdown,
+  ggplot2
 VignetteBuilder: knitr

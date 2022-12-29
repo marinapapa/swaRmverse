@@ -1,0 +1,68 @@
+---
+title: "Build swarm space"
+author: "Marina Papadopoulou"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Build swarm space}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## 2.1 Load data
+
+Load the metrics of collective motion calculated previously. Include the events you want to compare in a swarm space.
+
+```{r message=FALSE, warning=FALSE}
+library(swarmyverse)
+data('multi_species_metrics')
+
+all_data <- multi_species_metrics
+## or bind with new data
+# all_data <- rbind(multi_species_metrics, swarm_space_metrics)
+
+```
+
+## 2.2 Build swarm space
+
+Create new swarm space with PCA analysis:
+
+```{r}
+new_pca <- create_swarm_space(metrics_data = all_data, 
+                              space_type = "pca",
+                              save_pca_object = FALSE)
+
+ggplot2::ggplot(new_pca, ggplot2::aes(x = PC1, y = PC2, color = species)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw() 
+
+```
+
+Or create a new swarm space with tSNE:
+
+```{r}
+new_tsne <- create_swarm_space(metrics_data = all_data,
+                              space_type = "tsne",
+                              tsne_rand_seed = 2022,
+                              tsne_perplexity = 10
+                              )
+ggplot2::ggplot(new_tsne, ggplot2::aes(x = X, y = Y, color = species)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw() 
+
+```
+## 2.3 Expand existing swarm space
+
+Starting from previously generated PCA swarm space, add new data:
+
+```{r}
+# load('../data/pca_res.RData')
+# new_pca <- expand_pca_swarm_space(metrics_data = new_species_metrics, 
+#                                   pca_data = new_pca,
+#                                   pca_space = pca_res                                                          )
+# 
+# ggplot2::ggplot(new_pca, ggplot2::aes(x = PC1, y = PC2, color = species)) +
+#   ggplot2::geom_point() +
+#   ggplot2::theme_bw() 
+
+```

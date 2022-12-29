@@ -4,7 +4,12 @@
 \alias{expand_pca_swarm_space}
 \title{Expands existins swarm space (pca)}
 \usage{
-expand_pca_swarm_space(metrics_data, pca_space, pca_data, event_duration_limit)
+expand_pca_swarm_space(
+  metrics_data,
+  pca_space,
+  pca_data,
+  event_duration_limit = NA
+)
 }
 \arguments{
 \item{metrics_data}{New metrics data to add in swarm space}
