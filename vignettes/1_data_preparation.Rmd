@@ -26,11 +26,6 @@ data_df <- set_data_format(raw_x = raw$x,
                           tz = "America/New_York",
                           )
 
-data_df <- add_velocities_parallel(data_df, 
-                                  sample_step = 10, 
-                                  lonlat = FALSE, 
-                                  verbose = TRUE, 
-                                  step2time = 1 )
 head(data_df)
 ```
 
@@ -38,6 +33,13 @@ head(data_df)
 
 
 ```{r message=FALSE, warning=FALSE}
+
+data_df <- add_velocities_parallel(data_df, 
+                                  sample_step = 10, 
+                                  lonlat = FALSE, 
+                                  verbose = TRUE, 
+                                  step2time = 1 )
+
 smoothing_time_window <- 30 # seconds
 
 g_metr <- calc_global_group_metrics(data_dates_list = split(data_df, 
@@ -69,7 +71,10 @@ swarm_space_metrics <- col_motion_metrics_from_raw(data_df,
                                 mov_av_time_window = smoothing_time_window,
                                 speed_sliding_window = 10, 
                                 step2time = 1, lonlat = FALSE,
-                                verbose = TRUE
+                                verbose = TRUE,
+                                interactive_mode = FALSE,
+                                speed_lim = 5,
+                                pol_lim = 0.3
                                 )
 
 ```
@@ -77,12 +82,15 @@ If we have already calculated the global and pairwise metrics we use them direct
 
 ```{r message=FALSE, warning=FALSE}
 
-swarm_space_metrics2 <- col_motion_metrics(data_df, 
+swarm_space_metrics <- col_motion_metrics(data_df, 
                                            global_metrics = g_metr,
                                            paiwise_data = p_metr,
                                            mov_av_time_window = 30,
                                            step2time = 1,
-                                           verbose = TRUE
+                                           verbose = TRUE,
+                                           interactive_mode = FALSE,
+                                           speed_lim = 5,
+                                           pol_lim = 0.3
 )
 
 ```

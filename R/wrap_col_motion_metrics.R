@@ -6,6 +6,9 @@
 #' @param speed_sliding_window An integer, the step over which to calculate the velocities, in timesteps.
 #' @param lonlat logical, whether positions are geographic coordinates, default = FALSE.
 #' @param verbose whether to post updates on progress
+#' @param interactive_mode whether to take the threshold for event definition from user.
+#' @param speed_lim threshold for speed if interactive mode id off
+#' @param pol_lim threshold for polarization if interactive mode id off
 #' @return either a list of dataframes with neighbor ids, bearing angles, distances and heading deviations for each individual through time, or saves individual csvs per day, depending on input.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @seealso \code{\link{neighb_rel_pos_timeseries_parallel}}, \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
@@ -15,7 +18,10 @@ col_motion_metrics_from_raw <- function(data,
                                speed_sliding_window = 1,
                                step2time = 1,
                                lonlat = TRUE,
-                               verbose = TRUE
+                               verbose = TRUE,
+                               interactive_mode = TRUE,
+                               speed_lim = NA,
+                               pol_lim = NA
                                )
 {
   date_dfs <- group_motion_timeseries(data,
@@ -49,8 +55,8 @@ col_motion_metrics_from_raw <- function(data,
     allgroup_props <- data.table::rbindlist(allgroup_props)
     allrel_pos <- data.table::rbindlist(allrel_pos)
 
-    sp_lim <- pick_events_threshold(allgroup_props$speed_av, 'speed')
-    pol_lim <- pick_events_threshold(allgroup_props$pol_av, 'pol')
+    sp_lim <- pick_events_threshold(allgroup_props$speed_av, 'speed', interactive_mode, speed_lim)
+    pol_lim <- pick_events_threshold(allgroup_props$pol_av, 'pol', interactive_mode, pol_lim)
 
     allgroup_props <- define_events(allgroup_props, sp_lim = sp_lim, pol_lim = pol_lim, step2time = step2time)
     allgroup_props <- allgroup_props[!is.na(allgroup_props$keep),]
@@ -73,6 +79,9 @@ col_motion_metrics_from_raw <- function(data,
 #' @param mov_av_time_window to average over (in timesteps)
 #' @param step2time the sampling frequency, the relation between a time step and real time in seconds
 #' @param verbose whether to post updates on progress
+#' @param interactive_mode whether to take the threshold for event definition from user.
+#' @param speed_lim threshold for speed if interactive mode id off
+#' @param pol_lim threshold for polarization if interactive mode id off
 #' @return either a list of dataframes with neighbor ids, bearing angles, distances and heading deviations for each individual through time, or saves individual csvs per day, depending on input.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @seealso \code{\link{neighb_rel_pos_timeseries_parallel}}, \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
@@ -82,7 +91,10 @@ col_motion_metrics <- function(date_dfs,
                                paiwise_data,
                                mov_av_time_window,
                                step2time = 1,
-                               verbose = TRUE
+                               verbose = TRUE,
+                               interactive_mode = TRUE,
+                               speed_lim = NA,
+                               pol_lim = NA
 )
 {
   paiwise_data <- paiwise_data[paiwise_data$rank == 1,]
@@ -102,8 +114,9 @@ col_motion_metrics <- function(date_dfs,
 
   allgroup_props <- data.table::rbindlist(allgroup_props)
   allgroup_props <- as.data.frame(allgroup_props)
-  sp_lim <- pick_events_threshold(allgroup_props$speed_av, 'speed')
-  pol_lim <- pick_events_threshold(allgroup_props$pol_av, 'pol')
+  sp_lim <- pick_events_threshold(allgroup_props$speed_av, 'speed', interactive_mode, speed_lim)
+  pol_lim <- pick_events_threshold(allgroup_props$pol_av, 'pol', interactive_mode, pol_lim)
+
 
   allgroup_props <- define_events(allgroup_props, sp_lim = sp_lim, pol_lim = pol_lim, step2time = step2time)
   allgroup_props <- allgroup_props[!is.na(allgroup_props$keep),]

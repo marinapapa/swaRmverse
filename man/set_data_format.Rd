@@ -17,6 +17,8 @@ set_data_format(raw_x, raw_y, raw_t, raw_id, origin, period, tz, proj, format)
 
 \item{origin}{Something that can be coerced to a date-time object by as_datetime representing the start date and time of the observations when t is a numeric vector.}
 
+\item{period}{A character vector in a shorthand format (e.g. "1 second") or ISO 8601 specification. This is used when t is a numeric vector to represent time unit of the observations.}
+
 \item{tz}{A time zone name. See OlsonNames.}
 
 \item{proj}{A character string or a sp::CRS object representing the projection of the coordinates. Leave empty if the coordinates are not projected (e.g., output of video tracking). "+proj=longlat" is suitable for the output of most GPS trackers.}

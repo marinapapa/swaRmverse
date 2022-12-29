@@ -10,7 +10,10 @@ col_motion_metrics_from_raw(
   speed_sliding_window = 1,
   step2time = 1,
   lonlat = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  interactive_mode = TRUE,
+  speed_lim = NA,
+  pol_lim = NA
 )
 }
 \arguments{
@@ -25,6 +28,12 @@ col_motion_metrics_from_raw(
 \item{lonlat}{logical, whether positions are geographic coordinates, default = FALSE.}
 
 \item{verbose}{whether to post updates on progress}
+
+\item{interactive_mode}{whether to take the threshold for event definition from user.}
+
+\item{speed_lim}{threshold for speed if interactive mode id off}
+
+\item{pol_lim}{threshold for polarization if interactive mode id off}
 }
 \value{
 either a list of dataframes with neighbor ids, bearing angles, distances and heading deviations for each individual through time, or saves individual csvs per day, depending on input.

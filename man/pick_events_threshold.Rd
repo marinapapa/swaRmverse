@@ -4,12 +4,21 @@
 \alias{pick_events_threshold}
 \title{Pick thresholds}
 \usage{
-pick_events_threshold(data_distr, var)
+pick_events_threshold(
+  data_distr,
+  var,
+  interactive = TRUE,
+  input_threshold = NA
+)
 }
 \arguments{
 \item{data_distr}{A numeric vector to pick a threshold for}
 
 \item{var}{The name of the distribution.}
+
+\item{interactive}{Whether to ask the user for a threshold or not}
+
+\item{input_threshold}{Returned in case interactive is off.}
 }
 \value{
 the input value of the user, representing the threshold for the definition of an event.

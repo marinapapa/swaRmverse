@@ -7,6 +7,7 @@
 #' @param proj  A character string or a sp::CRS object representing the projection of the coordinates. Leave empty if the coordinates are not projected (e.g., output of video tracking). "+proj=longlat" is suitable for the output of most GPS trackers.
 #' @param origin  Something that can be coerced to a date-time object by as_datetime representing the start date and time of the observations when t is a numeric vector.
 #' @param tz  A time zone name. See OlsonNames.
+#' @param period A character vector in a shorthand format (e.g. "1 second") or ISO 8601 specification. This is used when t is a numeric vector to represent time unit of the observations.
 #' @param format  A character string indicating the formatting of 't'. See strptime for how to specify this parameter..
 #' @return A track dataframe table, which is a colloquial term for an object of class track.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}, Simon Garnier \email{garnier@@njit.edu}

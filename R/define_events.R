@@ -2,20 +2,29 @@
 #' @description Interactive function that prints the quantiles of the input distribution and asks the user to input the threshold value they want.
 #' @param data_distr A numeric vector to pick a threshold for
 #' @param var The name of the distribution.
+#' @param interactive Whether to ask the user for a threshold or not
+#' @param input_threshold Returned in case interactive is off.
 #' @return the input value of the user, representing the threshold for the definition of an event.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
-pick_events_threshold <- function(data_distr, var)
+pick_events_threshold <- function(data_distr, var, interactive = TRUE, input_threshold = NA)
 {
-  print(stats::quantile(data_distr, na.rm = T))
-  threshold_chosen <- readline(paste0("Given the above quantiles of ", var, ",\nplease input a threshold value for the events definition\n (input should be numeric): "))
-   while (is.na(as.numeric(threshold_chosen))){
-    threshold_chosen <- readline("Input not numeric, please try again (or type \'abort\' to exit): ")
-   if (regexpr(threshold_chosen, 'abort', ignore.case = TRUE) == 1){
-    stop("Aborting threshold selection from user.")
-   }
+  if (interactive)
+  {
+    print(stats::quantile(data_distr, na.rm = T))
+    threshold_chosen <- readline(paste0("Given the above quantiles of ", var, ",\nplease input a threshold value for the events definition\n (input should be numeric): "))
+    while (is.na(as.numeric(threshold_chosen))){
+      threshold_chosen <- readline("Input not numeric, please try again (or type \'abort\' to exit): ")
+      if (regexpr(threshold_chosen, 'abort', ignore.case = TRUE) == 1){
+        stop("Aborting threshold selection from user.")
+      }
+    }
+    return(as.numeric(threshold_chosen))
+  } else{
+    return(input_threshold)
   }
-  return(as.numeric(threshold_chosen))
+
+
 }
 
 
