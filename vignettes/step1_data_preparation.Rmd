@@ -67,7 +67,7 @@ If step 2 is skipped, we calculate the metrics from the raw formatted data:
 
 smoothing_time_window <- 30 # seconds
 
-swarm_space_metrics <- col_motion_metrics_from_raw(data_df,
+new_species_metrics <- col_motion_metrics_from_raw(data_df,
                                 mov_av_time_window = smoothing_time_window,
                                 speed_sliding_window = 10, 
                                 step2time = 1, lonlat = FALSE,
@@ -82,7 +82,7 @@ If we have already calculated the global and pairwise metrics we use them direct
 
 ```{r message=FALSE, warning=FALSE}
 
-swarm_space_metrics <- col_motion_metrics(data_df, 
+new_species_metrics <- col_motion_metrics(data_df, 
                                            global_metrics = g_metr,
                                            paiwise_data = p_metr,
                                            mov_av_time_window = 30,
@@ -92,5 +92,7 @@ swarm_space_metrics <- col_motion_metrics(data_df,
                                            speed_lim = 5,
                                            pol_lim = 0.3
 )
+
+new_species_metrics$species <- 'new_species_id'
 
 ```
