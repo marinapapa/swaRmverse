@@ -1,0 +1,88 @@
+---
+title: "Data preparation"
+author: "Marina Papadopoulou"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data preparation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## 1.1 Load and transform data - trackdf
+
+```{r message=FALSE, warning=FALSE}
+library(swarmyverse)
+
+raw <- read.csv(system.file("extdata/video/01.csv", package = "trackdf"))
+raw <- raw[!raw$ignore, ]
+
+data_df <- set_data_format(raw_x = raw$x,
+                          raw_y = raw$y,
+                          raw_t = raw$frame,
+                          raw_id = raw$track,
+                          origin = "2019-03-24 12:55:23",
+                          period = "1 sec",
+                          tz = "America/New_York",
+                          )
+
+data_df <- add_velocities_parallel(data_df, 
+                                  sample_step = 10, 
+                                  lonlat = FALSE, 
+                                  verbose = TRUE, 
+                                  step2time = 1 )
+head(data_df)
+```
+
+## 1.2 Calculate pairwise and global metrics (Optional)
+
+
+```{r message=FALSE, warning=FALSE}
+smoothing_time_window <- 30 # seconds
+
+g_metr <- calc_global_group_metrics(data_dates_list = split(data_df, 
+                                                          data_df$date),
+                                   mov_av_time_window = smoothing_time_window, 
+                                   return_df = TRUE,
+                                   out_csv_dir = NA)
+
+p_metr <- pairwise_analysis(data_dates_list = split(data_df,
+                                                    data_df$date), 
+                            return_df = TRUE, 
+                            add_coords = TRUE,
+                            lonlat = FALSE,
+                            verbose = TRUE,
+                            out_csv_dir = NA)
+
+hist(g_metr$pol_av, xlab = paste('Smoothed polarization (over', smoothing_time_window, 'seconds)'), main = 'Polarization')
+
+```
+
+## 1.3 Calculate metrics of collective motion
+
+If step 2 is skipped, we calculate the metrics from the raw formatted data:
+```{r message=FALSE, warning=FALSE}
+
+smoothing_time_window <- 30 # seconds
+
+swarm_space_metrics <- col_motion_metrics_from_raw(data_df,
+                                mov_av_time_window = smoothing_time_window,
+                                speed_sliding_window = 10, 
+                                step2time = 1, lonlat = FALSE,
+                                verbose = TRUE
+                                )
+
+```
+If we have already calculated the global and pairwise metrics we use them directly:
+
+```{r message=FALSE, warning=FALSE}
+
+swarm_space_metrics2 <- col_motion_metrics(data_df, 
+                                           global_metrics = g_metr,
+                                           paiwise_data = p_metr,
+                                           mov_av_time_window = 30,
+                                           step2time = 1,
+                                           verbose = TRUE
+)
+
+```
