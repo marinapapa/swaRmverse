@@ -12,6 +12,6 @@ bearing_angle <- function(
     pos_b
 )
 {
-  pos_dif = pos_b - pos_a
+  pos_dif <- pos_b - pos_a
   return(rad_between(h_a, pos_dif))
 }

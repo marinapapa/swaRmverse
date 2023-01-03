@@ -3,7 +3,6 @@
 #' @param data A data frame with time series of individual's positional data through time. Columns must include: id, date, time, posx, posy
 #' @param mov_av_time_window to average over (in timesteps)
 #' @param step2time the sampling frequency, the relation between a time step and real time in seconds
-#' @param speed_sliding_window An integer, the step over which to calculate the velocities, in timesteps.
 #' @param lonlat logical, whether positions are geographic coordinates, default = FALSE.
 #' @param verbose whether to post updates on progress
 #' @param interactive_mode whether to take the threshold for event definition from user.
@@ -15,7 +14,6 @@
 #' @export
 col_motion_metrics_from_raw <- function(data,
                                mov_av_time_window,
-                               speed_sliding_window = 1,
                                step2time = 1,
                                lonlat = TRUE,
                                verbose = TRUE,
@@ -25,8 +23,6 @@ col_motion_metrics_from_raw <- function(data,
                                )
 {
   date_dfs <- group_motion_timeseries(data,
-                                      speed_sliding_window = speed_sliding_window,
-                                      step2time = step2time,
                                       lonlat = lonlat,
                                       verbose = verbose
                                       )
@@ -36,20 +32,17 @@ col_motion_metrics_from_raw <- function(data,
   k <- 1
   for (adf in date_dfs)
   {
-    rel_pos <- neighb_rel_pos_timeseries_parallel(adf,
-                                                  return_df = TRUE,
-                                                  out_csv_dir = NA,
-                                                  add_coords = FALSE,
-                                                  lonlat = lonlat,
-                                                  verbose = verbose )
-    rel_pos <- rel_pos[rel_pos$rank == 1,]
+    rel_pos <- nn_rel_pos_timeseries_parallel(adf,
+                                              add_coords = FALSE,
+                                              lonlat = lonlat
+    )
 
     group_prop <- group_metrics_parallel(adf)
 
     group_prop$speed_av <- moving_average(group_prop$speed, mov_av_time_window)
     group_prop$pol_av <-  moving_average(group_prop$pol, mov_av_time_window)
     allgroup_props[[k]] <- group_prop
-    allrel_pos[[k]] <- rel_pos
+    allrel_pos[[k]] <- rel_pos[, c('date', 'time', 'nnd', 'bangl')]
     k <- k + 1
   }
     allgroup_props <- data.table::rbindlist(allgroup_props)
@@ -73,22 +66,20 @@ col_motion_metrics_from_raw <- function(data,
 
 #' @title Collective motion metrics
 #' @description Calculates metrics of collective motion across dates and events
-#' @param date_dfs A data frame with time series of individual's positional data through time. Columns must include: id, date, time, posx, posy
+#' @param timeseries_data A data frame with time series of individual's positional data through time with nearest neighbor analysis conducted
 #' @param global_metrics A data frame with the global metrics timeseries.
-#' @param paiwise_data A data frame with the pairwise metrics timeseries.
 #' @param mov_av_time_window to average over (in timesteps)
 #' @param step2time the sampling frequency, the relation between a time step and real time in seconds
 #' @param verbose whether to post updates on progress
 #' @param interactive_mode whether to take the threshold for event definition from user.
 #' @param speed_lim threshold for speed if interactive mode id off
 #' @param pol_lim threshold for polarization if interactive mode id off
-#' @return either a list of dataframes with neighbor ids, bearing angles, distances and heading deviations for each individual through time, or saves individual csvs per day, depending on input.
+#' @return a dataframe with metrics of collective motion per event
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @seealso \code{\link{neighb_rel_pos_timeseries_parallel}}, \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
 #' @export
-col_motion_metrics <- function(date_dfs,
+col_motion_metrics <- function(timeseries_data,
                                global_metrics,
-                               paiwise_data,
                                mov_av_time_window,
                                step2time = 1,
                                verbose = TRUE,
@@ -97,10 +88,8 @@ col_motion_metrics <- function(date_dfs,
                                pol_lim = NA
 )
 {
-  paiwise_data <- paiwise_data[paiwise_data$rank == 1,]
-
   alldates <- unique(global_metrics$date)
-  allgroup_props <- vector('list', length = length(date_dfs))
+  allgroup_props <- vector('list', length = length(alldates))
   k <- 1
   for (adf in alldates)
   {
@@ -125,7 +114,8 @@ col_motion_metrics <- function(date_dfs,
   allgroup_props <- add_event_idx(allgroup_props, step2time = step2time)
   times_in <- paste(allgroup_props$date, allgroup_props$time)
 
-  paiwise_data <- paiwise_data[paste(paiwise_data$date, paiwise_data$time) %in% times_in,]
+  paiwise_data <- timeseries_data[paste(timeseries_data$date, timeseries_data$time) %in% times_in,
+                                  c('date', 'time', 'nnd', 'bangl')]
 
   toret <- calc_metrics_per_event(allgroup_props, paiwise_data)
   return(as.data.frame(toret))

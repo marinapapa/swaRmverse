@@ -5,9 +5,8 @@
 \title{Collective motion metrics}
 \usage{
 col_motion_metrics(
-  date_dfs,
+  timeseries_data,
   global_metrics,
-  paiwise_data,
   mov_av_time_window,
   step2time = 1,
   verbose = TRUE,
@@ -17,11 +16,9 @@ col_motion_metrics(
 )
 }
 \arguments{
-\item{date_dfs}{A data frame with time series of individual's positional data through time. Columns must include: id, date, time, posx, posy}
+\item{timeseries_data}{A data frame with time series of individual's positional data through time with nearest neighbor analysis conducted}
 
 \item{global_metrics}{A data frame with the global metrics timeseries.}
-
-\item{paiwise_data}{A data frame with the pairwise metrics timeseries.}
 
 \item{mov_av_time_window}{to average over (in timesteps)}
 
@@ -36,7 +33,7 @@ col_motion_metrics(
 \item{pol_lim}{threshold for polarization if interactive mode id off}
 }
 \value{
-either a list of dataframes with neighbor ids, bearing angles, distances and heading deviations for each individual through time, or saves individual csvs per day, depending on input.
+a dataframe with metrics of collective motion per event
 }
 \description{
 Calculates metrics of collective motion across dates and events

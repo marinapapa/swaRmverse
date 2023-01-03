@@ -4,20 +4,10 @@
 \alias{group_motion_timeseries}
 \title{Group collective motion timeseries}
 \usage{
-group_motion_timeseries(
-  data,
-  speed_sliding_window = 1,
-  step2time = 1,
-  lonlat = TRUE,
-  verbose = TRUE
-)
+group_motion_timeseries(data, lonlat = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{data}{A data frame with time series of individual's positional data through time.}
-
-\item{speed_sliding_window}{An integer, the step over which to calculate the velocities, in timesteps.}
-
-\item{step2time}{the sampling frequency, the relation between a time step and real time in seconds}
 
 \item{lonlat}{logical, whether positions are geographic coordinates, default = FALSE.}
 

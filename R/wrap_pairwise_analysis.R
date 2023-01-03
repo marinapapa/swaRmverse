@@ -48,3 +48,38 @@ pairwise_analysis <- function(data_dates_list,
 
   print('Pairwise analysis done with no return object')
 }
+
+
+#' @title Nearest neighbor analysis
+#' @description Calculates the bearing angle and distance from a focal individual of a group to its nearest neighbor over time.
+#' @param data_dates_list A list of dataframes with groups timeseries per day. Column names must include: id, time, date, headx, heady, posx, posy
+#' @param lonlat logical, whether positions are geographic coordinates, default = FALSE.
+#' @param verbose whether to post updates on progress
+#' @return either a list of dataframes with neighbor ids, bearing angles, distances and heading deviations for each individual through time.
+#' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#' @seealso \code{\link{neighb_rel_pos_timeseries_parallel}}, \code{\link{bearing_angle}}, \code{\link{rad_between}}
+#' @export
+nn_analysis <- function(data_dates_list,
+                              lonlat = FALSE,
+                              verbose = FALSE)
+{
+  if (verbose) {print('Pairwise analysis started, this may take a while..') }
+
+  toret <- vector('list', length = length(data_dates_list))
+
+  pg_i = 1
+  for (df in data_dates_list)
+  {
+    thisdate <- df$date[1]
+    rel_pos <- nn_rel_pos_timeseries_parallel(df,
+                                                  add_coords = FALSE,
+                                                  lonlat = lonlat,
+                                                  verbose = verbose )
+     toret[[pg_i]] <- rel_pos
+    pg_i <- pg_i + 1
+  }
+  toret <- data.table::rbindlist(toret)
+  return(as.data.frame(toret))
+
+  print('Pairwise analysis done with no return object')
+}

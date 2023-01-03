@@ -9,14 +9,14 @@
 #' @export
 calc_metrics_per_event <- function(global_df, pairwise_df)
 {
-  if (!(all(c('pol', 'speed', 'shape', 'dist', 'bangl', 'date', 'time', 'event') %in% c(colnames(global_df), colnames(pairwise_df)))))
-  {stop("Input dataframes should include the following columns: 'pol', 'speed', 'shape', 'dist', 'bangl', 'date', 'time', 'event' ")}
+  if (!(all(c('pol', 'speed', 'shape', 'nnd', 'bangl', 'date', 'time', 'event') %in% c(colnames(global_df), colnames(pairwise_df)))))
+  {stop("Input dataframes should include the following columns: 'pol', 'speed', 'shape', 'nnd', 'bangl', 'date', 'time', 'event' ")}
 
   pairwise_df$frontness <- calc_frontness(pairwise_df$bangl)
   pairwise_df <- pairwise_df %>%
     dplyr::group_by(date, time) %>%
-    dplyr::summarise(mean_nnd = mean(dist, na.rm = T),
-                     sd_nnd = stats::sd(dist, na.rm = T),
+    dplyr::summarise(mean_nnd = mean(nnd, na.rm = T),
+                     sd_nnd = stats::sd(nnd, na.rm = T),
                      sd_front = stats::sd(frontness, na.rm = T),
                      mean_bangl = mean(abs(bangl), na.rm = T),
                      group_size = dplyr::n())

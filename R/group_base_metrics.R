@@ -10,9 +10,10 @@ group_metrics_parallel <- function(data)
 {
   if (!is.data.frame(data) ||
       !('time' %in% colnames(data)) ||
+      !('head' %in% colnames(data)) ||
       !('speed' %in% colnames(data)))
     {
-      stop("Data should be a dataframe, with columns: time and speed")
+      stop("Data should be a dataframe, with columns: time, head, and speed")
     }
 
   if (length(unique(data$id)) < 2)
@@ -31,33 +32,35 @@ group_metrics_parallel <- function(data)
   numCores <- parallel::detectCores()
   cl <- parallel::makeCluster(numCores-1)
 
-  group_prop <- parallel::parLapply(cl, per_time, function(x) {
+  group_prop <- pbapply::pblapply(per_time, function(x) {
 
     N <- length(unique(x$id))
+    t <- x$time[1]
+    day <- x$date[1]
+
     x <- x[stats::complete.cases(x), ]
+    if (nrow(x) < 1 ){
+      return(data.frame(date = day, time = t, pol = NA, speed = NA, shape = NA, N = N, missing_ind = NA))}
     Nnew <- length(unique(x$id))
     missing_ind <- N-Nnew
     N <- Nnew
 
-    t <- x$time[1]
-    day <- x$date[1]
-
     if (N < 2) {return(data.frame(date = day, time = t, pol = NA, speed = NA, shape = NA, N = 1, missing_ind = NA))}
 
-    sumx <-sum(x$headx)
-    sumy <-sum(x$heady)
-    D <- vector_magnitude(sumx, sumy)/N
-
+    D <- swaRm::polOrder(x$head)
     av_speed <- mean(x$speed, na.rm = TRUE)
+    x$headx <- cos(x$head)
+    x$heady <- sin(x$head)
+    shape <- as.numeric(group_shape_oblong_dev(x))
 
-    shape <- group_shape_oblong_dev(x)
     df <- data.frame(date = day, time = t, pol = D, speed = av_speed, shape = shape, N = N, missing_ind = missing_ind)
     return(df)
-  })
-
-  group_prop <- dplyr::bind_rows(group_prop)
-  group_prop <- group_prop[stats::complete.cases(group_prop),]
+  },
+  cl = cl)
   parallel::stopCluster(cl)
+
+  group_prop <- data.table::rbindlist(group_prop)
+  group_prop <- group_prop[stats::complete.cases(group_prop),]
 
   return(group_prop)
 }

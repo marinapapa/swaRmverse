@@ -7,7 +7,6 @@
 col_motion_metrics_from_raw(
   data,
   mov_av_time_window,
-  speed_sliding_window = 1,
   step2time = 1,
   lonlat = TRUE,
   verbose = TRUE,
@@ -20,8 +19,6 @@ col_motion_metrics_from_raw(
 \item{data}{A data frame with time series of individual's positional data through time. Columns must include: id, date, time, posx, posy}
 
 \item{mov_av_time_window}{to average over (in timesteps)}
-
-\item{speed_sliding_window}{An integer, the step over which to calculate the velocities, in timesteps.}
 
 \item{step2time}{the sampling frequency, the relation between a time step and real time in seconds}
 

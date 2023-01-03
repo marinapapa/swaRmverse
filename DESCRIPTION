@@ -21,7 +21,9 @@ Imports:
   reshape2,
   data.table,
   Rtsne,
-  trackdf
+  trackdf,
+  swaRm,
+  pbapply
 Suggests:
   knitr,
   rmarkdown,

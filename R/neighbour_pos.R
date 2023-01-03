@@ -58,46 +58,11 @@ neighb_rel_pos_timeseries_parallel <- function(
 
 
   {
-    # rad_between <- function(a, b)
-    # {
-    #   if (!is.vector(a) || !is.vector(b) || length(a) != 2 || length(b) != 2) {
-    #     print(a)
-    #     print(b)
-    #     stop("Input should be two vectors of size 2 (x,y)")}
-    #   c <- perpDot(a,b);
-    #   d <- pracma::dot(a,b);
-    #   return(atan2(c,d));
-    # }
-    #
-    #
-    # bearing_angle <- function(
-    # h_a,
-    # pos_a,
-    # pos_b
-    # )
-    # {
-    #   pos_dif = pos_b - pos_a
-    #   return(rad_between(h_a, pos_dif))
-    # }
-    #
-    #
-    # perpDot <- function(a, b)
-    # {
-    #   if (!is.vector(a) || !is.vector(b) || length(a) != 2 || length(b) != 2) {stop("Input should be two vectors of size 2 (x,y)")}
-    #   return(a[1] * b[2] - a[2] * b[1]);
-    # }
-
     thists <- as.data.frame(thists)
     timestep <- as.character(thists$time[1])
     id_names <- unique(thists$id)
     N <- length(id_names)
     def_head <- c("date", 'time', 'id')
-    # if (length(id_names) < N){
-    #   h <- c("date", "time", "id", "neighb", "dist", "bangl", "rank", "head_dev")
-    #   emptydf <- data.frame(matrix(NA, ncol = length(h), nrow = 0))
-    #   colnames(emptydf) <- h
-    #   return(emptydf)
-    # }
 
     df_bangls <- data.frame(matrix(NA, ncol = length(def_head) + N, nrow = N))
     df_dists <- data.frame(matrix(NA, ncol = length(def_head) + N, nrow = N))
@@ -225,5 +190,76 @@ neighb_rel_pos_timeseries_parallel <- function(
 
   if (savecsv) { data.table::fwrite(res, paste0(out_csv_dir, out_csv_name), row.names = FALSE) }
   if (return_df) { return(res)}
+}
+
+#' @title Relative position of nearest neighbor in parallel
+#' @description Calculates the bearing angle and distance from a focal individual of a group to its nearest neighbor over time.
+#' @param data Dataframe with group's timeseries. Column names must include: id, time.
+#' @param lonlat whether positions are geographic coordinates, default = FALSE.
+#' @param add_coords whether data is converted to geographic coordinates, default = 'FALSE'.
+#' @param verbose whether to post updates on progress
+#' @return a dataframe with a column for neighbor id, bearing angle, distance and heading deviation for each individual through time.
+#' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#' @seealso \code{\link{rad_between}}, \code{\link{bearing_angle}}, \code{\link{perpDot}}
+#' @export
+nn_rel_pos_timeseries_parallel <- function(
+    data,
+    add_coords = FALSE,
+    lonlat = FALSE,
+    verbose = FALSE
+)
+{
+  if (verbose) { print('Measuring nearest neighbors relative positions in parallel...')}
+
+  thists <- split(data, data$time)
+  pairwise_data <- function(thists,
+                            lonlat = lonlat)
+
+
+  {
+    thists <- as.data.frame(thists)
+    timestep <- as.character(thists$time[1])
+    id_names <- unique(thists$id)
+    N <- length(id_names)
+    def_head <- c("date", 'time', 'id')
+
+    df_bangls <- data.frame(matrix(NA, ncol = length(def_head) + N, nrow = N))
+
+    thists$nn_idx <- as.numeric(swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id))
+    thists$nnd <- as.numeric(swaRm::nnd(thists$x, thists$y, geo = lonlat))
+
+    thists$bangl  <- unlist(lapply(seq_along(id_names), function(x){
+       bearing_angle(c(cos(thists$head[x]), sin(thists$head[x])),
+                               c(thists$x[x], thists$y[x]),
+                               c(thists[thists$id == thists$nn_idx[x], 'x'],
+                                 thists[thists$id == thists$nn_idx[x], 'y']))
+    })
+    )
+
+    return(thists)
+  }
+
+  numCores <- parallel::detectCores()
+  cl <- parallel::makeCluster(numCores-2)
+
+  res <- parallel::parLapply(cl,
+                             thists,
+                             pairwise_data,
+                             lonlat = lonlat)
+
+  # pbapply::pblapply()
+  parallel::stopCluster(cl)
+  if (verbose) { print('Parallel run done! Preparing output...')}
+
+  res <- purrr::keep(res, function(x) nrow(x) > 0)
+  res <- dplyr::bind_rows(res)
+
+  if ( add_coords )
+  {
+    res$time <- as.numeric(res$time)
+    res <- add_rel_pos_coords(res)
+  }
+
+  return(res)
 }
 
