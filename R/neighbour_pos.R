@@ -170,12 +170,11 @@ neighb_rel_pos_timeseries_parallel <- function(
   numCores <- parallel::detectCores()
   cl <- parallel::makeCluster(numCores-2)
 
-  res <- parallel::parLapply(cl,
-                             thists,
-                             pairwise_data,
-                             lonlat = lonlat)
+  res <- pbapply::pblapply(thists,
+                           pairwise_data,
+                           lonlat = lonlat,
+                           cl = cl)
 
- # pbapply::pblapply()
   parallel::stopCluster(cl)
   if (verbose) { print('Parallel run done! Preparing output...')}
 
@@ -242,12 +241,11 @@ nn_rel_pos_timeseries_parallel <- function(
   numCores <- parallel::detectCores()
   cl <- parallel::makeCluster(numCores-2)
 
-  res <- parallel::parLapply(cl,
-                             thists,
+  res <- pbapply::pblapply(thists,
                              pairwise_data,
-                             lonlat = lonlat)
+                             lonlat = lonlat,
+                             cl = cl)
 
-  # pbapply::pblapply()
   parallel::stopCluster(cl)
   if (verbose) { print('Parallel run done! Preparing output...')}
 
