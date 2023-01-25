@@ -5,7 +5,7 @@
 #' @importFrom dplyr "%>%"
 #' @return A dataframe with 10 metrics per event
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @seealso \code{\link{neighb_rel_pos_timeseries_parallel}}, \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
+#' @seealso \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
 #' @export
 calc_metrics_per_event <- function(global_df, pairwise_df)
 {

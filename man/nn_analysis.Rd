@@ -20,7 +20,7 @@ either a list of dataframes with neighbor ids, bearing angles, distances and hea
 Calculates the bearing angle and distance from a focal individual of a group to its nearest neighbor over time.
 }
 \seealso{
-\code{\link{neighb_rel_pos_timeseries_parallel}}, \code{\link{bearing_angle}}, \code{\link{rad_between}}
+\code{\link{bearing_angle}}, \code{\link{rad_between}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

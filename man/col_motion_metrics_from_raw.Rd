@@ -39,7 +39,7 @@ either a list of dataframes with neighbor ids, bearing angles, distances and hea
 Calculates metrics of collective motion across dates and events
 }
 \seealso{
-\code{\link{neighb_rel_pos_timeseries_parallel}}, \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
+\code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

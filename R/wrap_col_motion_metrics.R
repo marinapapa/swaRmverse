@@ -10,7 +10,7 @@
 #' @param pol_lim threshold for polarization if interactive mode id off
 #' @return either a list of dataframes with neighbor ids, bearing angles, distances and heading deviations for each individual through time, or saves individual csvs per day, depending on input.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @seealso \code{\link{neighb_rel_pos_timeseries_parallel}}, \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
+#' @seealso \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
 #' @export
 col_motion_metrics_from_raw <- function(data,
                                mov_av_time_window,
@@ -76,7 +76,7 @@ col_motion_metrics_from_raw <- function(data,
 #' @param pol_lim threshold for polarization if interactive mode id off
 #' @return a dataframe with metrics of collective motion per event
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @seealso \code{\link{neighb_rel_pos_timeseries_parallel}}, \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
+#' @seealso \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
 #' @export
 col_motion_metrics <- function(timeseries_data,
                                global_metrics,

@@ -6,7 +6,7 @@
 #' @param out_csv_dir directory output is saved to.
 #' @return a dataframe with a column for neighbor id, bearing angle, distance and heading deviation for each individual through time.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @seealso \code{\link{neighb_rel_pos_timeseries_parallel}}, \code{\link{bearing_angle}}, \code{\link{rad_between}}
+#' @seealso \code{\link{bearing_angle}}, \code{\link{rad_between}}
 #' @export
 calc_global_group_metrics <- function(data_dates_list,
                                       mov_av_time_window,

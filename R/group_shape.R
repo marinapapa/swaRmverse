@@ -13,7 +13,7 @@ make_obb <- function(
   bb <- shotGroups::getMinBBox(xy)                     # minimum bounding box
 
   bb$dirx <- sin(pracma::deg2rad(bb$angle))
-  bb$diry <- -cos(pracma::deg2rad(bb$angl))
+  bb$diry <- -cos(pracma::deg2rad(bb$angle))
 
   bb$area <- bb$width * bb$height                     # box area
   return(bb)
