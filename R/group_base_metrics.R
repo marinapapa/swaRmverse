@@ -47,7 +47,7 @@ group_metrics_parallel <- function(data)
 
     if (N < 2) {return(data.frame(date = day, time = t, pol = NA, speed = NA, shape = NA, N = 1, missing_ind = NA))}
 
-    D <- swaRm::polOrder(x$head)
+    D <- swaRm::pol_order(x$head)
     av_speed <- mean(x$speed, na.rm = TRUE)
     x$headx <- cos(x$head)
     x$heady <- sin(x$head)

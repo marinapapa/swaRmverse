@@ -2,7 +2,7 @@
 % Please edit documentation in R/events_N_duration.R
 \name{calc_events_duration}
 \alias{calc_events_duration}
-\title{Events duration}
+\title{Events total duration}
 \usage{
 calc_events_duration(data, step2time)
 }

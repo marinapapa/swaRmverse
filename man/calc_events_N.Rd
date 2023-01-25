@@ -4,12 +4,10 @@
 \alias{calc_events_N}
 \title{Number of events}
 \usage{
-calc_events_N(data, date_label = "date")
+calc_events_N(data)
 }
 \arguments{
 \item{data}{A dataframe with a keep (representing which rows are defined as events of collective motion) and a date column}
-
-\item{date_label}{the name of the column with date information}
 }
 \value{
 an integer with the number of events of colletive motion

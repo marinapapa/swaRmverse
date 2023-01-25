@@ -120,6 +120,6 @@ linSpeed_s <- function(x, y, t, geo = FALSE) {
 
   dt <- diff(t)
   if (any(dt == 0)) {stop('Not unique timesteps as input.')}
-  dp <- swaRm::linDist(x, y, geo = geo)
+  dp <- swaRm::linear_dist(x, y, geo = geo)
   c(NA, dp[2:length(dp)] / dt)
 }

@@ -16,19 +16,12 @@ add_event_idx <- function(df, step2time)
   }
 
   df$time <- as.numeric(df$time)
-  #df$date <- as.character(df$date)
-  #event_n <- 1
+
   df$event <- c(1, rep(NA, nrow(df)-1))
   totevs <- sum(diff(df$time) > step2time) + 1 ## adding first event
   df$event[c(FALSE, diff(df$time) > step2time)] <- 2:totevs
 
   df <- df %>% tidyr::fill(event, .direction = "down")
-  # for (i in 2:nrow(df))
-  # {
-  #   df$event[i-1] <- event_n
-  #   if ((df$date[i-1] != df$date[i]) || (round((df$time[i] - df$time[i-1]),2) > step2time))
-  #   { event_n <- event_n + 1; next}
-  # }
-  # df$event[nrow(df)] <- event_n
+
   return(df)
 }
