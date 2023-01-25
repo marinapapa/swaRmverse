@@ -224,14 +224,14 @@ nn_rel_pos_timeseries_parallel <- function(
 
     df_bangls <- data.frame(matrix(NA, ncol = length(def_head) + N, nrow = N))
 
-    thists$nn_idx <- as.numeric(swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id))
+    thists$nn_id <- as.numeric(swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id))
     thists$nnd <- as.numeric(swaRm::nnd(thists$x, thists$y, geo = lonlat))
 
     thists$bangl  <- unlist(lapply(seq_along(id_names), function(x){
        bearing_angle(c(cos(thists$head[x]), sin(thists$head[x])),
                                c(thists$x[x], thists$y[x]),
-                               c(thists[thists$id == thists$nn_idx[x], 'x'],
-                                 thists[thists$id == thists$nn_idx[x], 'y']))
+                               c(thists[thists$id == thists$nn_id[x], 'x'],
+                                 thists[thists$id == thists$nn_id[x], 'y']))
     })
     )
 

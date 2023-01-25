@@ -93,11 +93,11 @@ col_motion_metrics <- function(timeseries_data,
   k <- 1
   for (adf in alldates)
   {
-    global_metrics <- global_metrics[global_metrics$date == adf, ]
-    global_metrics$speed_av <- moving_average(global_metrics$speed, mov_av_time_window)
-    global_metrics$pol_av <-  moving_average(global_metrics$pol, mov_av_time_window)
+    a_group_metrics <- global_metrics[global_metrics$date == adf, ]
+    a_group_metrics$speed_av <- moving_average(a_group_metrics$speed, mov_av_time_window)
+    a_group_metrics$pol_av <-  moving_average(a_group_metrics$pol, mov_av_time_window)
 
-    allgroup_props[[k]] <- global_metrics
+    allgroup_props[[k]] <- a_group_metrics
     k <- k + 1
   }
 
@@ -118,6 +118,9 @@ col_motion_metrics <- function(timeseries_data,
                                   c('date', 'time', 'nnd', 'bangl')]
 
   toret <- calc_metrics_per_event(allgroup_props, paiwise_data)
+  event_sum <- calc_dur_per_event(allgroup_props, step2time)
+
+  toret <- dplyr::left_join(toret, event_sum)
   return(as.data.frame(toret))
 }
 

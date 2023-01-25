@@ -16,6 +16,8 @@ group_motion_timeseries <- function(data,
   dates_in <- unique(data$date)
   toret <- vector('list', length = length(dates_in))
 
+  if (verbose) {
+    print('Going through every day of the dataset:')}
   pg_i = 1
   for (adate in dates_in)
   {

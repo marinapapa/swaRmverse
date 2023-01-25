@@ -11,7 +11,7 @@ pick_events_threshold <- function(data_distr, var, interactive = TRUE, input_thr
 {
   if (interactive)
   {
-    print(stats::quantile(data_distr, na.rm = T))
+    print(round(stats::quantile(data_distr, na.rm = T), 2))
     threshold_chosen <- readline(paste0("Given the above quantiles of ", var, ",\nplease input a threshold value for the events definition\n (input should be numeric): "))
     while (is.na(as.numeric(threshold_chosen))){
       threshold_chosen <- readline("Input not numeric, please try again (or type \'abort\' to exit): ")
