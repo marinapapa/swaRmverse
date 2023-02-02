@@ -12,8 +12,8 @@ make_obb <- function(
   xy <- as.matrix(df_self_timestep[,c('x', 'y')], nrow = 2, ncol = 2)
   bb <- shotGroups::getMinBBox(xy)                     # minimum bounding box
 
-  bb$dirx <- sin(pracma::deg2rad(bb$angle))
-  bb$diry <- -cos(pracma::deg2rad(bb$angle))
+  bb$dirx <- sin(bb$angle * pi/180)
+  bb$diry <- -cos(bb$angle * pi/180)
 
   bb$area <- bb$width * bb$height                     # box area
   return(bb)
@@ -49,8 +49,8 @@ group_shape_oblong_dev <- function(
   devs <- rep(NA, length(tstps))
   devs <- lapply(tstps, function(tt)
   {
-    group_headx <- mean(tt$headx)
-    group_heady <-  mean(tt$heady)
+    group_headx <- mean(tt$headx, na.rm = T)
+    group_heady <-  mean(tt$heady, na.rm = T)
 
     dev <- bb_angl_dev(c(group_headx, group_heady), make_obb(tt))
     return(dev)

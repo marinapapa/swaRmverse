@@ -26,13 +26,14 @@ group_metrics_parallel <- function(data)
       stop('Data should be from one date only.')
     }
 
-
   per_time <- split(data, data$time)
 
   numCores <- parallel::detectCores()
-  cl <- parallel::makeCluster(numCores-1)
+  cl <- parallel::makeCluster(numCores)
 
-  group_prop <- pbapply::pblapply(per_time, function(x) {
+  group_prop <-  tryCatch({
+
+    pbapply::pblapply(per_time, function(x) {
 
     N <- length(unique(x$id))
     t <- x$time[1]
@@ -57,9 +58,16 @@ group_metrics_parallel <- function(data)
     return(df)
   },
   cl = cl)
+    },
+  error = function(cond) {
+  parallel::stopCluster(cl)
+  stop(cond)
+})
+
   parallel::stopCluster(cl)
 
-  group_prop <- data.table::rbindlist(group_prop)
+  names(group_prop) <- NULL
+  group_prop <- do.call(rbind, group_prop)
   group_prop <- group_prop[stats::complete.cases(group_prop),]
 
   return(group_prop)

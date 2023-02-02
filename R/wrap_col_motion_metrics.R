@@ -45,23 +45,27 @@ col_motion_metrics_from_raw <- function(data,
     allrel_pos[[k]] <- rel_pos[, c('date', 'time', 'nnd', 'bangl')]
     k <- k + 1
   }
-    allgroup_props <- data.table::rbindlist(allgroup_props)
-    allrel_pos <- data.table::rbindlist(allrel_pos)
 
-    sp_lim <- pick_events_threshold(allgroup_props$speed_av, 'speed', interactive_mode, speed_lim)
-    pol_lim <- pick_events_threshold(allgroup_props$pol_av, 'pol', interactive_mode, pol_lim)
 
-    allgroup_props <- define_events(allgroup_props, sp_lim = sp_lim, pol_lim = pol_lim, step2time = step2time)
-    allgroup_props <- allgroup_props[!is.na(allgroup_props$keep),]
-    allgroup_props <- allgroup_props[allgroup_props$keep,]
+  names(allgroup_props) <- names(allrel_pos) <- NULL
+  allgroup_props <- do.call(rbind, allgroup_props)
+  allrel_pos <- do.call(rbind, allrel_pos)
 
-    allgroup_props <- add_event_idx(allgroup_props, step2time = step2time)
-    times_in <- paste(allgroup_props$date, allgroup_props$time)
+  sp_lim <- pick_events_threshold(allgroup_props$speed_av, 'speed', interactive_mode, speed_lim)
+  pol_lim <- pick_events_threshold(allgroup_props$pol_av, 'pol', interactive_mode, pol_lim)
 
-    allrel_pos <- allrel_pos[paste(allrel_pos$date, allrel_pos$time) %in% times_in,]
+  allgroup_props <- define_events(allgroup_props, sp_lim = sp_lim, pol_lim = pol_lim, step2time = step2time)
+  allgroup_props <- allgroup_props[!is.na(allgroup_props$keep),]
+  allgroup_props <- allgroup_props[allgroup_props$keep,]
 
-    toret <- calc_metrics_per_event(allgroup_props, allrel_pos)
-    return(as.data.frame(toret))
+  allgroup_props$event <- event_ids(allgroup_props$time, step2time = step2time)
+
+  times_in <- paste(allgroup_props$date, allgroup_props$time)
+
+  allrel_pos <- allrel_pos[paste(allrel_pos$date, allrel_pos$time) %in% times_in,]
+
+  toret <- calc_metrics_per_event(allgroup_props, allrel_pos)
+  return(toret)
 }
 
 #' @title Collective motion metrics
@@ -101,17 +105,17 @@ col_motion_metrics <- function(timeseries_data,
     k <- k + 1
   }
 
-  allgroup_props <- data.table::rbindlist(allgroup_props)
-  allgroup_props <- as.data.frame(allgroup_props)
+  names(allgroup_props) <- NULL
+  allgroup_props <- do.call(rbind, allgroup_props)
+
   sp_lim <- pick_events_threshold(allgroup_props$speed_av, 'speed', interactive_mode, speed_lim)
   pol_lim <- pick_events_threshold(allgroup_props$pol_av, 'pol', interactive_mode, pol_lim)
-
 
   allgroup_props <- define_events(allgroup_props, sp_lim = sp_lim, pol_lim = pol_lim, step2time = step2time)
   allgroup_props <- allgroup_props[!is.na(allgroup_props$keep),]
   allgroup_props <- allgroup_props[allgroup_props$keep,]
 
-  allgroup_props <- add_event_idx(allgroup_props, step2time = step2time)
+  allgroup_props$event <- event_ids(allgroup_props$time, step2time = step2time)
   times_in <- paste(allgroup_props$date, allgroup_props$time)
 
   paiwise_data <- timeseries_data[paste(timeseries_data$date, timeseries_data$time) %in% times_in,
@@ -120,7 +124,7 @@ col_motion_metrics <- function(timeseries_data,
   toret <- calc_metrics_per_event(allgroup_props, paiwise_data)
   event_sum <- calc_dur_per_event(allgroup_props, step2time)
 
-  toret <- dplyr::left_join(toret, event_sum)
-  return(as.data.frame(toret))
+  toret <- merge(toret, event_sum, all.x = TRUE)
+  return(toret)
 }
 

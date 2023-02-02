@@ -36,6 +36,8 @@ set_data_format <- function(raw_x,
                            origin = origin,
                            period = period,
                            tz = tz,
+                           proj = proj,
+                           format = format,
                            table = "df")
   colnames(tracked_df)[colnames(tracked_df) == "t"] <- "date_time"
 
@@ -52,8 +54,7 @@ set_data_format <- function(raw_x,
 #' @export
 set_date_time_format <- function(df_track)
 {
-  df_track <- df_track %>%
-    tidyr::separate(date_time, c("date", "time"), sep = " ")
+  df_track[, c('date', 'time')] <- data.frame(do.call('rbind', strsplit(as.character(df_track$date_time), ' ', fixed=TRUE)))
 
   df_track <- lapply(split(df_track, df_track$date),
                      function(x){
@@ -61,7 +62,9 @@ set_date_time_format <- function(df_track)
                        x <- transform_time2secs(x, start_t = start_t)
                        return(x)
                      })
-  df_track <- data.table::rbindlist(df_track)
+
+  names(df_track) <- NULL
+  df_track <- do.call(rbind, df_track)
   df_track$date <- as.factor(df_track$date)
 
   return(df_track)

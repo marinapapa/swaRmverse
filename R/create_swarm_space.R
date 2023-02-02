@@ -5,7 +5,8 @@
 #' @param event_duration_limit Filter out events that are shorter than given duration.
 #' @param tsne_rand_seed Random seed for tsne
 #' @param tsne_perplexity Perplexity parameter for tsne. Usually between 10-50.
-#' @param save_pca_object Whether to save the results of the PCA analysis (instead of just returning the PC1-3 points)
+#' @param save_pca_path Directory to save the results of the PCA analysis (instead of just returning the PC1-3 points).
+#' If NULL (default), the pca is not saved.
 #' @return the swarm space, x and y coordinates per event of each species
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
@@ -14,7 +15,7 @@ create_swarm_space <- function(metrics_data,
                         event_duration_limit = NA,
                         tsne_rand_seed = NA,
                         tsne_perplexity = 10,
-                        save_pca_object = FALSE
+                        save_pca_path = NULL
                         )
 
 {
@@ -34,9 +35,9 @@ create_swarm_space <- function(metrics_data,
     pca_res <- stats::prcomp(topca[,names(topca) != 'species'], center = TRUE, scale. = TRUE)
     pca_data <- data.frame(topca$species, pca_res$x[,1:3])
     colnames(pca_data) <- c('species', 'PC1', 'PC2', 'PC3')
-    if (save_pca_object)
+    if (!is.null(save_pca_path))
     {
-      save(pca_res, file = '../data/pca_res.Rdata')
+      save(pca_res, file = paste0(save_pca_path, '/pca_res.Rdata'))
     }
 
     return(pca_data)
@@ -83,7 +84,6 @@ expand_pca_swarm_space <- function(metrics_data,
   newpca <- as.data.frame(stats::predict(pca_space, topca))
   newpca$species <- metrics_data$species
 
-  #pca_data <- pca_data[, names(pca_data) %in% c('species', 'PC1', 'PC2', 'PC3')]
   newpca <- newpca[, names(newpca) %in% c('species', 'PC1', 'PC2', 'PC3')]
   alldata <- rbind(pca_data, newpca)
   return(alldata)

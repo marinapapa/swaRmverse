@@ -30,7 +30,7 @@ Create new swarm space with PCA analysis:
 ```{r}
 new_pca <- create_swarm_space(metrics_data = all_data, 
                               space_type = "pca",
-                              save_pca_object = FALSE)
+                              save_pca_path = NULL)
 
 ggplot2::ggplot(new_pca, ggplot2::aes(x = PC1, y = PC2, color = species)) +
   ggplot2::geom_point() +

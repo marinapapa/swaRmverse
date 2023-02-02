@@ -25,7 +25,6 @@ calc_global_group_metrics <- function(data_dates_list,
   }
 
   toret <- vector('list', length(data_dates_list))
-  #pb = txtProgressBar(min = 0, max = length(data_dates_list), initial = 0, style = 3)
   pg_i = 1
   for (df in data_dates_list)
   {
@@ -43,7 +42,7 @@ calc_global_group_metrics <- function(data_dates_list,
   toret <- dplyr::bind_rows(toret)
 
   if (savecsv) {
-    data.table::fwrite(toret, paste0(out_csv_dir, '/group_props_', mov_av_time_window , 's.csv'), row.names = FALSE)
+    write.csv(toret, paste0(out_csv_dir, '/group_props_', mov_av_time_window , 's.csv'), row.names = FALSE)
   }
   if (return_df){
     return(toret)

@@ -10,7 +10,7 @@ create_swarm_space(
   event_duration_limit = NA,
   tsne_rand_seed = NA,
   tsne_perplexity = 10,
-  save_pca_object = FALSE
+  save_pca_path = NULL
 )
 }
 \arguments{
@@ -24,7 +24,8 @@ create_swarm_space(
 
 \item{tsne_perplexity}{Perplexity parameter for tsne. Usually between 10-50.}
 
-\item{save_pca_object}{Whether to save the results of the PCA analysis (instead of just returning the PC1-3 points)}
+\item{save_pca_path}{Directory to save the results of the PCA analysis (instead of just returning the PC1-3 points).
+If NULL (default), the pca is not saved.}
 }
 \value{
 the swarm space, x and y coordinates per event of each species

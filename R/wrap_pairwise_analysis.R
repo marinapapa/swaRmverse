@@ -5,7 +5,7 @@
 #' @param verbose whether to post updates on progress
 #' @return either a list of dataframes with neighbor ids, bearing angles, distances and heading deviations for each individual through time.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @seealso \code{\link{bearing_angle}}, \code{\link{rad_between}}
+#' @seealso \code{\link{nn_rel_pos_timeseries_parallel}}
 #' @export
 nn_analysis <- function(data_dates_list,
                               lonlat = FALSE,
@@ -15,19 +15,19 @@ nn_analysis <- function(data_dates_list,
 
   toret <- vector('list', length = length(data_dates_list))
 
-  pg_i = 1
+  i <- 1
   for (df in data_dates_list)
   {
     thisdate <- df$date[1]
-    rel_pos <- nn_rel_pos_timeseries_parallel(df,
+    toret[[i]] <- nn_rel_pos_timeseries_parallel(df,
                                                   add_coords = FALSE,
                                                   lonlat = lonlat,
                                                   verbose = verbose )
-     toret[[pg_i]] <- rel_pos
-    pg_i <- pg_i + 1
+    i <- i + 1
   }
-  toret <- data.table::rbindlist(toret)
-  return(as.data.frame(toret))
+  names(toret) <- NULL
+  toret <- do.call(cbind, toret)
+  return(toret)
 
   print('Pairwise analysis done with no return object')
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/events_N_duration.R
 \name{events_dur_summary}
 \alias{events_dur_summary}
-\title{Events duration summry}
+\title{Events duration summary}
 \usage{
 events_dur_summary(data, step2time)
 }

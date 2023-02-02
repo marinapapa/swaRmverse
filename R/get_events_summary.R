@@ -14,7 +14,7 @@ get_events_summary <- function(df,
   df <- df[!is.na(df$keep),]
   df <- df[df$keep,]
 
-  df <- add_event_idx(df, step2time = step2time)
+  df$event <- event_ids(df$time, step2time = step2time)
 
   ## Calculate duration of each event and write summary
   evdurs <- data.frame(event = names(table(df$event)),

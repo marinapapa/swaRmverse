@@ -23,8 +23,6 @@ pick_events_threshold <- function(data_distr, var, interactive = TRUE, input_thr
   } else{
     return(input_threshold)
   }
-
-
 }
 
 
@@ -41,8 +39,7 @@ define_events <- function(df, sp_lim, pol_lim, step2time)
 {
   df$keep <- (df$pol_av > pol_lim) & (df$speed_av > sp_lim)
   print('Given thresholds return a total of:')
-
-  print(paste0(calc_events_N(df), ' events, over ', calc_events_duration(df, step2time = step2time)/60, ' mins for this day.'))
+  print(paste0(calc_events_N(df), ' events, over ', calc_events_duration(df, step2time = step2time)/60, ' min.'))
   return(df)
 }
 

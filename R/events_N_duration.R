@@ -44,12 +44,16 @@ calc_events_duration <- function(data, step2time)
 #' @export
 calc_dur_per_event <- function(data, step2time)
 {
-  data %>%
-    dplyr::group_by(event) %>%
-    dplyr::summarise(event_dur = dplyr::n() * step2time)
+  retdf <- by(data, data$event, function(df) {
+    with(df, data.frame(event = event[[1]],
+                        event_dur = nrow(df) * step2time
+
+    ))
+  })
+  do.call(rbind, retdf)
 }
 
-#' @title Events duration summry
+#' @title Events duration summary
 #' @description Provides a summary with the number of events, their start time and duration in the dataset
 #' @param data A dataframe with a keep (representing which rows are defined as events of collective motion) and a date column
 #' @param step2time the sampling frequency of the dataframe.

@@ -27,37 +27,35 @@ nn_rel_pos_timeseries_parallel <- function(
     timestep <- as.character(thists$time[1])
     id_names <- unique(thists$id)
     N <- length(id_names)
-    def_head <- c("date", 'time', 'id')
-
-    df_bangls <- data.frame(matrix(NA, ncol = length(def_head) + N, nrow = N))
 
     thists$nn_id <- as.numeric(swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id))
     thists$nnd <- as.numeric(swaRm::nnd(thists$x, thists$y, geo = lonlat))
 
-    thists$bangl  <- unlist(lapply(seq_along(id_names), function(x){
-       bearing_angle(c(cos(thists$head[x]), sin(thists$head[x])),
-                               c(thists$x[x], thists$y[x]),
-                               c(thists[thists$id == thists$nn_id[x], 'x'],
-                                 thists[thists$id == thists$nn_id[x], 'y']))
-    })
-    )
+    thists$bangl <- bearing_angle(thists$x, thists$y, hs = thists$head, geo = lonlat)
 
     return(thists)
   }
 
   numCores <- parallel::detectCores()
-  cl <- parallel::makeCluster(numCores-2)
+  cl <- parallel::makeCluster(numCores)
 
-  res <- pbapply::pblapply(thists,
-                             pairwise_data,
-                             lonlat = lonlat,
-                             cl = cl)
+  res <- tryCatch({
+    pbapply::pblapply(thists,
+                      pairwise_data,
+                      lonlat = lonlat,
+                      cl = cl)
+   },
+   error = function(cond) {
+    parallel::stopCluster(cl)
+    stop(cond)
+  })
 
   parallel::stopCluster(cl)
   if (verbose) { print('Parallel run done! Preparing output...')}
 
-  res <- purrr::keep(res, function(x) nrow(x) > 0)
-  res <- dplyr::bind_rows(res)
+  res <- res[sapply(res, function(x) nrow(x) > 0)]
+  names(res) <- NULL
+  res <- do.call(rbind, res)
 
   if ( add_coords )
   {

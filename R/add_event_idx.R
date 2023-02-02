@@ -1,27 +1,21 @@
-#' @title Add event index
-#' @description Adds a column to the input dataframe with event id number according to the continuity of date and time columns.
-#' @param df a dataframe with at least 2 columns for date and time. There should be no replication in date and time across rows.
-#' @param step2time the sampling frequency of the dataframe.
-#' @return the input dataframe with an added 'event' column with the event id.
+#' @title Event indexies
+#' @description Returns a vector with event ids that corresponds to the input time vector, according to the continuity of time.
+#' @param t a vector of time.
+#' @param step2time the sampling frequency of t.
+#' @return a vector of the same size as t with event ids
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
-add_event_idx <- function(df, step2time)
+event_ids <- function(t, step2time)
 {
-  if (!('time' %in% colnames(df)) || !('date' %in% colnames(df))){
-    stop('Input dataframe needs columns time and date.')
+  if (!is.numeric(t))
+    stop("t (time) should be numeric.")
+
+  st <- t[c(TRUE, diff(t) > step2time)]
+  k <- length(st)
+  event_idxs <- rep(k, length(t))
+  for (i in rev(st)){
+    k <- k - 1
+    event_idxs[t < i] <- k
   }
-
-  if (any(duplicated(paste(df$date, df$time)))){
-    warning('More than 1 rows have the same date and time, the return event ids may be faulty, are you sure you are inputing the right dataframe?')
-  }
-
-  df$time <- as.numeric(df$time)
-
-  df$event <- c(1, rep(NA, nrow(df)-1))
-  totevs <- sum(diff(df$time) > step2time) + 1 ## adding first event
-  df$event[c(FALSE, diff(df$time) > step2time)] <- 2:totevs
-
-  df <- df %>% tidyr::fill(event, .direction = "down")
-
-  return(df)
+  return(event_idxs)
 }

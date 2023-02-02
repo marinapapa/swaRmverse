@@ -61,14 +61,24 @@ do_add_motion_properties <- function(
   numCores <- parallel::detectCores()
   cl <- parallel::makeCluster(numCores - 2)
 
-  res <- parallel::parLapply(cl = cl,
+
+  res <- tryCatch({
+
+   parallel::parLapply(cl = cl,
                                X = per_id,
                                fun = parallel_per_id,
                                lonlat = lonlat
     )
+    },
+    error = function(cond) {
+      parallel::stopCluster(cl)
+      stop(cond)
+    })
+
 
   parallel::stopCluster(cl)
-  res <- dplyr::bind_rows(res)
+  names(res) <- NULL
+  res <- do.call(rbind, res)
 
   return(res)
 }
@@ -112,16 +122,22 @@ do_add_motion_properties_verb <- function(
   numCores <- parallel::detectCores()
   cl <- parallel::makeCluster(numCores - 2)
 
-  res <- pbapply::pblapply(per_id,
+  res <- tryCatch({
+    pbapply::pblapply(per_id,
                              parallel_per_id,
                              lonlat = lonlat,
                              cl = cl
-    )
+    ) },
+    error = function(cond) {
+      parallel::stopCluster(cl)
+      stop(cond)
+    })
 
   parallel::stopCluster(cl)
   print('Parallel computation done, preparing return data...')
 
-  res <- dplyr::bind_rows(res)
+  names(res) <- NULL
+  res <- do.call(rbind, res)
 
   return(res)
 }

@@ -10,6 +10,6 @@ rad_between <- function(a, b)
   if (!is.vector(a) || !is.vector(b) || length(a) != 2 || length(b) != 2) {
     stop("Input should be two vectors of size 2 (x,y)")}
   c <- perpDot(a, b);
-  d <- pracma::dot(a,b);
+  d <- sum(a * b) ; # dot product
   return(atan2(c,d));
 }
