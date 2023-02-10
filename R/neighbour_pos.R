@@ -6,7 +6,6 @@
 #' @param verbose whether to post updates on progress
 #' @return a dataframe with a column for neighbor id, bearing angle, distance and heading deviation for each individual through time.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @seealso \code{\link{rad_between}}, \code{\link{bearing_angle}}, \code{\link{perpDot}}
 #' @export
 nn_rel_pos_timeseries_parallel <- function(
     data,
@@ -31,7 +30,7 @@ nn_rel_pos_timeseries_parallel <- function(
     thists$nn_id <- as.numeric(swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id))
     thists$nnd <- as.numeric(swaRm::nnd(thists$x, thists$y, geo = lonlat))
 
-    thists$bangl <- bearing_angle(thists$x, thists$y, hs = thists$head, geo = lonlat)
+    thists$bangl <- nnba(thists$x, thists$y, hs = thists$head, geo = lonlat)
 
     return(thists)
   }

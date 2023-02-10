@@ -6,7 +6,7 @@
 #' @param out_csv_dir directory output is saved to.
 #' @return a dataframe with a column for neighbor id, bearing angle, distance and heading deviation for each individual through time.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @seealso \code{\link{bearing_angle}}, \code{\link{rad_between}}
+#' @seealso \code{\link{group_metrics_parallel}}, \code{\link{moving_average}}
 #' @export
 calc_global_group_metrics <- function(data_dates_list,
                                       mov_av_time_window,
@@ -42,7 +42,7 @@ calc_global_group_metrics <- function(data_dates_list,
   toret <- dplyr::bind_rows(toret)
 
   if (savecsv) {
-    write.csv(toret, paste0(out_csv_dir, '/group_props_', mov_av_time_window , 's.csv'), row.names = FALSE)
+    utils::write.csv(toret, paste0(out_csv_dir, '/group_props_', mov_av_time_window , 's.csv'), row.names = FALSE)
   }
   if (return_df){
     return(toret)

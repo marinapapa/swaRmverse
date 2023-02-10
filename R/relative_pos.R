@@ -5,7 +5,7 @@
 #' @param focal_heading the heading of the focal individual, default = c(0,1) for plotting neighbor heading north.
 #' @return the input dataframe with additional x and y columns
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @seealso \code{\link{bearing_angle}}, \code{\link{perpDot}}
+#' @seealso \code{\link{perpDot}}
 #' @export
 add_rel_pos_coords <- function(
     data,

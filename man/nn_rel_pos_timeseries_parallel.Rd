@@ -26,9 +26,6 @@ a dataframe with a column for neighbor id, bearing angle, distance and heading d
 \description{
 Calculates the bearing angle and distance from a focal individual of a group to its nearest neighbor over time.
 }
-\seealso{
-\code{\link{rad_between}}, \code{\link{bearing_angle}}, \code{\link{perpDot}}
-}
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}
 }

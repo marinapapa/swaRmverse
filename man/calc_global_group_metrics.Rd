@@ -27,7 +27,7 @@ a dataframe with a column for neighbor id, bearing angle, distance and heading d
 Calculates the average speed, polarization and shape of all groups through time.
 }
 \seealso{
-\code{\link{bearing_angle}}, \code{\link{rad_between}}
+\code{\link{group_metrics_parallel}}, \code{\link{moving_average}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}
