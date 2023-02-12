@@ -26,8 +26,6 @@ nn_analysis <- function(data_dates_list,
     i <- i + 1
   }
   names(toret) <- NULL
-  toret <- do.call(cbind, toret)
+  toret <- do.call(rbind, toret)
   return(toret)
-
-  print('Pairwise analysis done with no return object')
 }

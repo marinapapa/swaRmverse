@@ -3,6 +3,7 @@
 #' @param data_dates_list A list of dataframes with groups timeseries per day. Column names must include: id, time, date, headx, heady, posx, posy
 #' @param mov_av_time_window Integer, timesteps to use as a sliding window for average speed and polarization. Set NA if calculation is not needed.
 #' @param return_df logical, whether to return the result dataframes or not.
+#' @param lonlat logical, whether positions are geographic coordinates, default = FALSE.
 #' @param out_csv_dir directory output is saved to.
 #' @return a dataframe with a column for neighbor id, bearing angle, distance and heading deviation for each individual through time.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
@@ -10,6 +11,7 @@
 #' @export
 calc_global_group_metrics <- function(data_dates_list,
                                       mov_av_time_window,
+                                      lonlat,
                                       return_df = TRUE,
                                       out_csv_dir = NA
     )
@@ -28,7 +30,7 @@ calc_global_group_metrics <- function(data_dates_list,
   pg_i = 1
   for (df in data_dates_list)
   {
-    group_prop <- group_metrics_parallel(df)
+    group_prop <- group_metrics_parallel(df, lonlat)
 
     if (!(is.na(mov_av_time_window)))
     {
@@ -39,7 +41,9 @@ calc_global_group_metrics <- function(data_dates_list,
     toret[[pg_i]] <- group_prop
     pg_i <- pg_i + 1
   }
-  toret <- dplyr::bind_rows(toret)
+
+  names(toret) <- NULL
+  toret <- do.call(rbind, toret)
 
   if (savecsv) {
     utils::write.csv(toret, paste0(out_csv_dir, '/group_props_', mov_av_time_window , 's.csv'), row.names = FALSE)

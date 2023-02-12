@@ -129,14 +129,14 @@ group_shape <- function(x, y, hs, geo = FALSE) {
 
   theobb <- calc_obb(x, y, geo)
 
-  hxvecs <- sin(hs)
-  hyvecs <- cos(hs)
+  hxvecs <- cos(hs)
+  hyvecs <- sin(hs)
 
   avhead <- colMeans(cbind(hxvecs, hyvecs))
   avhead <- atan2(avhead[2], avhead[1])
   db <- abs(avhead - theobb$angle)
-  db[db > pi & !is.na(db)] <- db - 2 * pi
-
+  db[db > pi & !is.na(db)] <- abs(db - 2 * pi)
+  db[db > pi/2 & !is.na(db)] <- pi - db
   theobb$shape <- abs(db)
 
   return(theobb)

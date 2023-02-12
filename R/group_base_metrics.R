@@ -2,11 +2,12 @@
 #' @description Calculates the average speed, polarization and shape of the group through time.
 #' @param data A dataframe of (ordered) time series of headings, positions and speeds per individual.
 #' The dataframe may contain several individuals. Should include column for: id, time, speed, headx, heady, posx, posy.
+#' @param lonlat logical, whether positions are geographic coordinates, default = FALSE.
 #' @return A dataframe with the group average timeseries, with columns:
 #'  date, time, pol, speed, shape, N (number of individuals), missing_ind (whether some individuals are missing).
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
-group_metrics_parallel <- function(data)
+group_metrics_parallel <- function(data, lonlat)
 {
   if (!is.data.frame(data) ||
       !('time' %in% colnames(data)) ||
@@ -52,7 +53,9 @@ group_metrics_parallel <- function(data)
     av_speed <- mean(x$speed, na.rm = TRUE)
     x$headx <- cos(x$head)
     x$heady <- sin(x$head)
-    shape <- as.numeric(group_shape_oblong_dev(x))
+
+    obb <- group_shape(x = x$x, y = x$y, hs = x$head, geo = lonlat)
+    shape <- as.numeric(obb$shape)
 
     df <- data.frame(date = day, time = t, pol = D, speed = av_speed, shape = shape, N = N, missing_ind = missing_ind)
     return(df)

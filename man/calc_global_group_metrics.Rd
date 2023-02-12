@@ -7,6 +7,7 @@
 calc_global_group_metrics(
   data_dates_list,
   mov_av_time_window,
+  lonlat,
   return_df = TRUE,
   out_csv_dir = NA
 )
@@ -15,6 +16,8 @@ calc_global_group_metrics(
 \item{data_dates_list}{A list of dataframes with groups timeseries per day. Column names must include: id, time, date, headx, heady, posx, posy}
 
 \item{mov_av_time_window}{Integer, timesteps to use as a sliding window for average speed and polarization. Set NA if calculation is not needed.}
+
+\item{lonlat}{logical, whether positions are geographic coordinates, default = FALSE.}
 
 \item{return_df}{logical, whether to return the result dataframes or not.}
 
