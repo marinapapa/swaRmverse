@@ -12,11 +12,10 @@ LazyData: true
 RoxygenNote: 7.2.3
 Imports:
   parallel,
-  shotGroups,
+  pbapply,
   Rtsne,
   trackdf,
   swaRm,
-  pbapply,
   geosphere
 Suggests:
   knitr,

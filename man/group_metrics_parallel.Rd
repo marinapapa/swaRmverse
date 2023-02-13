@@ -4,11 +4,13 @@
 \alias{group_metrics_parallel}
 \title{Calculation of group metrics in parallel}
 \usage{
-group_metrics_parallel(data)
+group_metrics_parallel(data, lonlat)
 }
 \arguments{
 \item{data}{A dataframe of (ordered) time series of headings, positions and speeds per individual.
 The dataframe may contain several individuals. Should include column for: id, time, speed, headx, heady, posx, posy.}
+
+\item{lonlat}{logical, whether positions are geographic coordinates, default = FALSE.}
 }
 \value{
 A dataframe with the group average timeseries, with columns:

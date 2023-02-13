@@ -23,10 +23,10 @@
 #' x <- rnorm(25)
 #' y <- rnorm(25, sd = 3)
 #' hs <- 1:25
-#' bearing_angle(x, y, hs)
+#' nnba(x, y, hs)
 #'
 #' @export
-bearing_angle <- function(x, y, hs, geo = FALSE) {
+nnba <- function(x, y, hs, geo = FALSE) {
   if (!all(length(x) == c(length(y), length(hs))))
     stop("x, y and hs should have the same length.")
 
@@ -77,7 +77,7 @@ bearing_angle <- function(x, y, hs, geo = FALSE) {
 #'
 #' @author Simon Garnier, \email{garnier@@njit.edu}, Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{bearing_angle}}
+#' @seealso \code{\link{nnba}}
 #'
 #' @examples
 #' bs <- rnorm(25, sd = 1)

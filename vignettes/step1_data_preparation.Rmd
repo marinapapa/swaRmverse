@@ -41,15 +41,14 @@ data_dfs <- group_motion_timeseries(data_df,
 smoothing_time_window <- 30 # seconds
 
 g_metr <- calc_global_group_metrics(data_dates_list = data_dfs,
-                                   mov_av_time_window = smoothing_time_window, 
+                                   mov_av_time_window = smoothing_time_window,
+                                   lonlat = FALSE,
                                    return_df = TRUE,
                                    out_csv_dir = NA)
 
 data_df <- nn_analysis(data_dates_list = data_dfs, 
                             lonlat = FALSE,
                             verbose = TRUE)
-
-hist(g_metr$pol_av, xlab = paste('Smoothed polarization (over', smoothing_time_window, 'seconds)'), main = 'Polarization')
 
 ```
 

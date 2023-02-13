@@ -37,7 +37,7 @@ col_motion_metrics_from_raw <- function(data,
                                               lonlat = lonlat
     )
 
-    group_prop <- group_metrics_parallel(adf)
+    group_prop <- group_metrics_parallel(adf, lonlat)
 
     group_prop$speed_av <- moving_average(group_prop$speed, mov_av_time_window)
     group_prop$pol_av <-  moving_average(group_prop$pol, mov_av_time_window)

@@ -24,7 +24,7 @@ frontness(bs)
 
 }
 \seealso{
-\code{\link{bearing_angle}}
+\code{\link{nnba}}
 }
 \author{
 Simon Garnier, \email{garnier@njit.edu}, Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
