@@ -28,7 +28,7 @@ nn_rel_pos_timeseries_parallel <- function(
     id_names <- unique(thists$id)
     N <- length(id_names)
 
-    thists$nn_id <- as.numeric(swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id))
+    thists$nn_id <- swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id)
     thists$nnd <- as.numeric(swaRm::nnd(thists$x, thists$y, geo = lonlat))
 
     thists$bangl <- bearing_angle(thists$x, thists$y, hs = thists$head, geo = lonlat)
@@ -37,7 +37,7 @@ nn_rel_pos_timeseries_parallel <- function(
   }
 
   numCores <- parallel::detectCores()
-  cl <- parallel::makeCluster(numCores)
+  cl <- parallel::makeCluster(numCores-1)
 
   res <- tryCatch({
     pbapply::pblapply(thists,
