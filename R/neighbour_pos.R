@@ -17,30 +17,14 @@ nn_rel_pos_timeseries_parallel <- function(
   if (verbose) { print('Measuring nearest neighbors relative positions in parallel...')}
 
   thists <- split(data, data$time)
-  pairwise_data <- function(thists,
-                            lonlat = lonlat)
 
-
-  {
-    thists <- as.data.frame(thists)
-    timestep <- as.character(thists$time[1])
-    id_names <- unique(thists$id)
-    N <- length(id_names)
-
-    thists$nn_id <- as.numeric(swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id))
-    thists$nnd <- as.numeric(swaRm::nnd(thists$x, thists$y, geo = lonlat))
-
-    thists$bangl <- nnba(thists$x, thists$y, hs = thists$head, geo = lonlat)
-
-    return(thists)
-  }
 
   numCores <- parallel::detectCores()
   cl <- parallel::makeCluster(numCores)
 
   res <- tryCatch({
     pbapply::pblapply(thists,
-                      pairwise_data,
+                      pairwise_info,
                       lonlat = lonlat,
                       cl = cl)
    },
@@ -58,10 +42,33 @@ nn_rel_pos_timeseries_parallel <- function(
 
   if ( add_coords )
   {
-    res$time <- as.numeric(res$time)
     res <- add_rel_pos_coords(res)
   }
 
   return(res)
 }
 
+#' @title Relative position of nearest neighbor function to parallelize
+#' @description Calculates the bearing angle and distance from a focal individual of a group to its nearest neighbor.
+#' @param thists A timestep of individual positions and ids.
+#' @param lonlat whether positions are geographic coordinates.
+#' @return the input dataframe with a column for neighbor id, bearing angle, distance and heading deviation for each individual through time.
+#' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#' @keywords internal
+pairwise_info <- function(thists,
+                          lonlat)
+
+
+{
+  thists <- as.data.frame(thists)
+  timestep <- as.character(thists$time[1])
+  id_names <- unique(thists$id)
+  N <- length(id_names)
+
+  thists$nn_id <- as.numeric(swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id))
+  thists$nnd <- as.numeric(swaRm::nnd(thists$x, thists$y, geo = lonlat))
+
+  thists$bangl <- nnba(thists$x, thists$y, hs = thists$head, geo = lonlat)
+
+  return(thists)
+}

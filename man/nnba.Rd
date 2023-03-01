@@ -27,7 +27,7 @@ Given the locations and headings of different objects, this function
 \examples{
 x <- rnorm(25)
 y <- rnorm(25, sd = 3)
-hs <- 1:25
+hs <- rnorm(25, sd = 1)
 nnba(x, y, hs)
 
 }

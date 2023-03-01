@@ -34,7 +34,9 @@ col_motion_metrics_from_raw <- function(data,
   {
     rel_pos <- nn_rel_pos_timeseries_parallel(adf,
                                               add_coords = FALSE,
-                                              lonlat = lonlat
+                                              lonlat = lonlat,
+                                              verbose = verbose
+
     )
 
     group_prop <- group_metrics_parallel(adf, lonlat)

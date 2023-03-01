@@ -42,25 +42,9 @@ do_add_motion_properties <- function(
   data$id <- as.character(data$id)
   per_id <- split(data, data$id)
 
-  parallel_per_id <- function(per_id, lonlat)
-  {
-    per_id <- as.data.frame(per_id)
-
-    if (nrow(per_id) < 2)
-    {
-      warning('Id with only one data point detected.')
-      return(per_id)
-    }
-
-    per_id[, 'head'] <- swaRm::heading(x = per_id$x, y = per_id$y, geo = lonlat)
-    per_id[, 'speed'] <- linSpeed_s(x = per_id$x, y = per_id$y, t = per_id$time, geo = lonlat)
-
-    return(per_id)
-  }
 
   numCores <- parallel::detectCores()
-  cl <- parallel::makeCluster(numCores - 2)
-
+  cl <- parallel::makeCluster(numCores )
 
   res <- tryCatch({
 
@@ -84,6 +68,7 @@ do_add_motion_properties <- function(
 }
 
 
+
 #' @title Adding motion properties in parallel - verbose
 #' @description Calculates headings and speeds based on two location points and the time taken to travel between those points
 #' @param data Time series with individual's positional data through time. Columns must include: id, time, lon, lat.
@@ -103,24 +88,8 @@ do_add_motion_properties_verb <- function(
   data$id <- as.character(data$id)
   per_id <- split(data, data$id)
 
-  parallel_per_id <- function(per_id, lonlat)
-  {
-    per_id <- as.data.frame(per_id)
-
-    if (nrow(per_id) < 2)
-    {
-      warning('Id with only one data point detected.')
-      return(per_id)
-    }
-
-    per_id[, 'head'] <- swaRm::heading(x = per_id$x, y = per_id$y, geo = lonlat)
-    per_id[, 'speed'] <- linSpeed_s(x = per_id$x, y = per_id$y, t = per_id$time, geo = lonlat)
-
-    return(per_id)
-  }
-
   numCores <- parallel::detectCores()
-  cl <- parallel::makeCluster(numCores - 2)
+  cl <- parallel::makeCluster(numCores)
 
   res <- tryCatch({
     pbapply::pblapply(per_id,
@@ -140,4 +109,28 @@ do_add_motion_properties_verb <- function(
   res <- do.call(rbind, res)
 
   return(res)
+}
+
+
+#' @title Speed and heading calculation
+#' @description Calculates headings and speeds based on two location points of 1 individual
+#' @param data Time series of 1 individual's positional data.
+#' @param lonlat whether positions are geographic coordinates, default = FALSE.
+#' @return the input dataframe with new speed and heading (rotational) column
+#' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#' @keywords internal
+parallel_per_id <- function(per_id, lonlat)
+{
+  per_id <- as.data.frame(per_id)
+
+  if (nrow(per_id) < 2)
+  {
+    warning('Id with only one data point detected.')
+    return(per_id)
+  }
+
+  per_id[, 'head'] <- swaRm::heading(x = per_id$x, y = per_id$y, geo = lonlat)
+  per_id[, 'speed'] <- linSpeed_s(x = per_id$x, y = per_id$y, t = per_id$time, geo = lonlat)
+
+  return(per_id)
 }

@@ -19,7 +19,6 @@
 #' @export
 calc_obb <- function(x, y, geo = FALSE) {
 
-
   H    <- grDevices::chull(x, y)      ## hull indices, vertices ordered clockwise
   n    <- length(H)      ## number of hull vertices
   hull <- as.matrix(data.frame(x = x[H], y = y[H]))        ## hull vertices
@@ -80,13 +79,6 @@ calc_obb <- function(x, y, geo = FALSE) {
     bwidth <- geodists[1]
     bheight <- geodists[2]
   } else {
-    # d x <- pts[2,1] - pts[1,1]
-    # dy <- pts[2,2] - pts[1,2]
-    # bwidth <- sqrt(dx^2 + dy^2)
-    #
-    # dx <- pts[3,1] - pts[2,1]
-    # dy <- pts[3,2] - pts[2,2]
-    # bheight <- sqrt(dx^2 + dy^2)
     bwidth <- widths[eMin]
     bheight <- heights[eMin]
   }
