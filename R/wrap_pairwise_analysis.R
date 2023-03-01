@@ -9,9 +9,17 @@
 #' @export
 nn_analysis <- function(data_dates_list,
                               lonlat = FALSE,
-                              verbose = FALSE)
+                              verbose = FALSE,
+                        out_csv_dir = NA)
 {
   if (verbose) {print('Pairwise analysis started, this may take a while..') }
+  savecsvs <- FALSE
+
+  if (!is.na(out_csv_dir)) {
+    if (dir.exists(out_csv_dir)) {
+      savecsvs <- TRUE
+    } else { stop('Input saving directory does not exist, check your out_csv_dir variable.') }
+  }
 
   toret <- vector('list', length = length(data_dates_list))
 
@@ -23,6 +31,9 @@ nn_analysis <- function(data_dates_list,
                                                   add_coords = FALSE,
                                                   lonlat = lonlat,
                                                   verbose = verbose )
+    if (savecsvs) {
+      write.csv(toret[[i]], paste0(out_csv_dir, '/nn_data_', thisdate , '.csv'), row.names = FALSE)
+    }
     i <- i + 1
   }
   names(toret) <- NULL
