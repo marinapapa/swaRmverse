@@ -8,14 +8,14 @@
 #' @export
 calc_metrics_per_event <- function(global_df, pairwise_df)
 {
-  if (!(all(c('pol', 'speed', 'shape', 'nnd', 'bangl', 'date', 'time', 'event') %in% c(colnames(global_df), colnames(pairwise_df)))))
-  {stop("Input dataframes should include the following columns: 'pol', 'speed', 'shape', 'nnd', 'bangl', 'date', 'time', 'event' ")}
+  if (!(all(c('pol', 'speed', 'shape', 'nnd', 'bangl', 'date', 't', 'event') %in% c(colnames(global_df), colnames(pairwise_df)))))
+  {stop("Input dataframes should include the following columns: 'pol', 'speed', 'shape', 'nnd', 'bangl', 'date', 't', 'event' ")}
 
   pairwise_df$frontness <- frontness(pairwise_df$bangl)
 
-  pairwise_df <- by(pairwise_df, list(pairwise_df$date, pairwise_df$time), function(df) {
+  pairwise_df <- by(pairwise_df, list(pairwise_df$t), function(df) {
     with(df, data.frame(date = date[[1]],
-                        time = time[[1]],
+                        t = t[[1]],
                         mean_nnd = mean(nnd, na.rm = T),
                         sd_nnd = stats::sd(nnd, na.rm = T),
                         sd_front = stats::sd(frontness, na.rm = T),
@@ -25,15 +25,6 @@ calc_metrics_per_event <- function(global_df, pairwise_df)
   names(pairwise_df) <- NULL
   pairwise_df <- do.call(rbind, pairwise_df)
 
-  # pairwise_df <- pairwise_df %>%
-  #   dplyr::group_by(date, time) %>%
-  #   dplyr::summarise(mean_nnd = mean(nnd, na.rm = T),
-  #                    sd_nnd = stats::sd(nnd, na.rm = T),
-  #                    sd_front = stats::sd(frontness, na.rm = T),
-  #                    mean_bangl = mean(abs(bangl), na.rm = T),
-  #                    group_size = dplyr::n())
-
-  #df <- dplyr::left_join(global_df, pairwise_df)
   retdf <- merge(global_df, pairwise_df, all.x = TRUE)
 
   retdf <- by(retdf, retdf$event, function(df) {
@@ -53,19 +44,6 @@ calc_metrics_per_event <- function(global_df, pairwise_df)
   })
   names(retdf) <- NULL
   retdf <- do.call(rbind, retdf)
-  #
-  # df <- df %>%
-  #   dplyr::group_by(event) %>%
-  #   dplyr::summarise(mean_mean_nnd = mean(mean_nnd, na.rm = T),
-  #                    mean_sd_nnd = mean(sd_nnd, na.rm = T),
-  #                    sd_mean_nnd = stats::sd(mean_nnd, na.rm = T),
-  #                    mean_pol = mean(pol, na.rm = T),
-  #                    sd_pol = stats::sd(pol, na.rm = T),
-  #                    stdv_speed = stats::sd(speed, na.rm = T)/mean(speed, na.rm = T),
-  #                    mean_sd_front = mean(sd_front, na.rm = T),
-  #                    mean_mean_bangl = mean(mean_bangl, na.rm = T),
-  #                    mean_shape = mean(shape, na.rm = T),
-  #                    sd_shape = stats::sd(shape, na.rm = T),
-  #                    group_size = min(group_size, na.rm = T))
+
   return(retdf)
 }

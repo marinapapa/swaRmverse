@@ -5,7 +5,7 @@
 #' @param verbose whether to post updates on progress
 #' @return a list of dataframes, an element per date from the input dataframe with new columns: headx, heady, velx, vely, speed, real_time
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @seealso \code{\link{padd_motion_properties}}, \code{\link{transform_time2secs}}
+#' @seealso \code{\link{padd_motion_properties}}
 #' @export
 group_motion_timeseries <- function(data,
                                     lonlat = TRUE,

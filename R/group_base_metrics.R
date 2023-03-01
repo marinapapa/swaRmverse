@@ -10,7 +10,7 @@
 group_metrics_parallel <- function(data, lonlat)
 {
   if (!is.data.frame(data) ||
-      !('time' %in% colnames(data)) ||
+      !('t' %in% colnames(data)) ||
       !('head' %in% colnames(data)) ||
       !('speed' %in% colnames(data)))
     {
@@ -27,7 +27,7 @@ group_metrics_parallel <- function(data, lonlat)
       stop('Data should be from one date only.')
     }
 
-  per_time <- split(data, data$time)
+  per_time <- split(data, data$t)
 
   numCores <- parallel::detectCores()
   cl <- parallel::makeCluster(numCores)
@@ -61,18 +61,18 @@ group_metrics_parallel <- function(data, lonlat)
 group_props_calc <- function(x, lonlat) {
 
   N <- length(unique(x$id))
-  t <- x$time[1]
+  t <- x$t[1]
   day <- x$date[1]
 
   x <- x[stats::complete.cases(x), ]
   if (nrow(x) < 1 ){
-    return(data.frame(date = day, time = t, pol = NA, speed = NA, shape = NA, N = N, missing_ind = NA))}
+    return(data.frame(date = day, t = t, pol = NA, speed = NA, shape = NA, N = N, missing_ind = NA))}
 
   Nnew <- length(unique(x$id))
   missing_ind <- N-Nnew
   N <- Nnew
 
-  if (N < 2) {return(data.frame(date = day, time = t, pol = NA, speed = NA, shape = NA, N = 1, missing_ind = NA))}
+  if (N < 2) {return(data.frame(date = day, t = t, pol = NA, speed = NA, shape = NA, N = 1, missing_ind = NA))}
 
   D <- swaRm::pol_order(x$head)
   av_speed <- mean(x$speed, na.rm = TRUE)
@@ -81,6 +81,6 @@ group_props_calc <- function(x, lonlat) {
 
   obb <- group_shape(x = x$x, y = x$y, hs = x$head, geo = lonlat)
 
-  df <- data.frame(date = day, time = t, pol = D, speed = av_speed, shape = as.numeric(obb$shape), N = N, missing_ind = missing_ind)
+  df <- data.frame(date = day, t = t, pol = D, speed = av_speed, shape = as.numeric(obb$shape), N = N, missing_ind = missing_ind)
   return(df)
 }

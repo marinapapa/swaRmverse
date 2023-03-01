@@ -47,7 +47,7 @@ create_swarm_space <- function(metrics_data,
   {
     if (is.na(tsne_rand_seed)) {stop('Please give a random seed for the tsne analysis.')}
     set.seed(tsne_rand_seed)
-    tsne <- Rtsne::Rtsne(topca[,names(topca) != 'species'], dims = 2, perplexity = tsne_perplexity, verbose = TRUE, max_iter = 10000)
+    tsne <- Rtsne::Rtsne(topca[,names(topca) != 'species'], dims = 2, perplexity = tsne_perplexity, verbose = FALSE, max_iter = 10000)
     tsnedata <- data.frame(topca$species, tsne$Y[,1:2])
     colnames(tsnedata) <- c('species', 'X', 'Y')
     return(tsnedata)

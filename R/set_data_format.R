@@ -39,33 +39,10 @@ set_data_format <- function(raw_x,
                            proj = proj,
                            format = format,
                            table = "df")
-  colnames(tracked_df)[colnames(tracked_df) == "t"] <- "date_time"
 
-  tracked_df <- set_date_time_format(tracked_df)
+  tracked_df[, c('date', 'time')] <- data.frame(do.call('rbind', strsplit(as.character(tracked_df$t), ' ', fixed=TRUE)))
+  tracked_df$date <- as.factor(tracked_df$date)
+
   return(tracked_df)
 }
 
-
-#' @title Set format of date and time
-#' @description Splits the date_time column of a track dataframe to separate columns and transforms real time to seconds from beginning
-#' @param df_track A trackdf dataframe with a date_time column
-#' @return the input dataframe with separated 'date', 'real_time' and 'time' columns
-#' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @export
-set_date_time_format <- function(df_track)
-{
-  df_track[, c('date', 'time')] <- data.frame(do.call('rbind', strsplit(as.character(df_track$date_time), ' ', fixed=TRUE)))
-
-  df_track <- lapply(split(df_track, df_track$date),
-                     function(x){
-                       start_t <- min(x$time)
-                       x <- transform_time2secs(x, start_t = start_t)
-                       return(x)
-                     })
-
-  names(df_track) <- NULL
-  df_track <- do.call(rbind, df_track)
-  df_track$date <- as.factor(df_track$date)
-
-  return(df_track)
-}

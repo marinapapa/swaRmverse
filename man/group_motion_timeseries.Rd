@@ -20,7 +20,7 @@ a list of dataframes, an element per date from the input dataframe with new colu
 Adds velocity and heading calculations to dataframe and transforms time to seconds from start per day.
 }
 \seealso{
-\code{\link{padd_motion_properties}}, \code{\link{transform_time2secs}}
+\code{\link{padd_motion_properties}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

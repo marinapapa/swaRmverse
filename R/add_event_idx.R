@@ -7,9 +7,6 @@
 #' @export
 event_ids <- function(t, step2time)
 {
-  if (!is.numeric(t))
-    stop("t (time) should be numeric.")
-
   st <- t[c(TRUE, diff(t) > step2time)]
   k <- length(st)
   event_idxs <- rep(k, length(t))

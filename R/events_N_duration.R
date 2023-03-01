@@ -6,7 +6,6 @@
 #' @export
 calc_events_N <- function(data)
 {
-  data$date <- as.character(data$date)
   events_n <- lapply( split(data, data$date), function(x)
   {
     keep_t1 <- x$keep[1:(length(x$keep)-1)]
@@ -17,7 +16,7 @@ calc_events_N <- function(data)
     if (any(event_start == TRUE, na.rm = T))
     {
       return(table(event_start)['TRUE'])
-    } else {return(0) }
+    } else {return(0)}
 
   })
   return(sum(unlist(events_n)))

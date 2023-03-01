@@ -1,15 +1,16 @@
 #' @title Nearest neighbor analysis
 #' @description Calculates the bearing angle and distance from a focal individual of a group to its nearest neighbor over time.
-#' @param data_dates_list A list of dataframes with groups timeseries per day. Column names must include: id, time, date, headx, heady, posx, posy
+#' @param data_dates_list A list of dataframes with groups timeseries per day. Column names must include: id, t, date, head, x, y
 #' @param lonlat logical, whether positions are geographic coordinates, default = FALSE.
+#' @param out_csv_dir a path to save the results of each day as a separate csv file. If NA (default), no csv is created and resutls are returned.
 #' @param verbose whether to post updates on progress
 #' @return either a list of dataframes with neighbor ids, bearing angles, distances and heading deviations for each individual through time.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @seealso \code{\link{nn_rel_pos_timeseries_parallel}}
 #' @export
 nn_analysis <- function(data_dates_list,
-                              lonlat = FALSE,
-                              verbose = FALSE,
+                        lonlat = FALSE,
+                        verbose = FALSE,
                         out_csv_dir = NA)
 {
   if (verbose) {print('Pairwise analysis started, this may take a while..') }
@@ -32,7 +33,7 @@ nn_analysis <- function(data_dates_list,
                                                   lonlat = lonlat,
                                                   verbose = verbose )
     if (savecsvs) {
-      write.csv(toret[[i]], paste0(out_csv_dir, '/nn_data_', thisdate , '.csv'), row.names = FALSE)
+      utils::write.csv(toret[[i]], paste0(out_csv_dir, '/nn_data_', thisdate , '.csv'), row.names = FALSE)
     }
     i <- i + 1
   }

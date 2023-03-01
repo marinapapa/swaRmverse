@@ -44,7 +44,7 @@ col_motion_metrics_from_raw <- function(data,
     group_prop$speed_av <- moving_average(group_prop$speed, mov_av_time_window)
     group_prop$pol_av <-  moving_average(group_prop$pol, mov_av_time_window)
     allgroup_props[[k]] <- group_prop
-    allrel_pos[[k]] <- rel_pos[, c('date', 'time', 'nnd', 'bangl')]
+    allrel_pos[[k]] <- rel_pos[, c('date', 't', 'nn_id', 'nnd', 'bangl')]
     k <- k + 1
   }
 
@@ -60,11 +60,9 @@ col_motion_metrics_from_raw <- function(data,
   allgroup_props <- allgroup_props[!is.na(allgroup_props$keep),]
   allgroup_props <- allgroup_props[allgroup_props$keep,]
 
-  allgroup_props$event <- event_ids(allgroup_props$time, step2time = step2time)
+  allgroup_props$event <- event_ids(allgroup_props$t, step2time = step2time)
 
-  times_in <- paste(allgroup_props$date, allgroup_props$time)
-
-  allrel_pos <- allrel_pos[paste(allrel_pos$date, allrel_pos$time) %in% times_in,]
+  allrel_pos <- allrel_pos[allrel_pos$t %in% allgroup_props$t,]
 
   toret <- calc_metrics_per_event(allgroup_props, allrel_pos)
   return(toret)
@@ -117,11 +115,10 @@ col_motion_metrics <- function(timeseries_data,
   allgroup_props <- allgroup_props[!is.na(allgroup_props$keep),]
   allgroup_props <- allgroup_props[allgroup_props$keep,]
 
-  allgroup_props$event <- event_ids(allgroup_props$time, step2time = step2time)
-  times_in <- paste(allgroup_props$date, allgroup_props$time)
+  allgroup_props$event <- event_ids(allgroup_props$t, step2time = step2time)
 
-  paiwise_data <- timeseries_data[paste(timeseries_data$date, timeseries_data$time) %in% times_in,
-                                  c('date', 'time', 'nnd', 'bangl')]
+  paiwise_data <- timeseries_data[timeseries_data$t %in% allgroup_props$t,
+                                  c('date', 't', 'nn_id', 'nnd', 'bangl')]
 
   toret <- calc_metrics_per_event(allgroup_props, paiwise_data)
   event_sum <- calc_dur_per_event(allgroup_props, step2time)

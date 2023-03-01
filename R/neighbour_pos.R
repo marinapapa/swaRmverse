@@ -16,8 +16,7 @@ nn_rel_pos_timeseries_parallel <- function(
 {
   if (verbose) { print('Measuring nearest neighbors relative positions in parallel...')}
 
-  thists <- split(data, data$time)
-
+  thists <- split(data, data$t)
 
   numCores <- parallel::detectCores()
   cl <- parallel::makeCluster(numCores)
@@ -60,14 +59,8 @@ pairwise_info <- function(thists,
 
 
 {
-  thists <- as.data.frame(thists)
-  timestep <- as.character(thists$time[1])
-  id_names <- unique(thists$id)
-  N <- length(id_names)
-
   thists$nn_id <- as.numeric(swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id))
   thists$nnd <- as.numeric(swaRm::nnd(thists$x, thists$y, geo = lonlat))
-
   thists$bangl <- nnba(thists$x, thists$y, hs = thists$head, geo = lonlat)
 
   return(thists)

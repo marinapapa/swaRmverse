@@ -18,9 +18,6 @@ the input dataframe with additional x and y columns
 \description{
 Calculates the x and y coordinates of a neighbor in the reference frame of each focal individual
 }
-\seealso{
-\code{\link{perpDot}}
-}
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}
 }

@@ -19,7 +19,7 @@ data('multi_species_metrics')
 
 all_data <- multi_species_metrics
 ## or bind with new data
-# all_data <- rbind(multi_species_metrics, swarm_space_metrics)
+# all_data <- rbind(multi_species_metrics, new_species_metrics[, colnames(new_species_metrics)!= 'group_size'])
 
 ```
 
