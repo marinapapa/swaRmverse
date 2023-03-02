@@ -4,7 +4,18 @@
 \alias{set_data_format}
 \title{Data formatting}
 \usage{
-set_data_format(raw_x, raw_y, raw_t, raw_id, origin, period, tz, proj, format)
+set_data_format(
+  raw_x,
+  raw_y,
+  raw_t,
+  raw_id,
+  origin,
+  period,
+  tz,
+  proj,
+  format,
+  ...
+)
 }
 \arguments{
 \item{raw_x}{A numeric vector representing the x coordinates of individual(s)}
@@ -23,7 +34,10 @@ set_data_format(raw_x, raw_y, raw_t, raw_id, origin, period, tz, proj, format)
 
 \item{proj}{A character string or a sp::CRS object representing the projection of the coordinates. Leave empty if the coordinates are not projected (e.g., output of video tracking). "+proj=longlat" is suitable for the output of most GPS trackers.}
 
-\item{format}{A character string indicating the formatting of 't'. See strptime for how to specify this parameter..}
+\item{format}{A character string indicating the formatting of 't'. See strptime for how to specify this parameter.}
+
+\item{...}{Additional vectors representing categories that the data should be split by. If none, only the date
+will be used as a unit of data separation.}
 }
 \value{
 A track dataframe table, which is a colloquial term for an object of class track.

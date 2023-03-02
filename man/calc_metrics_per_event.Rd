@@ -7,15 +7,15 @@
 calc_metrics_per_event(global_df, pairwise_df)
 }
 \arguments{
-\item{global_df}{A data frame with time series of global group measurements. Columns must include:  date, time, event, pol, shape, speed}
+\item{global_df}{A data frame with time series of global group measurements. Columns must include:  set, t, event, pol, shape, speed}
 
-\item{pairwise_df}{A data frame with time series of pairwise measurements. Columns must include:  date, time, id, dist, bangl}
+\item{pairwise_df}{A data frame with time series of pairwise measurements. Columns must include:  set, t, id, dist, bangl}
 }
 \value{
 A dataframe with 10 metrics per event
 }
 \description{
-Calculates metrics of collective motion across dates and events
+Calculates metrics of collective motion across sets and events
 }
 \seealso{
 \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}

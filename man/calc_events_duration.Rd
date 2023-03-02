@@ -7,7 +7,7 @@
 calc_events_duration(data, step2time)
 }
 \arguments{
-\item{data}{A dataframe with a keep (representing which rows are defined as events of collective motion) and a date column}
+\item{data}{A dataframe with a keep (representing which rows are defined as events of collective motion) and a set column}
 
 \item{step2time}{the sampling frequency of the dataframe.}
 }

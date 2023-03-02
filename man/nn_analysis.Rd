@@ -4,10 +4,10 @@
 \alias{nn_analysis}
 \title{Nearest neighbor analysis}
 \usage{
-nn_analysis(data_dates_list, lonlat = FALSE, verbose = FALSE, out_csv_dir = NA)
+nn_analysis(data_list, lonlat = FALSE, verbose = FALSE, out_csv_dir = NA)
 }
 \arguments{
-\item{data_dates_list}{A list of dataframes with groups timeseries per day. Column names must include: id, t, date, head, x, y}
+\item{data_list}{A list of dataframes with groups timeseries per day. Column names must include: id, t, set, head, x, y}
 
 \item{lonlat}{logical, whether positions are geographic coordinates, default = FALSE.}
 

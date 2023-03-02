@@ -7,7 +7,7 @@
 calc_events_N(data)
 }
 \arguments{
-\item{data}{A dataframe with a keep (representing which rows are defined as events of collective motion) and a date column}
+\item{data}{A dataframe with a keep (representing which rows are defined as events of collective motion) and a set column}
 }
 \value{
 an integer with the number of events of colletive motion

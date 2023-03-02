@@ -5,7 +5,7 @@
 \title{Global group metrics calculation}
 \usage{
 calc_global_group_metrics(
-  data_dates_list,
+  data_list,
   mov_av_time_window,
   lonlat,
   return_df = TRUE,
@@ -13,7 +13,7 @@ calc_global_group_metrics(
 )
 }
 \arguments{
-\item{data_dates_list}{A list of dataframes with groups timeseries per day. Column names must include: id, time, date, headx, heady, posx, posy}
+\item{data_list}{A list of dataframes with groups timeseries per day. Column names must include: id, time, set, headx, heady, posx, posy}
 
 \item{mov_av_time_window}{Integer, timesteps to use as a sliding window for average speed and polarization. Set NA if calculation is not needed.}
 

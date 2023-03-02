@@ -16,7 +16,7 @@ col_motion_metrics_from_raw(
 )
 }
 \arguments{
-\item{data}{A data frame with time series of individual's positional data through time. Columns must include: id, date, time, posx, posy}
+\item{data}{A data frame with time series of individual's positional data through time. Columns must include: id, set, time, posx, posy}
 
 \item{mov_av_time_window}{to average over (in timesteps)}
 
@@ -36,7 +36,7 @@ col_motion_metrics_from_raw(
 either a list of dataframes with neighbor ids, bearing angles, distances and heading deviations for each individual through time, or saves individual csvs per day, depending on input.
 }
 \description{
-Calculates metrics of collective motion across dates and events
+Calculates metrics of collective motion across sets and events
 }
 \seealso{
 \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}

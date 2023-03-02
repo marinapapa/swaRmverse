@@ -8,7 +8,9 @@
 #' @param origin  Something that can be coerced to a date-time object by as_datetime representing the start date and time of the observations when t is a numeric vector.
 #' @param tz  A time zone name. See OlsonNames.
 #' @param period A character vector in a shorthand format (e.g. "1 second") or ISO 8601 specification. This is used when t is a numeric vector to represent time unit of the observations.
-#' @param format  A character string indicating the formatting of 't'. See strptime for how to specify this parameter..
+#' @param format  A character string indicating the formatting of 't'. See strptime for how to specify this parameter.
+#' @param ...  Additional vectors representing categories that the data should be split by. If none, only the date
+#' will be used as a unit of data separation.
 #' @return A track dataframe table, which is a colloquial term for an object of class track.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}, Simon Garnier \email{garnier@@njit.edu}
 #' @export
@@ -20,7 +22,8 @@ set_data_format <- function(raw_x,
                             period,
                             tz,
                             proj,
-                            format
+                            format,
+                            ...
                             )
 {
   if (length(raw_x) != length(raw_y) ||
@@ -29,6 +32,7 @@ set_data_format <- function(raw_x,
   {
     warning("Input position, time and id vectors are of different lengths, shorter ones have been recycled.")
   }
+
   tracked_df <- trackdf::track(x = raw_x,
                            y = raw_y,
                            t = raw_t,
@@ -40,9 +44,22 @@ set_data_format <- function(raw_x,
                            format = format,
                            table = "df")
 
-  tracked_df[, c('date', 'time')] <- data.frame(do.call('rbind', strsplit(as.character(tracked_df$t), ' ', fixed=TRUE)))
-  tracked_df$date <- as.factor(tracked_df$date)
 
+  group_vars <- list(...)
+  if (length(group_vars) != 0 ){
+    if (any(lengths(group_vars) != nrow(tracked_df))) {
+    warning("Extra set info of different lengths, they are being ignored.")
+    } else
+    {
+      extr_df <- as.data.frame(group_vars)
+      group_id <- do.call(paste, c(extr_df[1:ncol(extr_df)], sep = '_'))
+      date_df <- data.frame(do.call('rbind', strsplit(as.character(tracked_df$t), ' ', fixed=TRUE)))
+      tracked_df$set <- paste(date_df[,1], group_id, sep = '_')
+      return(tracked_df)
+    }}
+
+  date_df <- data.frame(do.call('rbind', strsplit(as.character(tracked_df$t), ' ', fixed=TRUE)))
+  tracked_df$set <- date_df[,1]
   return(tracked_df)
 }
 

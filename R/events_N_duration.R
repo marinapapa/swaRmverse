@@ -1,12 +1,14 @@
 #' @title Number of events
 #' @description  Calculates the number of events of collective motion in dataset
-#' @param data A dataframe with a keep (representing which rows are defined as events of collective motion) and a date column
+#' @param data A dataframe with a keep (representing which rows are defined as events of collective motion) and a set column
 #' @return an integer with the number of events of colletive motion
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
 calc_events_N <- function(data)
 {
-  events_n <- lapply( split(data, data$date), function(x)
+  splitted_data <- split(data, data$set)
+
+  events_n <- lapply( splitted_data, function(x)
   {
     keep_t1 <- x$keep[1:(length(x$keep)-1)]
     keep_t2 <- x$keep[2:length(x$keep)]
@@ -24,7 +26,7 @@ calc_events_N <- function(data)
 
 #' @title Events total duration
 #' @description Calculates the total duration of events of collective motion in a dataset
-#' @param data A dataframe with a keep (representing which rows are defined as events of collective motion) and a date column
+#' @param data A dataframe with a keep (representing which rows are defined as events of collective motion) and a set column
 #' @param step2time the sampling frequency of the dataframe.
 #' @return a double, the total duration of events in the dataset
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
@@ -36,7 +38,7 @@ calc_events_duration <- function(data, step2time)
 
 #' @title Events duration
 #' @description Calculates the duration of each event of collective motion in a dataset
-#' @param data A dataframe with a keep (representing which rows are defined as events of collective motion) and a date column
+#' @param data A dataframe with a keep (representing which rows are defined as events of collective motion) and a set column
 #' @param step2time the sampling frequency of the dataframe.
 #' @return a dataframe of duration per event
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
@@ -54,14 +56,16 @@ calc_dur_per_event <- function(data, step2time)
 
 #' @title Events duration summary
 #' @description Provides a summary with the number of events, their start time and duration in the dataset
-#' @param data A dataframe with a keep (representing which rows are defined as events of collective motion) and a date column
+#' @param data A dataframe with a keep (representing which rows are defined as events of collective motion) and a set column
 #' @param step2time the sampling frequency of the dataframe.
-#' @return a dataframe with 3 columns: date, ev_count (number of events), dur (duration of events in seconds)
+#' @return a dataframe with 3 columns: set, ev_count (number of events), dur (duration of events in seconds)
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
 events_dur_summary <- function(data, step2time)
 {
-  events_n <- lapply( split(data, data$date), function(x, step2time)
+  splitted_data <- split(data, data$set)
+
+  events_n <- lapply( splitted_data, function(x, step2time)
   {
     keep_t1 <- x$keep[1:(length(x$keep)-1)]
     keep_t2 <- x$keep[2:length(x$keep)]
@@ -79,11 +83,11 @@ events_dur_summary <- function(data, step2time)
       } else{ nev <- 0 }
     }
 
-    return(c(x$date[1], nev, dur))
+    return(c(x$tosplit[1], nev, dur))
   },
   step2time = step2time)
 
-  return(data.frame(date = unlist(lapply(events_n, function(x){return(x[1])})),
+  return(data.frame(set = unlist(lapply(events_n, function(x){return(x[1])})),
                     ev_count = unlist(lapply(events_n, function(x){return(x[2])})),
                     dur = unlist(lapply(events_n, function(x){return(x[3])}))))
 }

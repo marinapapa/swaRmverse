@@ -1,6 +1,6 @@
 #' @title Global group metrics calculation
 #' @description Calculates the average speed, polarization and shape of all groups through time.
-#' @param data_dates_list A list of dataframes with groups timeseries per day. Column names must include: id, time, date, headx, heady, posx, posy
+#' @param data_list A list of dataframes with groups timeseries per day. Column names must include: id, time, set, headx, heady, posx, posy
 #' @param mov_av_time_window Integer, timesteps to use as a sliding window for average speed and polarization. Set NA if calculation is not needed.
 #' @param return_df logical, whether to return the result dataframes or not.
 #' @param lonlat logical, whether positions are geographic coordinates, default = FALSE.
@@ -9,7 +9,7 @@
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @seealso \code{\link{group_metrics_parallel}}, \code{\link{moving_average}}
 #' @export
-calc_global_group_metrics <- function(data_dates_list,
+calc_global_group_metrics <- function(data_list,
                                       mov_av_time_window,
                                       lonlat,
                                       return_df = TRUE,
@@ -26,9 +26,9 @@ calc_global_group_metrics <- function(data_dates_list,
     } else { stop('Input saving directory does not exist, check your out_csv_dir variable.') }
   }
 
-  toret <- vector('list', length(data_dates_list))
+  toret <- vector('list', length(data_list))
   pg_i = 1
-  for (df in data_dates_list)
+  for (df in data_list)
   {
     group_prop <- group_metrics_parallel(df, lonlat)
 

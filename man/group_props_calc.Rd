@@ -13,7 +13,7 @@ group_props_calc(x, lonlat)
 }
 \value{
 A dataframe with the group average timeseries, with columns:
- date, time, pol, speed, shape, N (number of individuals), missing_ind (whether some individuals are missing).
+ set, time, pol, speed, shape, N (number of individuals), missing_ind (whether some individuals are missing).
 }
 \description{
 Calculates the average speed, polarization and shape of the group through time.

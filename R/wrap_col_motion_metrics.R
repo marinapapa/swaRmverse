@@ -1,6 +1,6 @@
 #' @title Collective motion metrics from raw data
-#' @description Calculates metrics of collective motion across dates and events
-#' @param data A data frame with time series of individual's positional data through time. Columns must include: id, date, time, posx, posy
+#' @description Calculates metrics of collective motion across sets and events
+#' @param data A data frame with time series of individual's positional data through time. Columns must include: id, set, time, posx, posy
 #' @param mov_av_time_window to average over (in timesteps)
 #' @param step2time the sampling frequency, the relation between a time step and real time in seconds
 #' @param lonlat logical, whether positions are geographic coordinates, default = FALSE.
@@ -44,10 +44,9 @@ col_motion_metrics_from_raw <- function(data,
     group_prop$speed_av <- moving_average(group_prop$speed, mov_av_time_window)
     group_prop$pol_av <-  moving_average(group_prop$pol, mov_av_time_window)
     allgroup_props[[k]] <- group_prop
-    allrel_pos[[k]] <- rel_pos[, c('date', 't', 'nn_id', 'nnd', 'bangl')]
+    allrel_pos[[k]] <- rel_pos[, c('set', 't', 'nn_id', 'nnd', 'bangl')]
     k <- k + 1
   }
-
 
   names(allgroup_props) <- names(allrel_pos) <- NULL
   allgroup_props <- do.call(rbind, allgroup_props)
@@ -69,7 +68,7 @@ col_motion_metrics_from_raw <- function(data,
 }
 
 #' @title Collective motion metrics
-#' @description Calculates metrics of collective motion across dates and events
+#' @description Calculates metrics of collective motion across sets and events
 #' @param timeseries_data A data frame with time series of individual's positional data through time with nearest neighbor analysis conducted
 #' @param global_metrics A data frame with the global metrics timeseries.
 #' @param mov_av_time_window to average over (in timesteps)
@@ -92,12 +91,12 @@ col_motion_metrics <- function(timeseries_data,
                                pol_lim = NA
 )
 {
-  alldates <- unique(global_metrics$date)
+  alldates <- unique(global_metrics$set)
   allgroup_props <- vector('list', length = length(alldates))
   k <- 1
   for (adf in alldates)
   {
-    a_group_metrics <- global_metrics[global_metrics$date == adf, ]
+    a_group_metrics <- global_metrics[global_metrics$set == adf, ]
     a_group_metrics$speed_av <- moving_average(a_group_metrics$speed, mov_av_time_window)
     a_group_metrics$pol_av <-  moving_average(a_group_metrics$pol, mov_av_time_window)
 
@@ -118,7 +117,7 @@ col_motion_metrics <- function(timeseries_data,
   allgroup_props$event <- event_ids(allgroup_props$t, step2time = step2time)
 
   paiwise_data <- timeseries_data[timeseries_data$t %in% allgroup_props$t,
-                                  c('date', 't', 'nn_id', 'nnd', 'bangl')]
+                                  c('set', 't', 'nn_id', 'nnd', 'bangl')]
 
   toret <- calc_metrics_per_event(allgroup_props, paiwise_data)
   event_sum <- calc_dur_per_event(allgroup_props, step2time)

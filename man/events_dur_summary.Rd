@@ -7,12 +7,12 @@
 events_dur_summary(data, step2time)
 }
 \arguments{
-\item{data}{A dataframe with a keep (representing which rows are defined as events of collective motion) and a date column}
+\item{data}{A dataframe with a keep (representing which rows are defined as events of collective motion) and a set column}
 
 \item{step2time}{the sampling frequency of the dataframe.}
 }
 \value{
-a dataframe with 3 columns: date, ev_count (number of events), dur (duration of events in seconds)
+a dataframe with 3 columns: set, ev_count (number of events), dur (duration of events in seconds)
 }
 \description{
 Provides a summary with the number of events, their start time and duration in the dataset

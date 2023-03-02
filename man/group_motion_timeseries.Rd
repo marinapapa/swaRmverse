@@ -14,7 +14,7 @@ group_motion_timeseries(data, lonlat = TRUE, verbose = TRUE)
 \item{verbose}{whether to post updates on progress}
 }
 \value{
-a list of dataframes, an element per date from the input dataframe with new columns: headx, heady, velx, vely, speed, real_time
+a list of dataframes, an element per set from the input dataframe with new columns: headx, heady, velx, vely, speed, real_time
 }
 \description{
 Adds velocity and heading calculations to dataframe and transforms time to seconds from start per day.

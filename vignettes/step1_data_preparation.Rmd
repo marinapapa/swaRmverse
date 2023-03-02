@@ -16,18 +16,25 @@ library(swarmyverse)
 
 raw <- read.csv(system.file("extdata/video/01.csv", package = "trackdf"))
 raw <- raw[!raw$ignore, ]
-
+raw$context <- c(rep('f', nrow(raw)/2 ), rep('u', nrow(raw)/2))
 data_df <- set_data_format(raw_x = raw$x,
                           raw_y = raw$y,
                           raw_t = raw$frame,
                           raw_id = raw$track,
                           origin = "2019-03-24 12:55:23",
                           period = "1 sec",
-                          tz = "America/New_York",
+                          tz = "America/New_York"
                           )
 
 head(data_df)
 ```
+
+Input parameters:
+```{r message=FALSE, warning=FALSE}
+
+
+```
+
 
 ## 1.2 Calculate pairwise and global metrics (Optional)
 
@@ -36,19 +43,20 @@ head(data_df)
 
 data_dfs <- group_motion_timeseries(data_df, 
                                   lonlat = FALSE, 
-                                  verbose = TRUE)
+                                  verbose = TRUE
+                                  )
 
 smoothing_time_window <- 30 # seconds
 
-g_metr <- calc_global_group_metrics(data_dates_list = data_dfs,
+g_metr <- calc_global_group_metrics(data_list = data_dfs,
                                    mov_av_time_window = smoothing_time_window,
                                    lonlat = FALSE,
                                    return_df = TRUE,
                                    out_csv_dir = NA)
 
-data_df <- nn_analysis(data_dates_list = data_dfs, 
-                            lonlat = FALSE,
-                            verbose = TRUE)
+data_df <- nn_analysis(data_list = data_dfs, 
+                       lonlat = FALSE,
+                       verbose = TRUE)
 
 ```
 
@@ -85,5 +93,7 @@ new_species_metrics <- col_motion_metrics(data_df,
 )
 
 new_species_metrics$species <- 'new_species_id'
+
+ev_summary <- events_dur_summary(data_df, step2time = 1)
 
 ```

@@ -1,20 +1,20 @@
 #' @title Calculate metrics of collective motion
-#' @description Calculates metrics of collective motion across dates and events
-#' @param global_df A data frame with time series of global group measurements. Columns must include:  date, time, event, pol, shape, speed
-#' @param pairwise_df A data frame with time series of pairwise measurements. Columns must include:  date, time, id, dist, bangl
+#' @description Calculates metrics of collective motion across sets and events
+#' @param global_df A data frame with time series of global group measurements. Columns must include:  set, t, event, pol, shape, speed
+#' @param pairwise_df A data frame with time series of pairwise measurements. Columns must include:  set, t, id, dist, bangl
 #' @return A dataframe with 10 metrics per event
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @seealso \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
 #' @export
 calc_metrics_per_event <- function(global_df, pairwise_df)
 {
-  if (!(all(c('pol', 'speed', 'shape', 'nnd', 'bangl', 'date', 't', 'event') %in% c(colnames(global_df), colnames(pairwise_df)))))
-  {stop("Input dataframes should include the following columns: 'pol', 'speed', 'shape', 'nnd', 'bangl', 'date', 't', 'event' ")}
+  if (!(all(c('pol', 'speed', 'shape', 'nnd', 'bangl', 'set', 't', 'event') %in% c(colnames(global_df), colnames(pairwise_df)))))
+  {stop("Input dataframes should include the following columns: 'pol', 'speed', 'shape', 'nnd', 'bangl', 'set', 't', 'event' ")}
 
   pairwise_df$frontness <- frontness(pairwise_df$bangl)
 
   pairwise_df <- by(pairwise_df, list(pairwise_df$t), function(df) {
-    with(df, data.frame(date = date[[1]],
+    with(df, data.frame(set = set[[1]],
                         t = t[[1]],
                         mean_nnd = mean(nnd, na.rm = T),
                         sd_nnd = stats::sd(nnd, na.rm = T),
@@ -29,6 +29,8 @@ calc_metrics_per_event <- function(global_df, pairwise_df)
 
   retdf <- by(retdf, retdf$event, function(df) {
     with(df, data.frame(event = event[[1]],
+                        group_size = min(group_size, na.rm = T),
+                        set = set[[1]],
                         mean_mean_nnd = mean(mean_nnd, na.rm = T),
                         mean_sd_nnd = mean(sd_nnd, na.rm = T),
                         sd_mean_nnd = stats::sd(mean_nnd, na.rm = T),
@@ -38,8 +40,7 @@ calc_metrics_per_event <- function(global_df, pairwise_df)
                         mean_sd_front = mean(sd_front, na.rm = T),
                         mean_mean_bangl = mean(mean_bangl, na.rm = T),
                         mean_shape = mean(shape, na.rm = T),
-                        sd_shape = stats::sd(shape, na.rm = T),
-                        group_size = min(group_size, na.rm = T)
+                        sd_shape = stats::sd(shape, na.rm = T)
                         ))
   })
   names(retdf) <- NULL

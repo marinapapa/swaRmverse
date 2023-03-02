@@ -3,7 +3,7 @@
 #' @param data A data frame with time series of individual's positional data through time.
 #' @param lonlat logical, whether positions are geographic coordinates, default = FALSE.
 #' @param verbose whether to post updates on progress
-#' @return a list of dataframes, an element per date from the input dataframe with new columns: headx, heady, velx, vely, speed, real_time
+#' @return a list of dataframes, an element per set from the input dataframe with new columns: headx, heady, velx, vely, speed, real_time
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @seealso \code{\link{padd_motion_properties}}
 #' @export
@@ -13,22 +13,22 @@ group_motion_timeseries <- function(data,
                                     )
 {
   # # filter out days that have data for only 1 individual?
-  dates_in <- unique(data$date)
-  toret <- vector('list', length = length(dates_in))
+  splitted_data <- split(data, data$set)
+  spl_vec <- length(splitted_data)
+  toret <- vector('list', length = length(spl_vec))
 
   if (verbose) {
-    print('Going through every day of the dataset:')
+    print('Going through every set of the dataset:')
   }
-  pg_i = 1
-  for (adate in dates_in)
+
+  for (pg_i in 1:spl_vec)
   {
-    df <- data[data$date == adate, ]
+    df <- splitted_data[[pg_i]]
     df <- padd_motion_properties(df,
                                   verbose = verbose,
                                   lonlat = lonlat)
 
     toret[[pg_i]] <- df
-    pg_i <- pg_i + 1
   }
   return(toret)
 }

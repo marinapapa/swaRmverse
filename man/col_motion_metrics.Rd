@@ -36,7 +36,7 @@ col_motion_metrics(
 a dataframe with metrics of collective motion per event
 }
 \description{
-Calculates metrics of collective motion across dates and events
+Calculates metrics of collective motion across sets and events
 }
 \seealso{
 \code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
