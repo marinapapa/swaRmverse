@@ -12,7 +12,7 @@ vignette: >
 ## 1.1 Load and transform data - trackdf
 
 ```{r message=FALSE, warning=FALSE}
-library(swarmyverse)
+library(swaRmverse)
 
 raw <- read.csv(system.file("extdata/video/01.csv", package = "trackdf"))
 raw <- raw[!raw$ignore, ]
