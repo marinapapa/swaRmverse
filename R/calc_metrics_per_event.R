@@ -11,9 +11,18 @@ calc_metrics_per_event <- function(global_df, pairwise_df)
   if (!(all(c('pol', 'speed', 'shape', 'nnd', 'bangl', 'set', 't', 'event') %in% c(colnames(global_df), colnames(pairwise_df)))))
   {stop("Input dataframes should include the following columns: 'pol', 'speed', 'shape', 'nnd', 'bangl', 'set', 't', 'event' ")}
 
+  if (nrow(global_df) < 1) {
+    print('No collective motion events identified with given thresholds.')
+    empt_ret <- as.data.frame(matrix(NA, ncol = 13 , nrow = 0))
+    colnames(empt_ret) <- c("event", "group_size", "set","mean_mean_nnd", "mean_sd_nnd", "sd_mean_nnd",
+                             "mean_pol", "sd_pol", "stdv_speed","mean_sd_front", "mean_mean_bangl", "mean_shape",
+                            "sd_shape")
+    return(empt_ret)
+  }
+
   pairwise_df$frontness <- frontness(pairwise_df$bangl)
 
-  pairwise_df <- by(pairwise_df, list(pairwise_df$t), function(df) {
+  pairwise_df <- by(pairwise_df, list(format(pairwise_df$t, "%Y-%m-%d %H:%M:%OS2")), function(df) {
     with(df, data.frame(set = set[[1]],
                         t = t[[1]],
                         mean_nnd = mean(nnd, na.rm = T),

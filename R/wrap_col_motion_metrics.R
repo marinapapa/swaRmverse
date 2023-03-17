@@ -60,10 +60,17 @@ col_motion_metrics_from_raw <- function(data,
   allgroup_props <- allgroup_props[allgroup_props$keep,]
 
   allgroup_props$event <- event_ids(allgroup_props$t, step2time = step2time)
-
   allrel_pos <- allrel_pos[allrel_pos$t %in% allgroup_props$t,]
 
   toret <- calc_metrics_per_event(allgroup_props, allrel_pos)
+  if (nrow(toret) < 1)
+  {
+    toret$event_dur <- numeric(0)
+    return(toret)
+  }
+  event_sum <- calc_dur_per_event(allgroup_props, step2time)
+
+  toret <- merge(toret, event_sum, all.x = TRUE)
   return(toret)
 }
 
@@ -120,6 +127,11 @@ col_motion_metrics <- function(timeseries_data,
                                   c('set', 't', 'nn_id', 'nnd', 'bangl')]
 
   toret <- calc_metrics_per_event(allgroup_props, paiwise_data)
+  if (nrow(toret) < 1)
+  {
+    toret$event_dur <- numeric(0)
+    return(toret)
+  }
   event_sum <- calc_dur_per_event(allgroup_props, step2time)
 
   toret <- merge(toret, event_sum, all.x = TRUE)

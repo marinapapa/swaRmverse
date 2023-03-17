@@ -44,7 +44,6 @@ set_data_format <- function(raw_x,
                            format = format,
                            table = "df")
 
-
   group_vars <- list(...)
   if (length(group_vars) != 0 ){
     if (any(lengths(group_vars) != nrow(tracked_df))) {
@@ -60,6 +59,10 @@ set_data_format <- function(raw_x,
 
   date_df <- data.frame(do.call('rbind', strsplit(as.character(tracked_df$t), ' ', fixed=TRUE)))
   tracked_df$set <- date_df[,1]
+
+  # right?
+  #if (period(period) < 1) {tracked_df$t <- format(tracked_df$t, "%Y-%m-%d %H:%M:%OS2" ) }
+
   return(tracked_df)
 }
 

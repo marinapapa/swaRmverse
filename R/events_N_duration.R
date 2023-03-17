@@ -6,6 +6,7 @@
 #' @export
 calc_events_N <- function(data)
 {
+  data <- data[!is.na(data$keep),]
   splitted_data <- split(data, data$set)
 
   events_n <- lapply( splitted_data, function(x)
@@ -15,6 +16,7 @@ calc_events_N <- function(data)
 
     event_start  <- (keep_t1 != keep_t2) & (keep_t2 == TRUE)
     if (all(keep_t1 == TRUE)){ return(1)}
+    if (keep_t1[1]) {event_start[1] <- TRUE}
     if (any(event_start == TRUE, na.rm = T))
     {
       return(table(event_start)['TRUE'])

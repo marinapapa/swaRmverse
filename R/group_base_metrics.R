@@ -22,7 +22,9 @@ group_metrics_parallel <- function(data, lonlat)
       stop("Data should contain more than 1 individual.")
     }
 
-  per_time <- split(data, data$t)
+  data$only_time <- format(data$t,"%H:%M:%OS2")
+  per_time <- split(data, data$only_time) ## right?
+  #per_time <- split(data, data$t) ## right?
 
   numCores <- parallel::detectCores()
   cl <- parallel::makeCluster(numCores)

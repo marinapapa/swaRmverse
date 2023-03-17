@@ -7,7 +7,7 @@
 #' @export
 event_ids <- function(t, step2time)
 {
-  st <- t[c(TRUE, diff(t) > step2time)]
+  st <- t[c(TRUE, round(diff(t),3) > step2time)]
   k <- length(st)
   event_idxs <- rep(k, length(t))
   for (i in rev(st)){
