@@ -30,13 +30,6 @@ data_df <- set_data_format(raw_x = raw$x,
 head(data_df)
 ```
 
-Input parameters:
-```{r message=FALSE, warning=FALSE}
-
-
-```
-
-
 ## 1.2 Calculate pairwise and global metrics (Optional)
 
 
@@ -44,8 +37,8 @@ Input parameters:
 
 data_dfs <- group_vels(data_df,
                        lonlat = FALSE,
-                       verbose = T,
-                       parallelize = T
+                       verbose = TRUE,
+                       parallelize = FALSE
                        )
 
 smoothing_time_window <- 30 # seconds
@@ -55,12 +48,14 @@ g_metr <- group_global_metrics(data_list = data_dfs,
                                lonlat = FALSE,
                                return_df = TRUE,
                                out_csv_dir = NA,
-                               parallelize = F)
+                               parallelize = FALSE
+                               )
 
 data_df <- group_nn_metrics(data_list = data_dfs,
                             lonlat = FALSE,
                             verbose = TRUE,
-                            parallelize = FALSE)
+                            parallelize = FALSE
+                            )
 
 ```
 

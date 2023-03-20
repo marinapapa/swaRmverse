@@ -6,7 +6,7 @@
 #'  Columns must include:  set, t, id, dist, bangl
 #' @return A dataframe with 10 metrics per event
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @seealso \code{\link{group_motion_timeseries}}
+#' @seealso \code{\link{global_metrics}}
 #' @export
 event_metrics <- function(global_df, pairwise_df) {
 

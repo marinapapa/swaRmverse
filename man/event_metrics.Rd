@@ -20,7 +20,7 @@ A dataframe with 10 metrics per event
 Calculates metrics of collective motion across sets and events
 }
 \seealso{
-\code{\link{group_motion_timeseries}}
+\code{\link{global_metrics}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

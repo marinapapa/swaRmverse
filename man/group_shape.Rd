@@ -30,6 +30,6 @@ bounding box around all objects.
 \code{\link{is_chull}}
 }
 \author{
-Simon Garnier, \email{garnier@njit.edu}, 
+Simon Garnier, \email{garnier@njit.edu},
 Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
 }
