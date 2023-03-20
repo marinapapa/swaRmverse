@@ -7,7 +7,9 @@
 calc_dur_per_event(data, step2time)
 }
 \arguments{
-\item{data}{A dataframe with a keep (representing which rows are defined as events of collective motion) and a set column}
+\item{data}{A dataframe with a keep column
+(representing which rows are defined as events of collective motion)
+and a set column.}
 
 \item{step2time}{the sampling frequency of the dataframe.}
 }
@@ -15,7 +17,8 @@ calc_dur_per_event(data, step2time)
 a dataframe of duration per event
 }
 \description{
-Calculates the duration of each event of collective motion in a dataset
+Calculates the duration of each event of
+collective motion in a dataset.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

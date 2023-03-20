@@ -9,17 +9,18 @@
 #' @param geo A logical value indicating whether the locations are defined by
 #'  geographic coordinates (pairs of longitude/latitude values). Default: FALSE.
 #'
-#' @return A list with the bounding box coordinates, its heights, its width, and the orientation
-#' of its longest side in degrees.
+#' @return A list with the bounding box coordinates, its heights, its width, 
+#' and the orientation of its longest side in degrees.
 #'
-#' @author Simon Garnier, \email{garnier@@njit.edu}, Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
+#' @author Simon Garnier, \email{garnier@@njit.edu}, 
+#' arina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @seealso \code{\link{is_chull}}
 #'
 #' @export
 calc_obb <- function(x, y, geo = FALSE) {
 
-  H    <- grDevices::chull(x, y)      ## hull indices, vertices ordered clockwise
+  H    <- grDevices::chull(x, y)  ## hull indices, vertices ordered clockwise
   n    <- length(H)      ## number of hull vertices
   hull <- as.matrix(data.frame(x = x[H], y = y[H]))        ## hull vertices
 
@@ -53,7 +54,7 @@ calc_obb <- function(x, y, geo = FALSE) {
   }
   ## extreme projections for min-area rect in subspace coordinates
   ## hull edge leading to minimum-area
-  eMin  <- which.min(widths*heights)
+  eMin  <- which.min(widths * heights)
 
   ## move projections to rectangle corners
   hPts <- rbind(rangeH[eMin, ], rep(rangeO[eMin, 1], 2))
@@ -102,11 +103,12 @@ calc_obb <- function(x, y, geo = FALSE) {
 #' @param geo A logical value indicating whether the locations are defined by
 #'  geographic coordinates (pairs of longitude/latitude values). Default: FALSE.
 #'
-#' @return A list with the estimate of how oblong the group is, and the details of
-#' the bounding box, i.e. its coordinates, height, width, and orientation
-#' of its longest side in degrees.
+#' @return A list with the estimate of how oblong the group is, and
+#' the details of the bounding box, i.e. its coordinates, height,
+#' width, and orientation of its longest side in degrees.
 #'
-#' @author Simon Garnier, \email{garnier@@njit.edu}, Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
+#' @author Simon Garnier, \email{garnier@@njit.edu},
+#' Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @seealso \code{\link{is_chull}}
 #'
@@ -116,7 +118,7 @@ group_shape <- function(x, y, hs, geo = FALSE) {
   if (!all(length(x) == c(length(y), length(hs))))
     stop("x, y and hs should have the same length.")
 
-  if (!is.numeric(x) | !is.numeric(y) | !is.numeric(hs))
+  if (!is.numeric(x) || !is.numeric(y) || !is.numeric(hs))
     stop("x, y and hs should be numeric.")
 
   theobb <- calc_obb(x, y, geo)
@@ -128,7 +130,7 @@ group_shape <- function(x, y, hs, geo = FALSE) {
   avhead <- atan2(avhead[2], avhead[1])
   db <- abs(avhead - theobb$angle)
   db[db > pi & !is.na(db)] <- abs(db - 2 * pi)
-  db[db > pi/2 & !is.na(db)] <- pi - db
+  db[db > pi / 2 & !is.na(db)] <- pi - db
   theobb$shape <- abs(db)
 
   return(theobb)

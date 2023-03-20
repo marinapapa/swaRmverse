@@ -17,9 +17,9 @@ group_shape(x, y, hs, geo = FALSE)
 geographic coordinates (pairs of longitude/latitude values). Default: FALSE.}
 }
 \value{
-A list with the estimate of how oblong the group is, and the details of
-the bounding box, i.e. its coordinates, height, width, and orientation
-of its longest side in degrees.
+A list with the estimate of how oblong the group is, and
+the details of the bounding box, i.e. its coordinates, height,
+width, and orientation of its longest side in degrees.
 }
 \description{
 Calculates how oblong the shape of a group is, relative
@@ -30,5 +30,6 @@ bounding box around all objects.
 \code{\link{is_chull}}
 }
 \author{
-Simon Garnier, \email{garnier@njit.edu}, Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
+Simon Garnier, \email{garnier@njit.edu}, 
+Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
 }

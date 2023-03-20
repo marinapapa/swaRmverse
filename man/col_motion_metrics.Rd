@@ -16,17 +16,20 @@ col_motion_metrics(
 )
 }
 \arguments{
-\item{timeseries_data}{A data frame with time series of individual's positional data through time with nearest neighbor analysis conducted}
+\item{timeseries_data}{A data frame with time series of individual's
+positional data through time with nearest neighbor analysis conducted}
 
 \item{global_metrics}{A data frame with the global metrics timeseries.}
 
 \item{mov_av_time_window}{to average over (in timesteps)}
 
-\item{step2time}{the sampling frequency, the relation between a time step and real time in seconds}
+\item{step2time}{the sampling frequency, the relation between a time step
+and real time in seconds}
 
 \item{verbose}{whether to post updates on progress}
 
-\item{interactive_mode}{whether to take the threshold for event definition from user.}
+\item{interactive_mode}{whether to take the threshold for
+event definition from user.}
 
 \item{speed_lim}{threshold for speed if interactive mode id off}
 
@@ -39,7 +42,7 @@ a dataframe with metrics of collective motion per event
 Calculates metrics of collective motion across sets and events
 }
 \seealso{
-\code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
+\code{\link{moving_average}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

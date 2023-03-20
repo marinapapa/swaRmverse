@@ -7,19 +7,23 @@
 define_events(df, sp_lim, pol_lim, step2time)
 }
 \arguments{
-\item{df}{A dataframe with a pol_av and speed_av columns for polarization and speed}
+\item{df}{A dataframe with a pol_av and speed_av columns
+for polarization and speed}
 
 \item{sp_lim}{The threshold of speed to use for events calculation}
 
 \item{pol_lim}{The threshold of polarization to use for events calculation}
 
-\item{step2time}{Sampling frequency, relation between time steps and real time}
+\item{step2time}{Sampling frequency, relation between
+time steps and real time}
 }
 \value{
-the dataframe with a keep column added. Also prints the number and duration of events defined.
+the dataframe with a keep column added.
+Also prints the number and duration of events defined.
 }
 \description{
-Adds a keep TRUE/FALSE column in the input dataframe based on the input thresholds
+Adds a keep TRUE/FALSE column in the input
+dataframe based on the input thresholds
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

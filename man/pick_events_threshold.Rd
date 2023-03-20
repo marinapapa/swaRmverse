@@ -21,10 +21,12 @@ pick_events_threshold(
 \item{input_threshold}{Returned in case interactive is off.}
 }
 \value{
-the input value of the user, representing the threshold for the definition of an event.
+the input value of the user, representing the
+threshold for the definition of an event.
 }
 \description{
-Interactive function that prints the quantiles of the input distribution and asks the user to input the threshold value they want.
+Interactive function that prints the quantiles of the
+ input distribution and asks the user to input the threshold value they want.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

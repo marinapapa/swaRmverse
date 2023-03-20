@@ -22,29 +22,43 @@ set_data_format(
 
 \item{raw_y}{A numeric vector representing the y coordinates of individual(s)}
 
-\item{raw_t}{A numeric vector that can be coerced to date-time objects by as_datetime representing the times (or frames) at which each location was recorded.}
+\item{raw_t}{A numeric vector that can be coerced to date-time objects by as
+datetime representing the times (or frames) at which each location
+was recorded.}
 
-\item{raw_id}{A vector representing the identity of each coordinate recording.}
+\item{raw_id}{A vector representing the identity of each coordinate
+recording.}
 
-\item{origin}{Something that can be coerced to a date-time object by as_datetime representing the start date and time of the observations when t is a numeric vector.}
+\item{origin}{Something that can be coerced to a date-time object by as_
+datetime representing the start date and time of the observations when t is
+a numeric vector.}
 
-\item{period}{A character vector in a shorthand format (e.g. "1 second") or ISO 8601 specification. This is used when t is a numeric vector to represent time unit of the observations.}
+\item{period}{A character vector in a shorthand format (e.g. "1 second")
+or ISO 8601 specification. This is used when t is a numeric vector to
+represent time unit of the observations.}
 
 \item{tz}{A time zone name. See OlsonNames.}
 
-\item{proj}{A character string or a sp::CRS object representing the projection of the coordinates. Leave empty if the coordinates are not projected (e.g., output of video tracking). "+proj=longlat" is suitable for the output of most GPS trackers.}
+\item{proj}{A character string or a sp::CRS object representing
+the projection of the coordinates. Leave empty if the coordinates are
+not projected (e.g., output of video tracking). "+proj=longlat" is suitable
+for the output of most GPS trackers.}
 
-\item{format}{A character string indicating the formatting of 't'. See strptime for how to specify this parameter.}
+\item{format}{A character string indicating the formatting of 't'.
+See strptime for how to specify this parameter.}
 
-\item{...}{Additional vectors representing categories that the data should be split by. If none, only the date
+\item{...}{Additional vectors representing categories that the data
+should be split by. If none, only the date
 will be used as a unit of data separation.}
 }
 \value{
-A track dataframe table, which is a colloquial term for an object of class track.
+A track dataframe table, which is a colloquial term for an
+ object of class track.
 }
 \description{
 A wrapper for the track_df function of \code{trackdf} package.
 }
 \author{
-Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}, Simon Garnier \email{garnier@njit.edu}
+Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com},
+Simon Garnier \email{garnier@njit.edu}
 }

@@ -12,34 +12,43 @@ col_motion_metrics_from_raw(
   verbose = TRUE,
   interactive_mode = TRUE,
   speed_lim = NA,
-  pol_lim = NA
+  pol_lim = NA,
+  parallelize_all = FALSE
 )
 }
 \arguments{
-\item{data}{A data frame with time series of individual's positional data through time. Columns must include: id, set, time, posx, posy}
+\item{data}{A data frame with time series of individual's positional
+data through time. Columns must include: id, set, time, posx, posy}
 
 \item{mov_av_time_window}{to average over (in timesteps)}
 
-\item{step2time}{the sampling frequency, the relation between a time step and real time in seconds}
+\item{step2time}{the sampling frequency, the relation between a time
+step and real time in seconds}
 
-\item{lonlat}{logical, whether positions are geographic coordinates, default = FALSE.}
+\item{lonlat}{logical, whether positions are geographic coordinates,
+default = FALSE.}
 
 \item{verbose}{whether to post updates on progress}
 
-\item{interactive_mode}{whether to take the threshold for event definition from user.}
+\item{interactive_mode}{whether to take the threshold for event
+definition from user.}
 
 \item{speed_lim}{threshold for speed if interactive mode id off}
 
 \item{pol_lim}{threshold for polarization if interactive mode id off}
+
+\item{parallelize_all}{whether or not to parallelize over ids and time.}
 }
 \value{
-either a list of dataframes with neighbor ids, bearing angles, distances and heading deviations for each individual through time, or saves individual csvs per day, depending on input.
+either a list of dataframes with neighbor ids, bearing angles,
+distances and heading deviations for each individual through time,
+or saves individual csvs per day, depending on input.
 }
 \description{
 Calculates metrics of collective motion across sets and events
 }
 \seealso{
-\code{\link{group_motion_timeseries}}, \code{\link{group_metrics_parallel}}
+\code{\link{group_vels}}, \code{\link{nn_metrics}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

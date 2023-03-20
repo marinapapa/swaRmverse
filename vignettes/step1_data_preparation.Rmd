@@ -20,10 +20,11 @@ raw$context <- c(rep('f', nrow(raw)/2 ), rep('u', nrow(raw)/2))
 data_df <- set_data_format(raw_x = raw$x,
                           raw_y = raw$y,
                           raw_t = raw$frame,
-                          raw_id = raw$track,
+                          raw_id = raw$id,
                           origin = "2019-03-24 12:55:23",
                           period = "1 sec",
-                          tz = "America/New_York"
+                          tz = "America/New_York",
+                        #  raw_track = raw$track
                           )
 
 head(data_df)
@@ -41,22 +42,25 @@ Input parameters:
 
 ```{r message=FALSE, warning=FALSE}
 
-data_dfs <- group_motion_timeseries(data_df, 
-                                  lonlat = FALSE, 
-                                  verbose = TRUE
-                                  )
+data_dfs <- group_vels(data_df,
+                       lonlat = FALSE,
+                       verbose = T,
+                       parallelize = T
+                       )
 
 smoothing_time_window <- 30 # seconds
 
-g_metr <- calc_global_group_metrics(data_list = data_dfs,
-                                   mov_av_time_window = smoothing_time_window,
-                                   lonlat = FALSE,
-                                   return_df = TRUE,
-                                   out_csv_dir = NA)
+g_metr <- group_global_metrics(data_list = data_dfs,
+                               mov_av_time_window = smoothing_time_window,
+                               lonlat = FALSE,
+                               return_df = TRUE,
+                               out_csv_dir = NA,
+                               parallelize = F)
 
-data_df <- nn_analysis(data_list = data_dfs, 
-                       lonlat = FALSE,
-                       verbose = TRUE)
+data_df <- group_nn_metrics(data_list = data_dfs,
+                            lonlat = FALSE,
+                            verbose = TRUE,
+                            parallelize = FALSE)
 
 ```
 
@@ -74,7 +78,8 @@ new_species_metrics <- col_motion_metrics_from_raw(data_df,
                                 verbose = TRUE,
                                 interactive_mode = FALSE,
                                 speed_lim = 5,
-                                pol_lim = 0.3
+                                pol_lim = 0.3,
+                                parallelize_all = FALSE
                                 )
 
 ```
@@ -82,7 +87,7 @@ If we have already calculated the global and pairwise metrics we use them direct
 
 ```{r message=FALSE, warning=FALSE}
 
-new_species_metrics <- col_motion_metrics(data_df, 
+new_species_metrics <- col_motion_metrics(data_df,
                                            global_metrics = g_metr,
                                            mov_av_time_window = 30,
                                            step2time = 1,
@@ -92,8 +97,8 @@ new_species_metrics <- col_motion_metrics(data_df,
                                            pol_lim = 0.3
 )
 
-new_species_metrics$species <- 'new_species_id'
+new_species_metrics$species <- "new_species_id"
 
-ev_summary <- events_dur_summary(data_df, step2time = 1)
+#ev_sum <- events_summary(data_df, step2time = 1)
 
 ```

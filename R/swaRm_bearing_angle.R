@@ -1,7 +1,8 @@
 #' @title Bearing Angle to Nearest Neighbor
 #'
-#' @description Given the locations and headings of different objects, this function
-#'  determines the angle between the heading of each object and the position to the nearest neighboring object.
+#' @description Given the locations and headings of different objects,
+#'  this function determines the angle between the heading of each object
+#'  and the position to the nearest neighboring object.
 #'
 #' @param x A vector of x (or longitude) coordinates.
 #'
@@ -15,7 +16,8 @@
 #' @return A vector of the same length as x and y representing the distance to
 #'  the nearest neighboring object for each object.
 #'
-#' @author Simon Garnier, \email{garnier@@njit.edu}, Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
+#' @author Simon Garnier, \email{garnier@@njit.edu},
+#'  Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @seealso \code{\link{pdist}}
 #'
@@ -30,7 +32,7 @@ nnba <- function(x, y, hs, geo = FALSE) {
   if (!all(length(x) == c(length(y), length(hs))))
     stop("x, y and hs should have the same length.")
 
-  if (!is.numeric(x) | !is.numeric(y) | !is.numeric(hs))
+  if (!is.numeric(x) || !is.numeric(y) || !is.numeric(hs))
     stop("x, y and hs should be numeric.")
 
   d <- swaRm::pdist(x, y, geo = geo)
@@ -40,8 +42,7 @@ nnba <- function(x, y, hs, geo = FALSE) {
   idx <- apply(d, 2, function(x) {
     if (sum(is.na(x)) != length(x)) {
       which(x == min(x, na.rm = TRUE))[1]
-    }
-    else {
+    } else {
       as.numeric(NA)
     }
   })
@@ -49,10 +50,10 @@ nnba <- function(x, y, hs, geo = FALSE) {
   if (geo) {
       m1 <- cbind(x, y)
       m2 <- cbind(x[idx], y[idx])
-      br <- geosphere::bearing(m1, m2) * pi/180
+      br <- geosphere::bearing(m1, m2) * pi / 180
   } else {
-      dx <- y[idx]- y
-      dy <- x[idx]- x
+      dx <- y[idx] - y
+      dy <- x[idx] - x
       br <- atan2(y = dy, x = dx)
   }
   db <- hs - br
@@ -72,10 +73,11 @@ nnba <- function(x, y, hs, geo = FALSE) {
 #'
 #' @param bs A vector of bearing angles (in rad) between objects.
 #'
-#' @return A vector of the same length as bs representing the frontness of a focal object to
-#' its neighbor.
+#' @return A vector of the same length as bs representing the frontness of
+#' a focal object to its neighbor.
 #'
-#' @author Simon Garnier, \email{garnier@@njit.edu}, Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
+#' @author Simon Garnier, \email{garnier@@njit.edu},
+#'  Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @seealso \code{\link{nnba}}
 #'
@@ -89,8 +91,8 @@ frontness <- function(bs) {
   if (!is.numeric(bs))
     stop("bs should be numeric.")
 
-  if (any(abs(bs) > pi,  na.rm = T)) {
-    stop('The bearing angle values should range between -pi and +pi rad.')}
-
-  abs(bs)/pi
+  if (any(abs(bs) > pi,  na.rm = TRUE)) {
+    stop("The bearing angle values should range between -pi and +pi rad.")
+    }
+  abs(bs) / pi
 }

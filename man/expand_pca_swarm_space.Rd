@@ -18,10 +18,12 @@ expand_pca_swarm_space(
 
 \item{pca_data}{Coordinates of initial data in swarm space}
 
-\item{event_duration_limit}{Filter out events that are shorter than given duration.}
+\item{event_duration_limit}{Filter out events that are shorter
+than given duration.}
 }
 \value{
-the extended swarm space, x and y coordinates per event of each species
+the extended swarm space, x and y coordinates
+per event of each species.
 }
 \description{
 Predicts the positions of new event data in existing pca space

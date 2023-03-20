@@ -7,7 +7,7 @@
 create_swarm_space(
   metrics_data,
   space_type = "pca",
-  event_duration_limit = NA,
+  event_dur_limit = NA,
   tsne_rand_seed = NA,
   tsne_perplexity = 10,
   save_pca_path = NULL
@@ -18,13 +18,15 @@ create_swarm_space(
 
 \item{space_type}{Choice between pca and tsne.}
 
-\item{event_duration_limit}{Filter out events that are shorter than given duration.}
+\item{event_dur_limit}{Filter out events that are shorter
+than given duration.}
 
 \item{tsne_rand_seed}{Random seed for tsne}
 
 \item{tsne_perplexity}{Perplexity parameter for tsne. Usually between 10-50.}
 
-\item{save_pca_path}{Directory to save the results of the PCA analysis (instead of just returning the PC1-3 points).
+\item{save_pca_path}{Directory to save the results of the PCA analysis
+(instead of just returning the PC1-3 points).
 If NULL (default), the pca is not saved.}
 }
 \value{

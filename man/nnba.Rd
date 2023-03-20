@@ -21,8 +21,9 @@ A vector of the same length as x and y representing the distance to
  the nearest neighboring object for each object.
 }
 \description{
-Given the locations and headings of different objects, this function
- determines the angle between the heading of each object and the position to the nearest neighboring object.
+Given the locations and headings of different objects,
+ this function determines the angle between the heading of each object
+ and the position to the nearest neighboring object.
 }
 \examples{
 x <- rnorm(25)
@@ -35,5 +36,6 @@ nnba(x, y, hs)
 \code{\link{pdist}}
 }
 \author{
-Simon Garnier, \email{garnier@njit.edu}, Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
+Simon Garnier, \email{garnier@njit.edu},
+ Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
 }

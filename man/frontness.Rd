@@ -10,8 +10,8 @@ frontness(bs)
 \item{bs}{A vector of bearing angles (in rad) between objects.}
 }
 \value{
-A vector of the same length as bs representing the frontness of a focal object to
-its neighbor.
+A vector of the same length as bs representing the frontness of
+a focal object to its neighbor.
 }
 \description{
 Given the bearing angle of an object to another, this function
@@ -27,5 +27,6 @@ frontness(bs)
 \code{\link{nnba}}
 }
 \author{
-Simon Garnier, \email{garnier@njit.edu}, Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
+Simon Garnier, \email{garnier@njit.edu},
+ Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
 }

@@ -15,7 +15,8 @@ event_ids(t, step2time)
 a vector of the same size as t with event ids
 }
 \description{
-Returns a vector with event ids that corresponds to the input time vector, according to the continuity of time.
+Returns a vector with event ids that corresponds
+to the input time vector, according to the continuity of time.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}
