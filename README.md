@@ -1,7 +1,7 @@
 # swaRmverse  <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/marinapapa/swaRmverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/marinapapa/swaRmverse/actions/workflows/R-CMD-check.yml)
+[![R-CMD-check](https://github.com/marinapapa/swaRmverse/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/marinapapa/swaRmverse/actions/workflows/R-CMD-check.yml)
 
 <!-- badges: end -->
 ## Description 
