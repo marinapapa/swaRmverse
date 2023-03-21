@@ -22,7 +22,7 @@ group_vels <- function(data,
   splitted_data <- split(data, data$set)
 
   if (verbose) {
-    print("Going through every set of the dataset:")
+    print("Going through every set of the dataset..")
   }
   toret <- lapply(X = splitted_data,
                   FUN = add_vels,
@@ -30,5 +30,8 @@ group_vels <- function(data,
                   lonlat = lonlat,
                   parallelize = parallelize
   )
+  if (verbose) {
+    print("Done!")
+  }
   return(toret)
 }

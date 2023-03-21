@@ -7,7 +7,6 @@
 col_motion_metrics(
   timeseries_data,
   global_metrics,
-  mov_av_time_window,
   step2time = 1,
   verbose = TRUE,
   interactive_mode = TRUE,
@@ -20,8 +19,6 @@ col_motion_metrics(
 positional data through time with nearest neighbor analysis conducted}
 
 \item{global_metrics}{A data frame with the global metrics timeseries.}
-
-\item{mov_av_time_window}{to average over (in timesteps)}
 
 \item{step2time}{the sampling frequency, the relation between a time step
 and real time in seconds}

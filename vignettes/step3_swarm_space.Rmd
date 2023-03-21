@@ -1,15 +1,14 @@
 ---
-title: "Build swarm space"
+title: "3 - Build swarm space"
 author: "Marina Papadopoulou"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Build swarm space}
+  %\VignetteIndexEntry{3 - Build swarm space}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-## 2.1 Load data
+## 3.1 Load data
 
 Load the metrics of collective motion calculated previously. Include the events you want to compare in a swarm space.
 
@@ -23,7 +22,7 @@ all_data <- multi_species_metrics
 
 ```
 
-## 2.2 Build swarm space
+## 3.2 Build swarm space
 
 Create new swarm space with PCA analysis:
 
@@ -51,7 +50,7 @@ ggplot2::ggplot(new_tsne, ggplot2::aes(x = X, y = Y, color = species)) +
   ggplot2::theme_bw() 
 
 ```
-## 2.3 Expand existing swarm space
+## 3.3 Expand existing swarm space
 
 Starting from previously generated PCA swarm space, add new data:
 

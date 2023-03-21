@@ -94,7 +94,6 @@ col_motion_metrics_from_raw <- function(data,
 #' @param timeseries_data A data frame with time series of individual's
 #' positional data through time with nearest neighbor analysis conducted
 #' @param global_metrics A data frame with the global metrics timeseries.
-#' @param mov_av_time_window to average over (in timesteps)
 #' @param step2time the sampling frequency, the relation between a time step
 #' and real time in seconds
 #' @param verbose whether to post updates on progress
@@ -108,7 +107,6 @@ col_motion_metrics_from_raw <- function(data,
 #' @export
 col_motion_metrics <- function(timeseries_data,
                                global_metrics,
-                               mov_av_time_window,
                                step2time = 1,
                                verbose = TRUE,
                                interactive_mode = TRUE,
