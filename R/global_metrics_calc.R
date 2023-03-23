@@ -24,7 +24,7 @@ global_metrics <- function(data,
     }
 
   if (length(unique(data$id)) < 2) {
-      stop("Data should contain more than 1 individual.")
+      warning("Some sets have group sizes of 1.")
     }
 
   data$only_time <- format(data$t, "%H:%M:%OS2")

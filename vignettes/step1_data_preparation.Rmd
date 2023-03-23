@@ -46,7 +46,7 @@ As mentioned above, `swaRmverse` uses the date as a default data organization un
 
 ```{r message=FALSE, warning=FALSE}
 # dummy column
-raw$context <- c(rep('ctx1', nrow(raw)/2 ), rep('ctx2', nrow(raw)/2))
+raw$context <- c(rep("ctx1", nrow(raw) / 2), rep("ctx2", nrow(raw) / 2))
 
 ```
 

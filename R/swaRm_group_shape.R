@@ -9,11 +9,11 @@
 #' @param geo A logical value indicating whether the locations are defined by
 #'  geographic coordinates (pairs of longitude/latitude values). Default: FALSE.
 #'
-#' @return A list with the bounding box coordinates, its heights, its width, 
+#' @return A list with the bounding box coordinates, its heights, its width,
 #' and the orientation of its longest side in degrees.
 #'
-#' @author Simon Garnier, \email{garnier@@njit.edu}, 
-#' arina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
+#' @author Simon Garnier, \email{garnier@@njit.edu},
+#' Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @seealso \code{\link{is_chull}}
 #'
@@ -27,7 +27,10 @@ calc_obb <- function(x, y, geo = FALSE) {
   ## unit basis vectors for all subspaces spanned by the hull edges
   hDir <- diff(rbind(hull, hull[1, ])) ## hull vertices are circular
   hLens <- sqrt(rowSums(hDir^2))        ## length of basis vectors
-  huDir <- diag(1/hLens) %*% hDir       ## scaled to unit length
+  if (any(is.na(hLens)) || any(hLens == 0)) {
+    return(list(pts = NA, height = NA, width = NA, angle = NA))
+  }
+  huDir <- diag(1 / hLens) %*% hDir       ## scaled to unit length
 
   ## unit basis vectors for the orthogonal subspaces
   ## rotation by 90 deg -> y' = x, x' = -y
@@ -40,17 +43,17 @@ calc_obb <- function(x, y, geo = FALSE) {
   ## range of projections and corresponding width/height of bounding rectangle
   HO <- list(seq_len(n), (seq_len(n) + n))
 
-  rangeH  <- matrix(numeric(n*2), ncol = 2)  ## hull edge
-  rangeO  <- matrix(numeric(n*2), ncol = 2)  ## orthogonal subspace
+  rangeH  <- matrix(numeric(n * 2), ncol = 2)  ## hull edge
+  rangeO  <- matrix(numeric(n * 2), ncol = 2)  ## orthogonal subspace
   widths  <- numeric(n)
   heights <- numeric(n)
 
-  for(i in 1:n) {
-    rangeH[i, ] <- range(projMat[i,])
+  for (i in 1:n) {
+    rangeH[i, ] <- range(projMat[i, ])
     ## the orthogonal subspace is in the 2nd half of the matrix
     rangeO[i, ] <- range(projMat[n + i, ])
-    widths[i]   <- abs(diff(rangeH[i,]))
-    heights[i]  <- abs(diff(rangeO[i,]))
+    widths[i]   <- abs(diff(rangeH[i, ]))
+    heights[i]  <- abs(diff(rangeO[i, ]))
   }
   ## extreme projections for min-area rect in subspace coordinates
   ## hull edge leading to minimum-area
@@ -66,7 +69,7 @@ calc_obb <- function(x, y, geo = FALSE) {
   basis <- cbind(huDir[eMin, ], ouDir[eMin, ])
   hCorn <- basis %*% hPts
   oCorn <- basis %*% oPts
-  pts   <- t(cbind(hCorn, oCorn[ , c(2, 1)]))
+  pts   <- t(cbind(hCorn, oCorn[, c(2, 1)]))
   colnames(pts) <- c("X", "Y")
 
   ## angle of longer edge pointing up
@@ -75,7 +78,7 @@ calc_obb <- function(x, y, geo = FALSE) {
   eUp  <- e * sign(e[2])       ## rotate upwards 180 deg if necessary
   deg  <- atan2(eUp[2], eUp[1])    ## angle in rads
 
-  if (geo){
+  if (geo) {
     geodists <- geosphere::distGeo(p1 = pts)
     bwidth <- geodists[1]
     bheight <- geodists[2]

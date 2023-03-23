@@ -4,14 +4,15 @@
 \alias{do_pca}
 \title{Perform PCA}
 \usage{
-do_pca(df, save_pca_path)
+do_pca(df)
 }
 \arguments{
 \item{df}{a dataframe with the metrics of collective motion
 per species/set per event.}
 }
 \value{
-a dataframe with PC1, PC2, PC3 coordinates per event.
+a list with the swarm space (a dataframe with PC1, PC2, PC3
+coordinates per event per species) and the new pca object.
 }
 \description{
 Calculating the pca space.

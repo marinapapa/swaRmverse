@@ -6,9 +6,6 @@
 #' than given duration.
 #' @param tsne_rand_seed Random seed for tsne
 #' @param tsne_perplexity Perplexity parameter for tsne. Usually between 10-50.
-#' @param save_pca_path Directory to save the results of the PCA analysis
-#' (instead of just returning the PC1-3 points).
-#' If NULL (default), the pca is not saved.
 #' @return the swarm space, x and y coordinates per event of each species
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
@@ -16,12 +13,11 @@ create_swarm_space <- function(metrics_data,
                         space_type = "pca",
                         event_dur_limit = NA,
                         tsne_rand_seed = NA,
-                        tsne_perplexity = 10,
-                        save_pca_path = NULL
+                        tsne_perplexity = 10
                         ) {
   if (!(is.na(event_dur_limit))) {
     if (!(any(colnames(metrics_data) == "event_dur"))) {
-      stop("A column named 'event_dur' is needed to 
+      stop("A column named 'event_dur' is needed to
       apply an event duration limit.")
     }
     metrics_data <- metrics_data[metrics_data$event_dur_s > event_dur_limit, ]
@@ -29,11 +25,11 @@ create_swarm_space <- function(metrics_data,
 
   metrics_data <- metrics_data[stats::complete.cases(metrics_data), ]
   df <- metrics_data[, !(
-            names(metrics_data) %in% c("event", "event_dur")
+            names(metrics_data) %in% c("event", "event_dur", "group_size")
             )]
 
   if (space_type == "pca") {
-    pca_data <- do_pca(df, save_pca_path)
+    pca_data <- do_pca(df)
     return(pca_data)
   }
 
@@ -47,19 +43,20 @@ create_swarm_space <- function(metrics_data,
 #' @description Calculating the pca space.
 #' @param df a dataframe with the metrics of collective motion
 #' per species/set per event.
-#' @return a dataframe with PC1, PC2, PC3 coordinates per event.
+#' @return a list with the swarm space (a dataframe with PC1, PC2, PC3
+#' coordinates per event per species) and the new pca object.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @keywords internal
-do_pca <- function(df, save_pca_path) {
+do_pca <- function(df) {
  pca_res <- stats::prcomp(df[, names(df) != "species"],
                              center = TRUE,
                              scale. = TRUE)
+
  pca_data <- data.frame(df$species, pca_res$x[, 1:3])
  colnames(pca_data) <- c("species", "PC1", "PC2", "PC3")
- if (!is.null(save_pca_path)) {
-    save(pca_res, file = paste0(save_pca_path, "/pca_res.Rdata"))
-  }
-  return(pca_data)
+ toret <- list(swarm_space = pca_data, pca = pca_res)
+
+ return(toret)
 }
 
 
@@ -107,7 +104,7 @@ expand_pca_swarm_space <- function(metrics_data,
                         ) {
   if (!(is.na(event_duration_limit))) {
     if (!(any(colnames(metrics_data) == "event_dur_s"))) {
-      stop("A column named 'event_dur_s' is 
+      stop("A column named 'event_dur_s' is
             needed to apply an event duration limit.")
     }
     metrics_data <- metrics_data[
@@ -116,7 +113,7 @@ expand_pca_swarm_space <- function(metrics_data,
 
   metrics_data <- metrics_data[stats::complete.cases(metrics_data), ]
   topca <- metrics_data[, !(names(metrics_data) %in%
-                            c("species", "event", "event_dur", "event_dur_s"))]
+                            c("species", "event", "event_dur"))]
 
   newpca <- as.data.frame(stats::predict(pca_space, topca))
   newpca$species <- metrics_data$species

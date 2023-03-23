@@ -22,7 +22,7 @@ group_vels <- function(data,
   splitted_data <- split(data, data$set)
 
   if (verbose) {
-    print("Going through every set of the dataset..")
+    print("Adding velocity info to every set of the dataset..")
   }
   toret <- lapply(X = splitted_data,
                   FUN = add_vels,

@@ -19,7 +19,7 @@ library(swaRmverse)
 #data_df <- trackdf::tracks
 #raw$set <- c(rep('ctx1', nrow(raw)/2 ), rep('ctx2', nrow(raw)/2))
 raw <- read.csv(system.file("extdata/video/01.csv", package = "trackdf"))
-raw <- raw[!raw$ignore, ] 
+raw <- raw[!raw$ignore, ]
 
 data_df <- set_data_format(raw_x = raw$x,
                           raw_y = raw$y,
@@ -37,7 +37,7 @@ data_dfs <- group_vels(data_df,
                        verbose = TRUE,
                        parallelize = FALSE
                        )
-print(paste('Velocity information added for', length(data_dfs), 'sets.'))
+print(paste("Velocity information added for", length(data_dfs), "sets."))
 ```
 
 If there is a high number of sets in the dataset, the parallelization of the function can be turned on (setting _parallelize_ argument to TRUE). This is not recommended for small to intermediate data sizes.
@@ -48,7 +48,10 @@ Based on the list of positional data and calculated velocities, we can now calcu
 
 ```{r message=FALSE, warning=FALSE}
 
-smoothing_time_window <- 5 # seconds
+sampling_timestep <- 0.04
+time_window <- 1 # seconds
+smoothing_time_window <- time_window / sampling_timestep
+
 g_metr <- group_global_metrics(data_list = data_dfs,
                                mov_av_time_window = smoothing_time_window,
                                lonlat = is_geo,
@@ -85,7 +88,6 @@ Based on the global and local measurements, we then calculate a series of metric
 
 ```{r message=FALSE, warning=FALSE}
 
-sampling_timestep <- 1 
 new_species_metrics <- col_motion_metrics(data_df,
                                            global_metrics = g_metr,
                                            step2time = sampling_timestep,
@@ -100,9 +102,6 @@ new_species_metrics <- col_motion_metrics(data_df,
 The number of events and their total duration given the input thresholds is also printed. If we are not interested in inspecting the timeseries of the measurements, on can calculate the metrics directly from the formatted dataset: 
 
 ```{r message=FALSE, warning=FALSE}
-
-smoothing_time_window <- 10 # seconds
-sampling_timestep <- 1 
 
 new_species_metrics <- col_motion_metrics_from_raw(data_df,
                                 mov_av_time_window = smoothing_time_window,
