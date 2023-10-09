@@ -15,6 +15,7 @@
 #' @export
 global_metrics <- function(data,
                            lonlat,
+                           unit = 1,
                            parallelize = FALSE) {
   if (!is.data.frame(data) ||
       !("t" %in% colnames(data)) ||
@@ -27,7 +28,11 @@ global_metrics <- function(data,
       warning("Some sets have group sizes of 1.")
     }
 
-  data$only_time <- format(data$t, "%H:%M:%OS2")
+  if (unit < 1){
+    data$only_time <- format(data$t, "%H:%M:%OS2")
+  } else{
+    data$only_time <- format(data$t, "%H:%M:%S")
+  }
   per_time <- split(data, data$only_time) ## right?, instead of data$t
 
   if (parallelize) {
@@ -38,7 +43,7 @@ global_metrics <- function(data,
 
   names(gm) <- NULL
   gm <- do.call(rbind, gm)
-  gm <- gm[stats::complete.cases(gm), ]
+ # gm <- gm[stats::complete.cases(gm), ]
 
   return(gm)
 }

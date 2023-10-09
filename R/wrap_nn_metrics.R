@@ -16,16 +16,25 @@
 group_nn_metrics <- function(data_list,
                         lonlat = FALSE,
                         verbose = FALSE,
-                        parallelize = FALSE
+                        parallelize = FALSE,
+                        step2time = NA,
+                        M = NA,
+                        time_window = NA,
+                        add_coords = FALSE
+
+
 ) {
   if (verbose) print("Pairwise analysis started..")
 
   toret <- lapply(X = data_list,
                   FUN = nn_metrics,
-                  add_coords = FALSE,
+                  add_coords = add_coords,
                   lonlat = lonlat,
                   verbose = verbose,
-                  parallelize = parallelize
+                  parallelize = parallelize,
+                  step2time = step2time,
+                  M = M,
+                  tw = time_window
                   )
 
   names(toret) <- NULL

@@ -42,8 +42,9 @@ event_metrics <- function(global_df, pairwise_df) {
 #' @keywords internal
 calc_pairwise_metrics <- function(df) {
   df$frontness <- frontness(df$bangl)
+  df$to_spl <- paste(df$set, df$only_time)
   df <- by(df,
-          list(format(df$t, "%Y-%m-%d %H:%M:%OS2")),
+           df$to_spl,
               function(df) {
                 with(df,
                       data.frame(
@@ -52,8 +53,7 @@ calc_pairwise_metrics <- function(df) {
                       mean_nnd = mean(nnd, na.rm = TRUE),
                       sd_nnd = stats::sd(nnd, na.rm = TRUE),
                       sd_front = stats::sd(frontness, na.rm = TRUE),
-                      mean_bangl = mean(abs(bangl), na.rm = TRUE),
-                      group_size = nrow(df)
+                      mean_bangl = mean(abs(bangl), na.rm = TRUE)
                       )
                     )
                 }
@@ -76,7 +76,7 @@ calc_events_averages <- function(df) {
   df <- by(df, df$event, function(df) {
     with(df,
          data.frame(event = event[[1]],
-                    group_size = min(group_size, na.rm = TRUE),
+                    group_size = N[[1]],
                     set = set[[1]],
                     mean_mean_nnd = mean(mean_nnd, na.rm = TRUE),
                     mean_sd_nnd = mean(sd_nnd, na.rm = TRUE),

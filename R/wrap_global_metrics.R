@@ -18,6 +18,7 @@
 group_global_metrics <- function(data_list,
                                  mov_av_time_window,
                                  lonlat,
+                                 step2time,
                                  return_df = TRUE,
                                  out_csv_dir = NA,
                                  parallelize = FALSE
@@ -36,15 +37,17 @@ group_global_metrics <- function(data_list,
      }
   }
 
-toret <- lapply(X = data_list, FUN = function(x, lonlat, par, tw) {
+toret <- lapply(X = data_list, FUN = function(x, lonlat, par, tw, st2t) {
                   gm <- global_metrics(x,
                                        lonlat = lonlat,
-                                       parallelize = par)
+                                       parallelize = par,
+                                       unit = st2t)
                   gm$speed_av <- moving_average(gm$speed, tw)
                   gm$pol_av <-  moving_average(gm$pol, tw)
                   return(gm)
                 },
                 lonlat = lonlat,
+                st2t = step2time,
                 par = parallelize,
                 tw = mov_av_time_window)
 

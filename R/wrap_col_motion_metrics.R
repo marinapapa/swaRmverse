@@ -76,7 +76,7 @@ col_motion_metrics_from_raw <- function(data,
   gm_all <- gm_all[!is.na(gm_all$keep), ]
   gm_all <- gm_all[gm_all$keep, ]
 
-  gm_all$event <- event_ids(gm_all$t, step2time = step2time)
+  gm_all$event <- event_ids(gm_all, step2time = step2time)
   nn_all <- nn_all[nn_all$t %in% gm_all$t, ]
 
   toret <- event_metrics(gm_all, nn_all)
@@ -131,7 +131,7 @@ col_motion_metrics <- function(timeseries_data,
   gm_all <- gm_all[!is.na(gm_all$keep), ]
   gm_all <- gm_all[gm_all$keep, ]
 
-  gm_all$event <- event_ids(gm_all$t, step2time = step2time)
+  gm_all$event <- event_ids(gm_all, step2time = step2time)
   nn_all <- timeseries_data[timeseries_data$t %in% gm_all$t,
                             c("set", "t", "nn_id", "nnd", "bangl")]
 

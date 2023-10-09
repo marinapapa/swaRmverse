@@ -74,7 +74,10 @@ From the timeseries of positions and velocities, we can calculate information co
 data_df <- group_nn_metrics(data_list = data_dfs,
                             lonlat = is_geo,
                             verbose = TRUE,
-                            parallelize = FALSE
+                            parallelize = FALSE,
+                            M = 2, 
+                            time_window = 0.4, 
+                            step2time = sampling_timestep
                             )
 
 tail(data_df)

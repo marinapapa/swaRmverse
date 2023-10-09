@@ -1,7 +1,7 @@
 #' @title Nearest neighbor metrics
 #' @description Calculates the bearing angle and distance from
 #' a focal individual of a group to its nearest neighbor over time.
-#' @param data Dataframe with group's timeseries.
+#' @param data Dataframe with group's timeseries for one set.
 #' Column names must include: id, time.
 #' @param lonlat whether positions are geographic coordinates, default = FALSE.
 #' @param add_coords whether data is converted to
@@ -16,7 +16,10 @@ nn_metrics <- function(data,
                        add_coords = FALSE,
                        lonlat = FALSE,
                        verbose = FALSE,
-                       parallelize = FALSE
+                       parallelize = FALSE,
+                       step2time = 1,
+                       M = NA,
+                       tw = NA
                        ) {
 
   data$only_time <- format(data$t, "%H:%M:%OS2")
@@ -41,6 +44,9 @@ nn_metrics <- function(data,
     nm <- add_rel_pos_coords(nm)
   }
 
+  if (!(any(is.na(M), is.na(tw)))){
+    nm <- add_neighbour_stability(nm, M = M, time_window = tw, step2time = step2time, lonlat = lonlat)
+  }
   return(nm)
 }
 
@@ -87,8 +93,7 @@ par_nn_metrics <- function(per_time,
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @keywords internal
 calc_nn_metrics <- function(thists, lonlat) {
-  thists$nn_id <- as.numeric(
-                    swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id))
+  thists$nn_id <- swaRm::nn(thists$x, thists$y, geo = lonlat, id = thists$id)
   thists$nnd <- as.numeric(swaRm::nnd(thists$x, thists$y, geo = lonlat))
   thists$bangl <- nnba(thists$x, thists$y, hs = thists$head, geo = lonlat)
 
