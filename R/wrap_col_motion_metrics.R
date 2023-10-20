@@ -13,6 +13,8 @@
 #' @param speed_lim threshold for speed if interactive mode id off
 #' @param pol_lim threshold for polarization if interactive mode id off
 #' @param parallelize_all whether or not to parallelize over ids and time.
+#' @param noise_thresh The limit of time difference between consecutive events
+#'  to be considered the same event. Default value is 0 (no event merging).
 #' @return either a list of dataframes with neighbor ids, bearing angles,
 #' distances and heading deviations for each individual through time,
 #' or saves individual csvs per day, depending on input.
@@ -27,7 +29,8 @@ col_motion_metrics_from_raw <- function(data,
                                interactive_mode = TRUE,
                                speed_lim = NA,
                                pol_lim = NA,
-                               parallelize_all = FALSE
+                               parallelize_all = FALSE,
+                               noise_thresh = 0
                                ) {
   sets_dfs <- group_vels(data,
                          lonlat = lonlat,
@@ -70,7 +73,8 @@ col_motion_metrics_from_raw <- function(data,
   gm_all <- define_events(gm_all,
                           sp_lim = sp_lim,
                           pol_lim = pl_lim,
-                          step2time = step2time
+                          step2time = step2time,
+                          noise_thresh = noise_thresh
                           )
 
   gm_all <- gm_all[!is.na(gm_all$keep), ]
@@ -101,6 +105,8 @@ col_motion_metrics_from_raw <- function(data,
 #' event definition from user.
 #' @param speed_lim threshold for speed if interactive mode id off
 #' @param pol_lim threshold for polarization if interactive mode id off
+#' @param noise_thresh The limit of time difference between consecutive events
+#'  to be considered the same event. Default value is 0 (no event merging).
 #' @return a dataframe with metrics of collective motion per event
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @seealso \code{\link{moving_average}}
@@ -111,7 +117,8 @@ col_motion_metrics <- function(timeseries_data,
                                verbose = TRUE,
                                interactive_mode = TRUE,
                                speed_lim = NA,
-                               pol_lim = NA
+                               pol_lim = NA,
+                               noise_thresh = 0
                                ) {
 
   sp_lim <- pick_events_threshold(global_metrics$speed_av,
@@ -126,7 +133,8 @@ col_motion_metrics <- function(timeseries_data,
   gm_all <- define_events(global_metrics,
                           sp_lim = sp_lim,
                           pol_lim = pl_lim,
-                          step2time = step2time)
+                          step2time = step2time,
+                          noise_thresh = noise_thresh)
 
   gm_all <- gm_all[!is.na(gm_all$keep), ]
   gm_all <- gm_all[gm_all$keep, ]

@@ -3,39 +3,69 @@
 #' to the input time vector, according to the continuity of time.
 #' @param df A dataframe with a set and t columns
 #' for adding event ids.
-#' @param step2time the sampling frequency of t.
 #' @return a vector of the same size as t with event ids
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
-event_ids <- function(df, step2time) {
-  counted_ev <- 0
+event_ids <- function(df) {
   sets <- unique(df$set)
   event_idxs <- c()
+  cur_id <- 0
   for (i in sets){
-    counted_ev <- length(unique(event_idxs))
-    ev_ids <- event_ids_per_set(df[df$set == i, "t"], step2time)
-    ev_ids <- ev_ids + counted_ev
+    thiss <- df[df$set == i,]
+    ev_ids <- event_ids_per_set(thiss, cur_id)
+    cur_id <- max(ev_ids)
     event_idxs <- c(event_idxs, ev_ids)
   }
   return(event_idxs)
 }
+
+#' #' @title Event indexies
+#' #' @description Returns a vector with event ids that corresponds
+#' #' to the input time vector, according to the continuity of time.
+#' #' @param df A dataframe with a set and t columns
+#' #' for adding event ids.
+#' #' @param step2time the sampling frequency of t.
+#' #' @return a vector of the same size as t with event ids
+#' #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#' #' @export
+#' event_ids <- function(df, step2time) {
+#'   counted_ev <- 0
+#'   sets <- unique(df$set)
+#'   event_idxs <- c()
+#'   for (i in sets){
+#'     counted_ev <- length(unique(event_idxs))
+#'     ev_ids <- event_ids_per_set(df[df$set == i, "t"], step2time)
+#'     ev_ids <- ev_ids + counted_ev
+#'     event_idxs <- c(event_idxs, ev_ids)
+#'   }
+#'   return(event_idxs)
+#' }
 
 
 #' @title Event indexies per set
 #' @description Returns a vector with event ids that corresponds
 #' to the input time vector, according to the continuity of time.
 #' @param t a vector of time.
-#' @param step2time the sampling frequency of t.
 #' @return a vector of the same size as t with event ids
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @keywords internal
-event_ids_per_set <- function(t, step2time) {
-  st <- t[c(TRUE, round(diff(t), 3) > step2time)]
-  k <- length(st)
-  event_idxs <- rep(k, length(t))
-  for (i in rev(st)){
-    k <- k - 1
-    event_idxs[t < i] <- k
+event_ids_per_set <- function(setdf, ev_idx) {
+
+  # st <- t[c(TRUE, round(diff(t), 3) > step2time)]
+#  st <- t[c(TRUE, round(diff(t), 3) > (step2time + noise_thresh)]
+  keep_t1 <- setdf$keep[1:(length(setdf$keep) - 1)]
+  keep_t2 <- setdf$keep[2:length(setdf$keep)]
+
+  event_start  <- (keep_t1 != keep_t2) & (keep_t2 == TRUE)
+  event_ids <- c(rep(ev_idx), nrow(setdf))
+
+  if (all(keep_t1 == TRUE)) return(setdf)
+  if (keep_t1[1]) event_start[1] <- TRUE
+
+  for (i in 1:length(event_start)){
+    if (event_start[i]) {ev_idx <- ev_idx + 1}
+    event_ids[i] <- ev_idx
   }
-  return(event_idxs)
+  event_ids <- c(event_ids, ev_idx) # last timestep
+  return(event_ids)
 }

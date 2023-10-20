@@ -42,13 +42,20 @@ pick_events_threshold <- function(data_distr,
 #' @param sp_lim The threshold of speed to use for events calculation
 #' @param pol_lim The threshold of polarization to use for events calculation
 #' @param step2time Sampling frequency, relation between
-#' time steps and real time
+#' time steps and real time,
+#' @param noise_thresh The limit of time difference between consecutive events
+#'  to be considered the same event. Default value is 0 (no event merging).
 #' @return the dataframe with a keep column added.
 #' Also prints the number and duration of events defined.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
-define_events <- function(df, sp_lim, pol_lim, step2time) {
+define_events <- function(df, sp_lim, pol_lim, step2time, noise_thresh = 0) {
   df$keep <- (df$pol_av > pol_lim) & (df$speed_av > sp_lim)
+  rlengths <- rle(df$keep)
+  tofix <- which(rlengths$lengths <= noise_thresh & rlengths$values == FALSE)
+  idxs  <- sapply(tofix, function(x, rl) { (sum(rl$lengths[1:(x-1)])+1):sum(rl$lengths[1:x])}, rl = rlengths)
+  df$keep[unlist(idxs)] <- TRUE
+
   print("Given thresholds return a total of:")
   print(paste0(events_n(df),
                " events, over ",

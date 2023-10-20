@@ -83,6 +83,10 @@ events_summary <- function(data, step2time) {
                      function(x, step2time) {
                         keep_t1 <- x$keep[1:(length(x$keep) - 1)]
                         keep_t2 <- x$keep[2:length(x$keep)]
+
+                        # keep_t1 <- x$keep[1:(length(x$keep) - (1 + noise_thresh))]
+                        # keep_t2 <- x$keep[(2 + noise_thresh):length(x$keep)]
+
                         dur <- nrow(x[x$keep == TRUE, ]) * step2time
                         event_start  <- (keep_t1 != keep_t2) & (keep_t2 == TRUE)
                         if (all(keep_t1 == TRUE)) nev <- 1
