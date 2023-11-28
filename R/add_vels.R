@@ -148,7 +148,7 @@ perIdVels <- function(
       return(per_id)
     }
 
-    per_id[, "head"] <- swaRm_heading(x = per_id$x, y = per_id$y, geo = lonlat)
+    per_id[, "head"] <- swaRm::heading(x = per_id$x, y = per_id$y, geo = lonlat) #swaRm_heading
     per_id[, "speed"] <- swaRm::linear_speed(
       x = per_id$x,
       y = per_id$y,

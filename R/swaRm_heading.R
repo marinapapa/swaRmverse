@@ -37,12 +37,12 @@ swaRm_heading <- function (x, y, geo = FALSE)
     m1 <- cbind(x[1:(l - 1)], y[1:(l - 1)])
     m2 <- cbind(x[2:l], y[2:l])
     dm <- geosphere::bearing(m1, m2) * pi/180
-    c(0, ifelse(dm < 0.00001, NA, dm))
+    c(0, ifelse(abs(dm) < 0.0000001, NA, dm))
   }
   else {
     dx <- diff(x)
     dy <- diff(y)
     dxy <- atan2(dy, dx)
-    c(NA, ifelse(dxy < 0.00001, NA, dxy))
+    c(NA, ifelse(abs(dxy) < 0.0000001, NA, dxy))
   }
 }
