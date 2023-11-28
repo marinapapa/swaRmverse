@@ -48,49 +48,29 @@ col_motion_metrics_from_raw <- function(data,
                       verbose = verbose,
                       parallelize = parallelize_all
                       )
-    gl_m <- global_metrics(adf, lonlat, parallelize = parallelize_all)
+    gl_m <- global_metrics(adf, lonlat,unit = step2time,
+                           parallelize = parallelize_all)
 
     gl_m$speed_av <- moving_average(gl_m$speed, mov_av_time_window)
     gl_m$pol_av <-  moving_average(gl_m$pol, mov_av_time_window)
 
     gm_all[[k]] <- gl_m
-    nn_all[[k]] <- nn_m[, c("set", "t", "nn_id", "nnd", "bangl")]
+    nn_all[[k]] <- nn_m[, c("set", "t", "only_time", "nn_id", "nnd", "bangl")]
     k <- k + 1
   }
   names(gm_all) <- names(nn_all) <- NULL
   gm_all <- do.call(rbind, gm_all)
   nn_all <- do.call(rbind, nn_all)
 
-  sp_lim <- pick_events_threshold(gm_all$speed_av,
-                                  "speed",
-                                  interactive_mode,
-                                  speed_lim)
-  pl_lim <- pick_events_threshold(gm_all$pol_av,
-                                  "pol",
-                                  interactive_mode,
-                                  pol_lim)
-
-  gm_all <- define_events(gm_all,
-                          sp_lim = sp_lim,
-                          pol_lim = pl_lim,
-                          step2time = step2time,
-                          noise_thresh = noise_thresh
-                          )
-
-  gm_all <- gm_all[!is.na(gm_all$keep), ]
-  gm_all <- gm_all[gm_all$keep, ]
-
-  gm_all$event <- event_ids(gm_all)
-  nn_all <- nn_all[nn_all$t %in% gm_all$t, ]
-
-  toret <- event_metrics(gm_all, nn_all)
-  if (nrow(toret) < 1) {
-    toret$event_dur <- numeric(0)
-    return(toret)
-  }
-  event_sum <- calc_dur_per_event(gm_all, step2time)
-  toret <- merge(toret, event_sum, all.x = TRUE)
-  return(toret)
+  col_motion_metrics(timeseries_data = nn_all,
+                     global_metrics = gm_all,
+                     step2time = step2time,
+                     verbose = verbose,
+                     interactive_mode = interactive_mode,
+                     speed_lim = speed_lim,
+                     pol_lim = pol_lim,
+                     noise_thresh = noise_thresh
+                  )
 }
 
 #' @title Collective motion metrics
@@ -137,11 +117,22 @@ col_motion_metrics <- function(timeseries_data,
                           noise_thresh = noise_thresh)
 
   gm_all <- gm_all[!is.na(gm_all$keep), ]
-  gm_all <- gm_all[gm_all$keep, ]
 
   gm_all$event <- event_ids(gm_all)
-  nn_all <- timeseries_data[timeseries_data$t %in% gm_all$t,
-                            c("set", "t", "nn_id", "nnd", "bangl")]
+  gm_all <- gm_all[gm_all$keep, ]
+
+  gm_spl <- split(gm_all, gm_all$set)
+  nn_all <- lapply(gm_spl, function(x, ts) {
+    x$only_time <- format(x$t, "%H:%M:%OS2")
+    ts <- ts[ts$set == x$set[1],]
+    ts[ts$only_time %in% x$only_time,
+       c("set", "t", "only_time", "nn_id", "nnd", "bangl")]
+ },
+ ts = timeseries_data)
+  nn_all <- do.call(rbind, nn_all)
+
+  # nn_all <- timeseries_data[timeseries_data$only_time %in% gm_all$t,
+  #                           c("set", "t", "nn_id", "nnd", "bangl")]
 
   toret <- event_metrics(gm_all, nn_all)
   if (nrow(toret) < 1) {

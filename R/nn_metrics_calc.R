@@ -16,14 +16,11 @@ nn_metrics <- function(data,
                        add_coords = FALSE,
                        lonlat = FALSE,
                        verbose = FALSE,
-                       parallelize = FALSE,
-                       step2time = 1,
-                       M = NA,
-                       tw = NA
+                       parallelize = FALSE
                        ) {
 
   data$only_time <- format(data$t, "%H:%M:%OS2")
-  per_time <- split(data, data$only_time) ## right?, instead of data$t
+  per_time <- split(data, data$only_time)
 
   if (parallelize) {
    if (verbose) {
@@ -42,10 +39,6 @@ nn_metrics <- function(data,
 
   if (add_coords) {
     nm <- add_rel_pos_coords(nm)
-  }
-
-  if (!(any(is.na(M), is.na(tw)))){
-    nm <- add_neighbour_stability(nm, M = M, time_window = tw, step2time = step2time, lonlat = lonlat)
   }
   return(nm)
 }

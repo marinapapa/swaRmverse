@@ -17,12 +17,7 @@ group_nn_metrics <- function(data_list,
                         lonlat = FALSE,
                         verbose = FALSE,
                         parallelize = FALSE,
-                        step2time = NA,
-                        M = NA,
-                        time_window = NA,
                         add_coords = FALSE
-
-
 ) {
   if (verbose) print("Pairwise analysis started..")
 
@@ -31,10 +26,7 @@ group_nn_metrics <- function(data_list,
                   add_coords = add_coords,
                   lonlat = lonlat,
                   verbose = verbose,
-                  parallelize = parallelize,
-                  step2time = step2time,
-                  M = M,
-                  tw = time_window
+                  parallelize = parallelize
                   )
 
   names(toret) <- NULL

@@ -109,7 +109,7 @@ neighbourhoods <- function(thists,
 #' @description Calls neighbour calculating function for every timestep
 get_neighbourhoods <- function(data, lonlat){
 
-  tsdata <- split(data, data$t)
+  tsdata <- split(data, data$only_time)
   res <- lapply(tsdata, neighbourhoods, lonlat = lonlat)
 
   res <- purrr::keep(res, function(x) nrow(x) > 0)

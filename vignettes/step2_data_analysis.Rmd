@@ -13,7 +13,7 @@ vignette: >
 
 ## 2.1 Velocity estimations 
 
-We start by adding headings and speeds to the trajectory data, and splitting the whole dataframe into a list of a dataframe for each set. For this, we need to specify whether the data correspond to geo data (lon-lat) or not. 
+We start by adding headings and speeds to the trajectory data, and splitting the whole dataframe into a list of dataframes, one per set. For this, we need to specify whether the data correspond to geo data (lon-lat) or not. 
 ```{r message=FALSE, warning=FALSE}
 library(swaRmverse)
 #data_df <- trackdf::tracks
@@ -30,13 +30,13 @@ data_df <- set_data_format(raw_x = raw$x,
                           tz = "America/New_York"
                           )
 
-
 is_geo <- FALSE
 data_dfs <- group_vels(data_df,
                        lonlat = is_geo,
                        verbose = TRUE,
                        parallelize = FALSE
                        )
+head(data_dfs[[1]])
 print(paste("Velocity information added for", length(data_dfs), "sets."))
 ```
 
@@ -54,6 +54,7 @@ smoothing_time_window <- time_window / sampling_timestep
 
 g_metr <- group_global_metrics(data_list = data_dfs,
                                mov_av_time_window = smoothing_time_window,
+                               step2time = sampling_timestep,
                                lonlat = is_geo,
                                return_df = TRUE,
                                out_csv_dir = NA,
@@ -74,15 +75,10 @@ From the timeseries of positions and velocities, we can calculate information co
 data_df <- group_nn_metrics(data_list = data_dfs,
                             lonlat = is_geo,
                             verbose = TRUE,
-                            parallelize = FALSE,
-                            M = 2, 
-                            time_window = 0.4, 
-                            step2time = sampling_timestep
-                            )
+                            parallelize = FALSE                            )
 
-tail(data_df)
+head(data_df)
 ```
-
 
 
 ## 2.4 Metrics of collective motion
@@ -91,14 +87,24 @@ Based on the global and local measurements, we then calculate a series of metric
 
 ```{r message=FALSE, warning=FALSE}
 
+### Interactive mode
+# new_species_metrics <- col_motion_metrics(data_df,
+#                                            global_metrics = g_metr,
+#                                            step2time = sampling_timestep,
+#                                            verbose = TRUE,
+#                                            interactive_mode = TRUE
+# )
+
 new_species_metrics <- col_motion_metrics(data_df,
                                            global_metrics = g_metr,
                                            step2time = sampling_timestep,
                                            verbose = TRUE,
                                            interactive_mode = FALSE,
-                                           speed_lim = 5,
+                                           speed_lim = 150,
                                            pol_lim = 0.3
 )
+
+summary(new_species_metrics)
 
 ```
 
@@ -110,12 +116,14 @@ new_species_metrics <- col_motion_metrics_from_raw(data_df,
                                 mov_av_time_window = smoothing_time_window,
                                 step2time = sampling_timestep,
                                 lonlat = is_geo,
-                                verbose = FALSE,
+                                verbose = TRUE,
                                 interactive_mode = FALSE,
-                                speed_lim = 5,
+                                speed_lim = 150,
                                 pol_lim = 0.3,
                                 parallelize_all = FALSE
                                 )
+
+summary(new_species_metrics)
 
 ```
 
