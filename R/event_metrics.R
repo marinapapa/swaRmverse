@@ -78,6 +78,7 @@ calc_events_averages <- function(df) {
          data.frame(event = event[[1]],
                     group_size = N[[1]],
                     set = set[[1]],
+                    start_time = min(t),
                     mean_mean_nnd = mean(mean_nnd, na.rm = TRUE),
                     mean_sd_nnd = mean(sd_nnd, na.rm = TRUE),
                     sd_mean_nnd = stats::sd(mean_nnd, na.rm = TRUE),

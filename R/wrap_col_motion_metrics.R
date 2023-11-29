@@ -48,7 +48,7 @@ col_motion_metrics_from_raw <- function(data,
                       verbose = verbose,
                       parallelize = parallelize_all
                       )
-    gl_m <- global_metrics(adf, lonlat,unit = step2time,
+    gl_m <- global_metrics(adf, lonlat, step2time = step2time,
                            parallelize = parallelize_all)
 
     gl_m$speed_av <- moving_average(gl_m$speed, mov_av_time_window)

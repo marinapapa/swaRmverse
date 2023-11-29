@@ -13,10 +13,10 @@ nn_metrics(
 )
 }
 \arguments{
-\item{data}{Dataframe with group's timeseries.
+\item{data}{Dataframe with group's timeseries for one set.
 Column names must include: id, time.}
 
-\item{add_coords}{whether data is converted to
+\item{add_coords}{whether data on relative positions are converted into
 geographic coordinates, default = 'FALSE'.}
 
 \item{lonlat}{whether positions are geographic coordinates, default = FALSE.}

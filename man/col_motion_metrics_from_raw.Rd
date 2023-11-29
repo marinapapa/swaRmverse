@@ -13,7 +13,8 @@ col_motion_metrics_from_raw(
   interactive_mode = TRUE,
   speed_lim = NA,
   pol_lim = NA,
-  parallelize_all = FALSE
+  parallelize_all = FALSE,
+  noise_thresh = 0
 )
 }
 \arguments{
@@ -38,6 +39,9 @@ definition from user.}
 \item{pol_lim}{threshold for polarization if interactive mode id off}
 
 \item{parallelize_all}{whether or not to parallelize over ids and time.}
+
+\item{noise_thresh}{The limit of time difference between consecutive events
+to be considered the same event. Default value is 0 (no event merging).}
 }
 \value{
 either a list of dataframes with neighbor ids, bearing angles,

@@ -4,13 +4,11 @@
 \alias{event_ids}
 \title{Event indexies}
 \usage{
-event_ids(df, step2time)
+event_ids(df)
 }
 \arguments{
 \item{df}{A dataframe with a set and t columns
 for adding event ids.}
-
-\item{step2time}{the sampling frequency of t.}
 }
 \value{
 a vector of the same size as t with event ids

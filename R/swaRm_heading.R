@@ -23,7 +23,7 @@
 #' @examples
 #' x <- rnorm(25)
 #' y <- rnorm(25, sd = 3)
-#' heading(x, y)
+#' swaRm_heading(x, y)
 #'
 #' @export
 swaRm_heading <- function (x, y, geo = FALSE)

@@ -4,7 +4,7 @@
 #' @param data Dataframe with group's timeseries for one set.
 #' Column names must include: id, time.
 #' @param lonlat whether positions are geographic coordinates, default = FALSE.
-#' @param add_coords whether data is converted to
+#' @param add_coords whether data on relative positions are converted into
 #' geographic coordinates, default = 'FALSE'.
 #' @param verbose whether to post updates on progress
 #' @param parallelize whether to parallelize the function over time

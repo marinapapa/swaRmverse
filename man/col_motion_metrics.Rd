@@ -11,7 +11,8 @@ col_motion_metrics(
   verbose = TRUE,
   interactive_mode = TRUE,
   speed_lim = NA,
-  pol_lim = NA
+  pol_lim = NA,
+  noise_thresh = 0
 )
 }
 \arguments{
@@ -31,6 +32,9 @@ event definition from user.}
 \item{speed_lim}{threshold for speed if interactive mode id off}
 
 \item{pol_lim}{threshold for polarization if interactive mode id off}
+
+\item{noise_thresh}{The limit of time difference between consecutive events
+to be considered the same event. Default value is 0 (no event merging).}
 }
 \value{
 a dataframe with metrics of collective motion per event

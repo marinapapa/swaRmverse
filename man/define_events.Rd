@@ -4,7 +4,7 @@
 \alias{define_events}
 \title{Defines events}
 \usage{
-define_events(df, sp_lim, pol_lim, step2time)
+define_events(df, sp_lim, pol_lim, step2time, noise_thresh = 0)
 }
 \arguments{
 \item{df}{A dataframe with a pol_av and speed_av columns
@@ -15,7 +15,10 @@ for polarization and speed}
 \item{pol_lim}{The threshold of polarization to use for events calculation}
 
 \item{step2time}{Sampling frequency, relation between
-time steps and real time}
+time steps and real time,}
+
+\item{noise_thresh}{The limit of time difference between consecutive events
+to be considered the same event. Default value is 0 (no event merging).}
 }
 \value{
 the dataframe with a keep column added.

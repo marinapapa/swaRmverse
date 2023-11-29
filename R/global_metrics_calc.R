@@ -7,6 +7,8 @@
 #'  id, time, speed, headx, heady, posx, posy.
 #' @param lonlat logical, whether positions are geographic coordinates,
 #'  default = FALSE.
+#' @param step2time the sampling frequency, the relation between a time
+#' step and real time in seconds
 #' @param parallelize whether to parallelize over time.
 #' @return A dataframe with the group average timeseries, with columns:
 #'  set, time, pol, speed, shape, N (number of individuals),
@@ -15,7 +17,7 @@
 #' @export
 global_metrics <- function(data,
                            lonlat,
-                           unit = 1,
+                           step2time = 1,
                            parallelize = FALSE) {
   if (!is.data.frame(data) ||
       !("t" %in% colnames(data)) ||
@@ -28,7 +30,7 @@ global_metrics <- function(data,
       warning("Some sets have group sizes of 1.")
     }
 
-  if (unit < 1){
+  if (step2time < 1){
     data$only_time <- format(data$t, "%H:%M:%OS2")
   } else{
     data$only_time <- format(data$t, "%H:%M:%S")

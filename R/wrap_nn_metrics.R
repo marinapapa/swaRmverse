@@ -6,6 +6,8 @@
 #' @param lonlat logical, whether positions are geographic coordinates,
 #' default = FALSE.
 #' @param verbose whether to post updates on progress
+#' @param add_coords whether data on relative positions are converted into
+#' geographic coordinates, default = 'FALSE'.
 #' @param parallelize whether to run the function in parallel over individuals,
 #'  default = FALSE.
 #' @return either a list of dataframes with neighbor ids, bearing angles,

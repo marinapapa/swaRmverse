@@ -8,7 +8,8 @@ group_nn_metrics(
   data_list,
   lonlat = FALSE,
   verbose = FALSE,
-  parallelize = FALSE
+  parallelize = FALSE,
+  add_coords = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,9 @@ default = FALSE.}
 
 \item{parallelize}{whether to run the function in parallel over individuals,
 default = FALSE.}
+
+\item{add_coords}{whether data on relative positions are converted into
+geographic coordinates, default = 'FALSE'.}
 }
 \value{
 either a list of dataframes with neighbor ids, bearing angles,

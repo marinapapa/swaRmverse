@@ -13,16 +13,16 @@
 add_rel_pos_coords <- function(data,
                                focal_heading = c(0, 1)
                                ) {
-  if (!("bangl" %in% colnames(data)) || !("dist" %in% colnames(data))) {
-    stop("The input dataframe needs to contain a bearing angle and 
+  if (!("bangl" %in% colnames(data)) || !("nnd" %in% colnames(data))) {
+    stop("The input dataframe needs to contain a bearing angle and
           a distance column, please check your parameters.")
   }
   x <- cos(data$bangl) * focal_heading[1] -
     sin(data$bangl) * focal_heading[2]
   y <- sin(data$bangl) * focal_heading[1] +
     cos(data$bangl) * focal_heading[2]
-  data$x <- x * data$dist
-  data$y <- y * data$dist
+  data$nnx <- x * data$nnd
+  data$nny <- y * data$nnd
 
   return(data)
 }

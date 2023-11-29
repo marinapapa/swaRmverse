@@ -4,7 +4,7 @@
 \alias{global_metrics}
 \title{Calculation of group metrics in parallel}
 \usage{
-global_metrics(data, lonlat, parallelize = FALSE)
+global_metrics(data, lonlat, step2time = 1, parallelize = FALSE)
 }
 \arguments{
 \item{data}{A dataframe of (ordered) time series of headings,
@@ -14,6 +14,9 @@ id, time, speed, headx, heady, posx, posy.}
 
 \item{lonlat}{logical, whether positions are geographic coordinates,
 default = FALSE.}
+
+\item{step2time}{the sampling frequency, the relation between a time
+step and real time in seconds}
 
 \item{parallelize}{whether to parallelize over time.}
 }

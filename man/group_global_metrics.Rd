@@ -8,8 +8,7 @@ group_global_metrics(
   data_list,
   mov_av_time_window,
   lonlat,
-  return_df = TRUE,
-  out_csv_dir = NA,
+  step2time,
   parallelize = FALSE
 )
 }
@@ -23,9 +22,8 @@ for average speed and polarization. Set NA if calculation is not needed.}
 \item{lonlat}{logical, whether positions are geographic coordinates,
 default = FALSE.}
 
-\item{return_df}{logical, whether to return the result dataframes or not.}
-
-\item{out_csv_dir}{directory output is saved to.}
+\item{step2time}{the sampling frequency, the relation between a time
+step and real time in seconds}
 
 \item{parallelize}{whether or not to parallelize over ids.}
 }

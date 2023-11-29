@@ -1,9 +1,9 @@
 ---
-title: "3 - Build swarm space"
+title: "3 - Create the swarm space"
 author: "Marina Papadopoulou"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{3 - Build swarm space}
+  %\VignetteIndexEntry{3 - Create the swarm space}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,9 +17,11 @@ library(swaRmverse)
 data("multi_species_metrics")
 
 all_data <- multi_species_metrics
-## or bind with new data
-#all_data <- rbind(multi_species_metrics,
-#                  new_species_metrics)
+
+## or uncomment bellow to bind with new data if continuing from step2
+# for_pca <- new_species_metrics[,!(colnames(new_species_metrics) %in% c("event_dur","set", "group_size", "start_time"))]
+# all_data <- rbind(multi_species_metrics,
+#                  for_pca)
 
 ```
 
@@ -38,10 +40,9 @@ ggplot2::ggplot(new_pca$swarm_space,
                 ggplot2::geom_point() +
                 ggplot2::theme_bw()
 
-
-
 ```
-Check what is principal component represents:
+
+Check what each principal component represents:
 
 ```{r}
 pcs_info <- new_pca$pca$rotation[, new_pca$pca$sdev > 1]
