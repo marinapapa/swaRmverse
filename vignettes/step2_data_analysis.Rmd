@@ -24,7 +24,7 @@ raw <- raw[!raw$ignore, ]
 data_df <- set_data_format(raw_x = raw$x,
                           raw_y = raw$y,
                           raw_t = raw$frame,
-                          raw_id = raw$track_fixed,
+                          raw_id = raw$id,
                           origin = "2020-02-1 12:00:21",
                           period = "0.04S",
                           tz = "America/New_York"

@@ -1,5 +1,5 @@
 #' @title Data formatting
-#' @description A wrapper for the track_df function of \code{trackdf} package.
+#' @description A wrapper for the track_df function of the \code{trackdf} package.
 #' @param raw_x A numeric vector representing the x coordinates of individual(s)
 #' @param raw_y A numeric vector representing the y coordinates of individual(s)
 #' @param raw_t A numeric vector that can be coerced to date-time objects by as
@@ -60,7 +60,7 @@ set_data_format <- function(raw_x,
   group_vars <- list(...)
   if (length(group_vars) != 0) {
     if (any(lengths(group_vars) != nrow(tracked_df))) {
-    warning("Extra set info of different lengths, they are being ignored.")
+      warning("Extra set info of different lengths, they are being ignored.")
     } else {
       extr_df <- as.data.frame(group_vars)
       group_id <- do.call(paste, c(extr_df[seq_len(ncol(extr_df))], sep = "_"))

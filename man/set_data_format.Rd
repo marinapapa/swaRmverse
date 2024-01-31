@@ -56,7 +56,7 @@ A track dataframe table, which is a colloquial term for an
  object of class track.
 }
 \description{
-A wrapper for the track_df function of \code{trackdf} package.
+A wrapper for the track_df function of the \code{trackdf} package.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com},

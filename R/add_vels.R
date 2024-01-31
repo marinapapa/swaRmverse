@@ -34,6 +34,16 @@ add_vels <- function(
     per_id <- do_add_vels(per_id, lonlat)
   }
   data <- do.call(rbind, per_id)
+
+  ## headings of 0 (from not moving) being replaced with NA for safety in group properties calculations
+  idx_without_head <- which(abs(data[, "head"]) < 0.0000000001)
+  if (length(idx_without_head) > 0){
+    warning(paste0("Individuals ",
+                   paste(unique(data[idx_without_head,"id"]), collapse = ", "),
+                   " have not-moving instances. Their headings have been set to NA for these timesteps."))
+    data[idx_without_head ,"head"] <- NA
+  }
+
   return(data)
 }
 
@@ -144,11 +154,12 @@ perIdVels <- function(
     per_id <- as.data.frame(per_id)
 
     if (nrow(per_id) < 2) {
-      warning("Id with only one data point detected.")
+      warning("Id ", per_id[,'id'], "has only one data point, returning NA for its heading.")
       return(per_id)
     }
 
-    per_id[, "head"] <- swaRm::heading(x = per_id$x, y = per_id$y, geo = lonlat) #swaRm_heading
+    per_id[, "head"] <- swaRm::heading(x = per_id$x, y = per_id$y, geo = lonlat)
+
     per_id[, "speed"] <- swaRm::linear_speed(
       x = per_id$x,
       y = per_id$y,
