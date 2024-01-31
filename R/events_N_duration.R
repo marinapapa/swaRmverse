@@ -1,9 +1,9 @@
 #' @title Number of events
-#' @description  Calculates the number of events of collective motion in dataset
+#' @description  Calculates the number of events of collective motion in dataset.
 #' @param data A dataframe with a keep column
 #' (representing which rows are defined as events of collective motion)
 #' and a set column (by default representing date).
-#' @return an integer with the number of events of colletive motion
+#' @return an integer with the number of events of collective motion
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @export
 events_n <- function(data) {
@@ -13,9 +13,9 @@ events_n <- function(data) {
   return(sum(unlist(events_n)))
 }
 
-#' @title Caculates the number of events
+#' @title Calculates the number of events
 #' @param data A dataframe with a keep column.
-#' @return an integer with the number of events of colletive motion
+#' @return an integer with the number of events of collective motion
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #' @keywords internal
 calc_n_events <- function(df) {

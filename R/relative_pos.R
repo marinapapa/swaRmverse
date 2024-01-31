@@ -1,7 +1,7 @@
 #' @title Relative position coordinates
 #' @description Calculates the x and y coordinates of a neighbor
 #' in the reference frame of each focal individual
-#' @param data Dataframe with the bearaing angle and
+#' @param data Dataframe with the bearing angle and
 #' distance of each individual to specific neighbors.
 #' Column names must include: id, time.
 #' Can be the output of the neighb_rel_pos_timeseries in long_dataframe format.

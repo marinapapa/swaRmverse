@@ -74,46 +74,19 @@ data_df <- group_nn_metrics(data_list = data_dfs,
                             lonlat = is_geo,
                             verbose = TRUE,
                             parallelize = FALSE,
-                            add_coords = TRUE # could be set to FAL
+                            add_coords = TRUE # could be set to FALSE if the relative positions of neighbors are not needed
                             )
 
 tail(data_df)
 ```
 
-Based on these pairwise measurements, the relative position of neighbours can be plotted:
-
-```{r message=FALSE, warning=FALSE}
-# 
-# pal <- wesanderson::wes_palette('Zissou1', 10, 'continuous')
-# 
-# ggplot2::ggplot(data_df[data_df$nnd < 200,], ggplot2::aes(x = nnx, y = nny), color = 'black') +
-#   ggplot2::stat_density_2d(
-#     geom = "tile",
-#     ggplot2::aes(fill = ..density..),
-#     n=c(30, 4),
-#     contour = F
-#   ) +
-#   ggplot2::labs(x = 'X', y = 'Y', title = 'Sticklebacks',  fill = 'Density') +
-#   ggplot2::scale_fill_gradientn(colours=pal) +
-#  # ggplot2::coord_polar(start = pi, theta = 'x')+
-#   ggplot2::geom_point(x = 0, y = 0, size = 3, shape = 17 ) +
-#   ggplot2::theme_bw() +
-#   ggplot2::theme(legend.position = 'top',
-#                  plot.title = ggplot2::element_blank(),
-#                  panel.grid = ggplot2::element_blank(),
-#                  axis.title = ggplot2::element_text(size = 14),
-#                  axis.text = ggplot2::element_text(size = 14),
-#                  legend.title = ggplot2::element_text(size = 16),
-#                  legend.text = ggplot2::element_text(size = 10))
-
-```
 ## 2.4 Metrics of collective motion
 
 Based on the global and local measurements, we then calculate a series of metrics that aim to capture the dynamics of the collective motion of the group. These metrics are calculated over parts of the trajectories that the group is performing coordinated collective motion, when the group is moving (average speed is higher than a given threshold) and is somewhat polarized (polarization higher than a given threshold). These parts are defined as 'events'. The thresholds are asked by the user in run time if 'interactive_mode' is activated, after printing the quantiles of average speed and polarization across all data. Otherwise, the thresholds (pol_lim and speed_lim) should be given as inputs. If both limits are set to 0, a set will be taken as a complete event. The time between observation is needed as input to distinguish between continuous events. When the global and pairwise timeseries are calculated, one can calculate the metrics per event:
 
 ```{r message=FALSE, warning=FALSE}
 
-### Interactive mode 
+### Interactive mode, if the limits of speed and polarization are unknown
 # new_species_metrics <- col_motion_metrics(data_df,
 #                                            global_metrics = g_metr,
 #                                            step2time = sampling_timestep,
@@ -163,8 +136,8 @@ head(new_species_metrics)
 ```
 
 The duration of each event is also added to the result dataframe. We suggest filtering out events of very small duration. The calculated metrics are: 
-1. _mean_mean_nnd_: the temporal average of the group's average nearest neighbour distance
-2. _mean_sd_nnd_: the temporal average of the group's standard deviation in nearest neighbour distance
+1. _mean_mean_nnd_: the temporal average of the group's average nearest neighbor distance
+2. _mean_sd_nnd_: the temporal average of the group's standard deviation in nearest neighbor distance
 3. _sd_mean_nnd_: the temporal standard deviation of the group's average nearest neighbor distance     
 4. _mean_pol_: the average of the group's polarization during the event
 5. _sd_pol_: the standard deviation of the group's polarization during the event

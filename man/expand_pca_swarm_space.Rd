@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_swarm_space.R
 \name{expand_pca_swarm_space}
 \alias{expand_pca_swarm_space}
-\title{Expands existins swarm space (pca)}
+\title{Expands existing swarm space (PCA)}
 \usage{
 expand_pca_swarm_space(
   metrics_data,
@@ -14,7 +14,7 @@ expand_pca_swarm_space(
 \arguments{
 \item{metrics_data}{New metrics data to add in swarm space}
 
-\item{pca_space}{The pca output to predict from}
+\item{pca_space}{The PCA output to predict from}
 
 \item{pca_data}{Coordinates of initial data in swarm space}
 
@@ -26,7 +26,7 @@ the extended swarm space, x and y coordinates
 per event of each species.
 }
 \description{
-Predicts the positions of new event data in existing pca space
+Predicts the positions of new event data in existing PCA space
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

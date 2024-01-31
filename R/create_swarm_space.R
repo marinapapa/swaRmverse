@@ -86,13 +86,13 @@ do_tsne <- function(df, tsne_rand_seed, tsne_perplexity) {
   return(tsnedata)
 }
 
-#' @title Expands existins swarm space (pca)
-#' @description Predicts the positions of new event data in existing pca space
+#' @title Expands existing swarm space (PCA)
+#' @description Predicts the positions of new event data in existing PCA space
 #' @param metrics_data New metrics data to add in swarm space
 #' @param event_duration_limit Filter out events that are shorter
 #' than given duration.
 #' @param pca_data Coordinates of initial data in swarm space
-#' @param pca_space The pca output to predict from
+#' @param pca_space The PCA output to predict from
 #' @return the extended swarm space, x and y coordinates
 #' per event of each species.
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}

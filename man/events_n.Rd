@@ -12,10 +12,10 @@ events_n(data)
 and a set column (by default representing date).}
 }
 \value{
-an integer with the number of events of colletive motion
+an integer with the number of events of collective motion
 }
 \description{
-Calculates the number of events of collective motion in dataset
+Calculates the number of events of collective motion in dataset.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

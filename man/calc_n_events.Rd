@@ -2,7 +2,7 @@
 % Please edit documentation in R/events_N_duration.R
 \name{calc_n_events}
 \alias{calc_n_events}
-\title{Caculates the number of events}
+\title{Calculates the number of events}
 \usage{
 calc_n_events(df)
 }
@@ -10,10 +10,10 @@ calc_n_events(df)
 \item{data}{A dataframe with a keep column.}
 }
 \value{
-an integer with the number of events of colletive motion
+an integer with the number of events of collective motion
 }
 \description{
-Caculates the number of events
+Calculates the number of events
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

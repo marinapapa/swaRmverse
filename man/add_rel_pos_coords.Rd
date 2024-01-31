@@ -7,7 +7,7 @@
 add_rel_pos_coords(data, focal_heading = c(0, 1))
 }
 \arguments{
-\item{data}{Dataframe with the bearaing angle and
+\item{data}{Dataframe with the bearing angle and
 distance of each individual to specific neighbors.
 Column names must include: id, time.
 Can be the output of the neighb_rel_pos_timeseries in long_dataframe format.}
