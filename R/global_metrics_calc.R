@@ -45,7 +45,6 @@ global_metrics <- function(data,
 
   names(gm) <- NULL
   gm <- do.call(rbind, gm)
- # gm <- gm[stats::complete.cases(gm), ]
 
   return(gm)
 }

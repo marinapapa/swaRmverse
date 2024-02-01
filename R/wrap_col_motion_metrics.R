@@ -131,9 +131,6 @@ col_motion_metrics <- function(timeseries_data,
  ts = timeseries_data)
   nn_all <- do.call(rbind, nn_all)
 
-  # nn_all <- timeseries_data[timeseries_data$only_time %in% gm_all$t,
-  #                           c("set", "t", "nn_id", "nnd", "bangl")]
-
   toret <- event_metrics(gm_all, nn_all)
   if (nrow(toret) < 1) {
     toret$event_dur <- numeric(0)

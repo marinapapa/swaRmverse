@@ -18,7 +18,6 @@ group_vels <- function(data,
                        verbose = FALSE,
                        parallelize = FALSE
                        ) {
-  # # filter out days that have data for only 1 individual?
   splitted_data <- split(data, data$set)
 
   if (verbose) {
