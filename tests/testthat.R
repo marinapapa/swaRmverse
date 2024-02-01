@@ -9,4 +9,4 @@
 library(testthat)
 library(swaRmverse)
 
-#test_check("swaRmverse")
+test_check("swaRmverse")
