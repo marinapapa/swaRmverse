@@ -2,9 +2,8 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/marinapapa/swaRmverse/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/marinapapa/swaRmverse/actions/workflows/R-CMD-check.yml)
-
-[![R-CMD-check](https://github.com/marinapapa/swaRmverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/marinapapa/swaRmverse/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/marinapapa/swaRmverse/branch/main/graph/badge.svg)](https://app.codecov.io/gh/marinapapa/swaRmverse?branch=main)
+
 <!-- badges: end -->
 ## Description 
  An R package for the comparative analysis of collective motion data in the swarm space. 
