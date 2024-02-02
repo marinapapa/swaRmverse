@@ -5,11 +5,9 @@
 #' @param mov_av_time_window to average over (in timesteps)
 #' @param step2time the sampling frequency, the relation between a time
 #' step and real time in seconds
-#' @param lonlat logical, whether positions are geographic coordinates,
+#' @param geo logical, whether positions are geographic coordinates,
 #'  default = FALSE.
 #' @param verbose whether to post updates on progress
-#' @param interactive_mode whether to take the threshold for event
-#' definition from user.
 #' @param speed_lim threshold for speed if interactive mode id off
 #' @param pol_lim threshold for polarization if interactive mode id off
 #' @param parallelize_all whether or not to parallelize over ids and time.
@@ -24,16 +22,15 @@
 col_motion_metrics_from_raw <- function(data,
                                mov_av_time_window,
                                step2time = 1,
-                               lonlat = TRUE,
+                               geo = TRUE,
                                verbose = TRUE,
-                               interactive_mode = TRUE,
                                speed_lim = NA,
                                pol_lim = NA,
                                parallelize_all = FALSE,
                                noise_thresh = 0
                                ) {
   sets_dfs <- group_vels(data,
-                         lonlat = lonlat,
+                         geo = geo,
                          verbose = verbose,
                          parallelize = parallelize_all
                          )
@@ -44,11 +41,11 @@ col_motion_metrics_from_raw <- function(data,
   for (adf in sets_dfs) {
     nn_m <- nn_metrics(adf,
                       add_coords = FALSE,
-                      lonlat = lonlat,
+                      geo = geo,
                       verbose = verbose,
                       parallelize = parallelize_all
                       )
-    gl_m <- global_metrics(adf, lonlat, step2time = step2time,
+    gl_m <- global_metrics(adf, geo, step2time = step2time,
                            parallelize = parallelize_all)
 
     gl_m$speed_av <- moving_average(gl_m$speed, mov_av_time_window)
@@ -66,7 +63,6 @@ col_motion_metrics_from_raw <- function(data,
                      global_metrics = gm_all,
                      step2time = step2time,
                      verbose = verbose,
-                     interactive_mode = interactive_mode,
                      speed_lim = speed_lim,
                      pol_lim = pol_lim,
                      noise_thresh = noise_thresh
@@ -81,8 +77,6 @@ col_motion_metrics_from_raw <- function(data,
 #' @param step2time the sampling frequency, the relation between a time step
 #' and real time in seconds
 #' @param verbose whether to post updates on progress
-#' @param interactive_mode whether to take the threshold for
-#' event definition from user.
 #' @param speed_lim threshold for speed if interactive mode id off
 #' @param pol_lim threshold for polarization if interactive mode id off
 #' @param noise_thresh The limit of time difference between consecutive events
@@ -95,19 +89,16 @@ col_motion_metrics <- function(timeseries_data,
                                global_metrics,
                                step2time = 1,
                                verbose = TRUE,
-                               interactive_mode = TRUE,
                                speed_lim = NA,
                                pol_lim = NA,
                                noise_thresh = 0
                                ) {
 
-  sp_lim <- pick_events_threshold(global_metrics$speed_av,
+  sp_lim <- pick_threshold(global_metrics$speed_av,
                                   "speed",
-                                  interactive_mode,
                                   speed_lim)
-  pl_lim <- pick_events_threshold(global_metrics$pol_av,
+  pl_lim <- pick_threshold(global_metrics$pol_av,
                                   "pol",
-                                  interactive_mode,
                                   pol_lim)
 
   gm_all <- define_events(global_metrics,
@@ -118,7 +109,7 @@ col_motion_metrics <- function(timeseries_data,
 
   gm_all <- gm_all[!is.na(gm_all$keep), ]
 
-  gm_all$event <- event_ids(gm_all)
+  gm_all$event <- get_event_ids(gm_all)
   gm_all <- gm_all[gm_all$keep, ]
 
   gm_spl <- split(gm_all, gm_all$set)

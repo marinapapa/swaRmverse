@@ -9,13 +9,18 @@ events_n(data)
 \arguments{
 \item{data}{A dataframe with a keep column
 (representing which rows are defined as events of collective motion)
-and a set column (by default representing date).}
+and a set column.}
 }
 \value{
 an integer with the number of events of collective motion
+(sequences of keep == TRUE).
 }
 \description{
-Calculates the number of events of collective motion in dataset.
+Calculates the number of events of collective motion
+ in a dataset.
+}
+\seealso{
+\code{\link{define_events}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

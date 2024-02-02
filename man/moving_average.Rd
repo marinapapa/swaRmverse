@@ -7,7 +7,7 @@
 moving_average(timeseries, window)
 }
 \arguments{
-\item{timeseries}{Vector of doubles (timeseries)}
+\item{timeseries}{Vector of doubles represting a timeserie.}
 
 \item{window}{Time-window to average over (in timesteps)}
 }

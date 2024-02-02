@@ -6,7 +6,7 @@
 \usage{
 group_nn_metrics(
   data_list,
-  lonlat = FALSE,
+  geo = FALSE,
   verbose = FALSE,
   parallelize = FALSE,
   add_coords = FALSE
@@ -16,7 +16,7 @@ group_nn_metrics(
 \item{data_list}{A list of dataframes with groups timeseries per day.
 Column names must include: id, t, set, head, x, y.}
 
-\item{lonlat}{logical, whether positions are geographic coordinates,
+\item{geo}{logical, whether positions are geographic coordinates,
 default = FALSE.}
 
 \item{verbose}{whether to post updates on progress}

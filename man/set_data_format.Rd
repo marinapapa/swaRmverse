@@ -18,9 +18,9 @@ set_data_format(
 )
 }
 \arguments{
-\item{raw_x}{A numeric vector representing the x coordinates of individual(s)}
+\item{raw_x}{A numeric vector representing the x coordinates of individual(s).}
 
-\item{raw_y}{A numeric vector representing the y coordinates of individual(s)}
+\item{raw_y}{A numeric vector representing the y coordinates of individual(s).}
 
 \item{raw_t}{A numeric vector that can be coerced to date-time objects by as
 datetime representing the times (or frames) at which each location
@@ -59,6 +59,5 @@ A track dataframe table, which is a colloquial term for an
 A wrapper for the track_df function of the \code{trackdf} package.
 }
 \author{
-Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com},
-Simon Garnier \email{garnier@njit.edu}
+Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}
 }

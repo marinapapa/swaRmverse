@@ -7,13 +7,13 @@
 normalize_data(vec)
 }
 \arguments{
-\item{vec}{A numerical vector to normalize}
+\item{vec}{A numerical vector to normalize.}
 }
 \value{
-a vector of doubles, the normalized values of the input vector
+a vector of doubles, the normalized values of the input vector.
 }
 \description{
-Rescales a vector of to values between 0 and 1.
+Rescales a vector to values between 0 and 1.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

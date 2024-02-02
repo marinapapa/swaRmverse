@@ -9,7 +9,6 @@ col_motion_metrics(
   global_metrics,
   step2time = 1,
   verbose = TRUE,
-  interactive_mode = TRUE,
   speed_lim = NA,
   pol_lim = NA,
   noise_thresh = 0
@@ -25,9 +24,6 @@ positional data through time with nearest neighbor analysis conducted}
 and real time in seconds}
 
 \item{verbose}{whether to post updates on progress}
-
-\item{interactive_mode}{whether to take the threshold for
-event definition from user.}
 
 \item{speed_lim}{threshold for speed if interactive mode id off}
 

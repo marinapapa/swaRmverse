@@ -1,11 +1,19 @@
 #' @title Moving average
+#'
 #' @description Calculates the moving average of a time series.
-#' @param timeseries Vector of doubles (timeseries)
+#'
+#' @param timeseries Vector of doubles represting a timeserie.
+#'
 #' @param window Time-window to average over (in timesteps)
+#'
 #' @return a vector of doubles (average over the window)
+#'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
 #' @export
-moving_average <- function(timeseries, window) {
+moving_average <- function(timeseries,
+                           window
+                           ) {
   if (window < 2) {
     stop("Moving average needs a time window larger than 1 time step.")
   }
@@ -13,7 +21,7 @@ moving_average <- function(timeseries, window) {
   mov_av <- rep(NA, length(timeseries))
 
   if (window / 2 > length(timeseries)) {
-    warning("Time series shorter than smoothing window, 
+    warning("Time series shorter than smoothing window,
              NAs returned for that set.")
     return(mov_av)
   }

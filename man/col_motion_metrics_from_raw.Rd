@@ -8,9 +8,8 @@ col_motion_metrics_from_raw(
   data,
   mov_av_time_window,
   step2time = 1,
-  lonlat = TRUE,
+  geo = TRUE,
   verbose = TRUE,
-  interactive_mode = TRUE,
   speed_lim = NA,
   pol_lim = NA,
   parallelize_all = FALSE,
@@ -26,13 +25,10 @@ data through time. Columns must include: id, set, time, posx, posy}
 \item{step2time}{the sampling frequency, the relation between a time
 step and real time in seconds}
 
-\item{lonlat}{logical, whether positions are geographic coordinates,
+\item{geo}{logical, whether positions are geographic coordinates,
 default = FALSE.}
 
 \item{verbose}{whether to post updates on progress}
-
-\item{interactive_mode}{whether to take the threshold for event
-definition from user.}
 
 \item{speed_lim}{threshold for speed if interactive mode id off}
 

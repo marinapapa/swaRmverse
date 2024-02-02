@@ -11,15 +11,19 @@ events_summary(data, step2time)
 (representing which rows are defined as events of collective motion)
 and a set column.}
 
-\item{step2time}{the sampling frequency of the dataframe.}
+\item{step2time}{the sampling frequency of the dataframe (how many
+seconds are between each row of the data).}
 }
 \value{
 a dataframe with 3 columns: set, ev_count (number of events), and
  dur (duration of events in seconds).
 }
 \description{
-Provides a summary with the number of events,
- their start time and duration in the dataset.
+Provides a summary with the number of events and their
+ total duration in the dataset.
+}
+\seealso{
+\code{\link{events_dur}, \link{events_n}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

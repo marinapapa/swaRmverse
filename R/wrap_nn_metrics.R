@@ -3,7 +3,7 @@
 #' focal individual of a group to its nearest neighbor over time.
 #' @param data_list A list of dataframes with groups timeseries per day.
 #' Column names must include: id, t, set, head, x, y.
-#' @param lonlat logical, whether positions are geographic coordinates,
+#' @param geo logical, whether positions are geographic coordinates,
 #' default = FALSE.
 #' @param verbose whether to post updates on progress
 #' @param add_coords whether data on relative positions are converted into
@@ -16,7 +16,7 @@
 #' @seealso \code{\link{nn_metrics}}
 #' @export
 group_nn_metrics <- function(data_list,
-                        lonlat = FALSE,
+                        geo = FALSE,
                         verbose = FALSE,
                         parallelize = FALSE,
                         add_coords = FALSE
@@ -26,7 +26,7 @@ group_nn_metrics <- function(data_list,
   toret <- lapply(X = data_list,
                   FUN = nn_metrics,
                   add_coords = add_coords,
-                  lonlat = lonlat,
+                  geo = geo,
                   verbose = verbose,
                   parallelize = parallelize
                   )

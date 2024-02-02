@@ -1,46 +1,62 @@
-#' @title Calculation of group metrics in parallel
+#' @title Calculation of group metrics of collective motion
+#'
 #' @description Calculates the average speed, polarization
 #' and shape of the group through time.
+#'
 #' @param data A dataframe of (ordered) time series of headings,
 #'  positions and speeds per individual. The dataframe may contain
 #'  several individuals. Should include column for:
-#'  id, time, speed, headx, heady, posx, posy.
-#' @param lonlat logical, whether positions are geographic coordinates,
+#'  id, t, speed, x, y, head, set.
+#'
+#' @param geo Logical, whether positions are geographic coordinates,
 #'  default = FALSE.
-#' @param step2time the sampling frequency, the relation between a time
-#' step and real time in seconds
-#' @param parallelize whether to parallelize over time.
+#'
+#' @param step2time Numeric, the sampling frequency of the data
+#' (the relation between a row in the data and real time in seconds).
+#'
+#' @param parallelize Logical, whether to parallelize over time.
+#' Suggested only for very large datasets.
+#'
 #' @return A dataframe with the group average timeseries, with columns:
-#'  set, time, pol, speed, shape, N (number of individuals),
+#'  set, t, pol, speed, shape, N (number of individuals),
 #'  missing_ind (whether some individuals are missing).
+#'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
+#' @seealso \code{\link{group_shape}, \link{group_vels}}
+#'
 #' @export
 global_metrics <- function(data,
-                           lonlat,
+                           geo,
                            step2time = 1,
                            parallelize = FALSE) {
+
   if (!is.data.frame(data) ||
       !("t" %in% colnames(data)) ||
+      !("set" %in% colnames(data)) ||
       !("head" %in% colnames(data)) ||
+      !("x" %in% colnames(data)) ||
+      !("y" %in% colnames(data)) ||
       !("speed" %in% colnames(data))) {
-      stop("Data should be a dataframe, with columns: t, head, and speed")
+      stop("Data should be a dataframe that includes columns: set, t, x, y, head, and speed")
     }
 
   if (length(unique(data$id)) < 2) {
       warning("Some sets have group sizes of 1.")
     }
 
+  ## the split function doesn't recognise decimal seconds in datetime format, so:
   if (step2time < 1){
     data$only_time <- format(data$t, "%H:%M:%OS2")
   } else{
     data$only_time <- format(data$t, "%H:%M:%S")
   }
-  per_time <- split(data, data$only_time) ## right?, instead of data$t
+  per_time <- split(data, data$only_time)
 
   if (parallelize) {
-    gm <- par_calc_global_metrics(per_time, lonlat)
+    gm <- par_calc_global_metrics(per_time, geo)
   } else {
-    gm <- lapply(X = per_time, FUN = calc_global_metrics, lonlat = lonlat)
+    gm <- lapply(X = per_time, FUN = calc_global_metrics, geo = geo)
   }
 
   names(gm) <- NULL
@@ -50,23 +66,31 @@ global_metrics <- function(data,
 }
 
 #' @title Calculation of group metrics in parallel
-#' @description Calls calc_global_metrics in parallel
-#' @param x A list of dataframes per timestep.
-#' @param lonlat logical, whether positions are
+#'
+#' @description Calls calc_global_metrics in parallel.
+#'
+#' @param dfs_per_time A list of dataframes per timestep.
+#'
+#' @param geo Logical, whether positions are
 #' geographic coordinates, default = FALSE.
+#'
 #' @return A dataframe with the group average timeseries, with columns:
 #'  set, time, pol, speed, shape, N (number of individuals),
 #'  missing_ind (whether some individuals are missing).
+#'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
 #' @keywords internal
-par_calc_global_metrics <- function(dfs_per_time, lonlat) {
+par_calc_global_metrics <- function(dfs_per_time,
+                                    geo
+                                    ) {
   num_cores <- parallel::detectCores()
-  cl <- parallel::makeCluster(num_cores)
+  cl <- parallel::makeCluster(num_cores - 1)
 
   df <-  tryCatch({
     pbapply::pblapply(X = dfs_per_time,
                       FUN = calc_global_metrics,
-                      lonlat = lonlat,
+                      geo = geo,
                       cl = cl)
     },
     error = function(cond) {
@@ -80,17 +104,24 @@ par_calc_global_metrics <- function(dfs_per_time, lonlat) {
 }
 
 #' @title Calculation of group metrics
+#'
 #' @description Calculates the average speed,
 #'  polarization and shape of the group through time.
-#' @param x A dataframe timestep of a group.
-#' @param lonlat logical, whether positions are
+#'
+#' @param x A dataframe of a timestep of a group.
+#'
+#' @param geo Logical, whether positions are
 #' geographic coordinates, default = FALSE.
-#' @return A dataframe with the group average timeseries, with columns:
-#'  set, t, pol, speed, shape, N (number of individuals),
-#'  missing_ind (whether some individuals are missing).
+#'
+#' @return A dataframe with one row,
+#' with the group metrics for that timesteps, with columns:
+#' set, t, pol, speed, shape, N (number of individuals),
+#' missing_ind (whether some individuals are missing).
+#'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
 #' @keywords internal
-calc_global_metrics <- function(x, lonlat) {
+calc_global_metrics <- function(x, geo) {
 
   N <- length(unique(x$id))
   t <- x$t[1]
@@ -125,7 +156,7 @@ calc_global_metrics <- function(x, lonlat) {
   x$headx <- cos(x$head)
   x$heady <- sin(x$head)
 
-  obb <- group_shape(x = x$x, y = x$y, hs = x$head, geo = lonlat)
+  obb <- group_shape(x = x$x, y = x$y, hs = x$head, geo = geo)
 
   data.frame(set = day,
              t = t,

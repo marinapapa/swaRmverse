@@ -2,23 +2,27 @@
 % Please edit documentation in R/events_N_duration.R
 \name{calc_dur_per_event}
 \alias{calc_dur_per_event}
-\title{Events duration}
+\title{The duration of each event}
 \usage{
 calc_dur_per_event(data, step2time)
 }
 \arguments{
-\item{data}{A dataframe with a keep column
-(representing which rows are defined as events of collective motion)
-and a set column.}
+\item{data}{A dataframe with an event column (added by \code{get_event_ids}),
+indicating the event id that each timestep belongs to. Timesteps
+that are not part of an event should not be included in the data.}
 
-\item{step2time}{the sampling frequency of the dataframe.}
+\item{step2time}{the sampling frequency of the dataframe (how many
+seconds are between each row of the data).}
 }
 \value{
-a dataframe of duration per event
+a dataframe of two columns, event id and duration in seconds.
 }
 \description{
 Calculates the duration of each event of
 collective motion in a dataset.
+}
+\seealso{
+\code{\link{events_dur}, \link{get_event_ids}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

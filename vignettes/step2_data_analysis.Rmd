@@ -32,7 +32,7 @@ data_df <- set_data_format(raw_x = raw$x,
 
 is_geo <- FALSE
 data_dfs <- group_vels(data_df,
-                       lonlat = is_geo,
+                       geo = is_geo,
                        verbose = TRUE,
                        parallelize = FALSE
                        )
@@ -55,7 +55,7 @@ smoothing_time_window <- time_window / sampling_timestep
 g_metr <- group_global_metrics(data_list = data_dfs,
                                mov_av_time_window = smoothing_time_window,
                                step2time = sampling_timestep,
-                               lonlat = is_geo,
+                               geo = is_geo,
                                parallelize = FALSE
                                )
 head(g_metr)
@@ -71,7 +71,7 @@ From the timeseries of positions and velocities, we can calculate information co
 ```{r message=FALSE, warning=FALSE}
 
 data_df <- group_nn_metrics(data_list = data_dfs,
-                            lonlat = is_geo,
+                            geo = is_geo,
                             verbose = TRUE,
                             parallelize = FALSE,
                             add_coords = TRUE # could be set to FALSE if the relative positions of neighbors are not needed
@@ -91,14 +91,15 @@ Based on the global and local measurements, we then calculate a series of metric
 #                                            global_metrics = g_metr,
 #                                            step2time = sampling_timestep,
 #                                            verbose = TRUE,
-#                                            interactive_mode = TRUE
+#                                            speed_lim = NA,
+#                                            pol_lim = NA
+#                                             
 # )
 
 new_species_metrics <- col_motion_metrics(data_df,
                                            global_metrics = g_metr,
                                            step2time = sampling_timestep,
                                            verbose = TRUE,
-                                           interactive_mode = FALSE,
                                            speed_lim = 150,
                                            pol_lim = 0.3
 )
@@ -114,9 +115,8 @@ The number of events and their total duration given the input thresholds is also
 new_species_metrics <- col_motion_metrics_from_raw(data_df,
                                 mov_av_time_window = smoothing_time_window,
                                 step2time = sampling_timestep,
-                                lonlat = is_geo,
+                                geo = is_geo,
                                 verbose = TRUE,
-                                interactive_mode = FALSE,
                                 speed_lim = 150,
                                 pol_lim = 0.3,
                                 parallelize_all = FALSE

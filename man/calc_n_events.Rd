@@ -4,16 +4,19 @@
 \alias{calc_n_events}
 \title{Calculates the number of events}
 \usage{
-calc_n_events(df)
+calc_n_events(data)
 }
 \arguments{
-\item{data}{A dataframe with a keep column.}
+\item{data}{The dataframe of one set (splitted by the \code{events_n}
+function) with a keep column.}
 }
 \value{
-an integer with the number of events of collective motion
+an integer, the number of events of collective motion
+(sequences of keep == TRUE).
 }
 \description{
-Calculates the number of events
+Makes the calculation of number of events
+of collective motion per set, given by \code{events_n}.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

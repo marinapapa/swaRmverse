@@ -7,7 +7,7 @@
 group_global_metrics(
   data_list,
   mov_av_time_window,
-  lonlat,
+  geo,
   step2time,
   parallelize = FALSE
 )
@@ -19,7 +19,7 @@ Column names must include: id, time, set, headx, heady, posx, posy}
 \item{mov_av_time_window}{Integer, timesteps to use as a sliding window
 for average speed and polarization. Set NA if calculation is not needed.}
 
-\item{lonlat}{logical, whether positions are geographic coordinates,
+\item{geo}{logical, whether positions are geographic coordinates,
 default = FALSE.}
 
 \item{step2time}{the sampling frequency, the relation between a time
