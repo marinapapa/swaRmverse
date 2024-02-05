@@ -130,8 +130,6 @@ do_tsne <- function(df,
 #' @param event_duration_limit Filter out events that are shorter
 #' than given duration.
 #'
-#' @param pca_data Coordinates of initial data in swarm space.
-#'
 #' @param pca_space The PCA output to predict from.
 #'
 #' @return Τhe extended swarm space, x and y coordinates
@@ -143,9 +141,8 @@ do_tsne <- function(df,
 #'
 #' @export
 expand_pca_swarm_space <- function(metrics_data,
-                        pca_space,
-                        pca_data,
-                        event_duration_limit = NA
+                                   pca_space,
+                                   event_duration_limit = NA
                         ) {
   if (!(is.na(event_duration_limit))) {
     if (!(any(colnames(metrics_data) == "event_dur_s"))) {
@@ -158,12 +155,12 @@ expand_pca_swarm_space <- function(metrics_data,
 
   metrics_data <- metrics_data[stats::complete.cases(metrics_data), ]
   topca <- metrics_data[, !(names(metrics_data) %in%
-                            c("species", "event", "event_dur"))]
+                            c("species", "event", "event_dur", "N", "start_time"))]
 
   newpca <- as.data.frame(stats::predict(pca_space, topca))
   newpca$species <- metrics_data$species
+  newpca$event <- metrics_data$event
 
   newpca <- newpca[, names(newpca) %in% c("species", "PC1", "PC2", "PC3")]
-  alldata <- rbind(pca_data, newpca)
-  return(alldata)
+  return(newpca)
 }

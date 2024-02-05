@@ -16,13 +16,28 @@ Load the metrics of collective motion calculated previously. Include the events 
 library(swaRmverse)
 data("multi_species_metrics")
 
-old_data <- multi_species_metrics
-
 ## Create the swarm space for this data only:
-all_data <- old_data
+all_data <- multi_species_metrics
 
-## Or uncomment bellow to bind with new data if continuing from step2
-# all_data <- rbind(old_data, new_species_metrics)
+## Or bind with new data if continuing from step2
+data_df <- get(data("tracks", package = "trackdf"))
+data_df$set <- as.Date(data_df$t)
+
+new_species_metrics <- col_motion_metrics_from_raw(data_df,
+                                mov_av_time_window = 10,
+                                step2time = 1,
+                                geo = TRUE,
+                                verbose = FALSE,
+                                speed_lim = 0,
+                                pol_lim = 0.3,
+                                parallelize_all = FALSE
+                                )
+
+new_species_metrics$species <- "new_species"
+
+## Bind datasets for pca:
+new_species <- new_species_metrics[,!colnames(new_species_metrics) %in% c('event_dur', 'N', 'set', 'start_time')] # remove columns not needed for the swarm space
+all_data <- rbind(multi_species_metrics, new_species)
 
 ```
 
@@ -31,7 +46,7 @@ all_data <- old_data
 Create new swarm space with PCA analysis:
 
 ```{r}
-new_pca <- create_swarm_space(metrics_data = old_data,
+new_pca <- create_swarm_space(metrics_data = all_data,
                               space_type = "pca"
                               )
 
@@ -43,12 +58,13 @@ ggplot2::ggplot(new_pca$swarm_space,
 
 ```
 
-Check what each principal component represents:
+Check what each principal component represents and get the info of each event:
 
 ```{r}
 pcs_info <- new_pca$pca$rotation[, new_pca$pca$sdev > 1]
 print(pcs_info)
 
+ref_data <- new_pca$ref
 ```
 
 Or create a new swarm space with tSNE to better study the local structure of the data:
@@ -75,13 +91,18 @@ ggplot2::ggplot(new_tsne$swarm_space, ggplot2::aes(x = X, y = Y, color = species
 Starting from previously generated PCA swarm space, add new data:
 
 ```{r}
-#load('../data/pca_res.RData')
-# expanded_pca <- expand_pca_swarm_space(metrics_data = new_species_metrics,
-#                                        pca_data = new_pca,
-#                                        pca_space = pca_res)
-#
-# ggplot2::ggplot(expanded_pca,
-#                 ggplot2::aes(x = PC1, y = PC2, color = species)) +
-#    ggplot2::geom_point() +
-#    ggplot2::theme_bw()
+data("multi_species_pca.rda")
+data("multi_species_pca_data.rda")
+
+new_pca_data <- expand_pca_swarm_space(metrics_data = new_species_metrics,
+                                       pca_space = multi_species_pca)
+
+expanded_pca <- rbind(multi_species_pca_data, 
+                      new_pca_data)
+
+ggplot2::ggplot(expanded_pca,
+                ggplot2::aes(x = PC1, y = PC2, color = species)) +
+   ggplot2::geom_point() +
+   ggplot2::theme_bw()
+
 ```

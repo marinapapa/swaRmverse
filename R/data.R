@@ -27,3 +27,33 @@
 #'
 #' @usage data('multi_species_metrics')
 "multi_species_metrics"
+
+
+#' @title Mutli-species PCA
+#'
+#' @docType data
+#'
+#' @description  The swarm space PCA of 4 species: stickleback fish, homing pigeons, goats and chacma baboons.
+#' First published as part of:
+#' Papadopoulou Marina, Fürtbauer Ines, O'Bryan Lisa R., Garnier Simon, Georgopoulou Dimitra G., Bracken Anna M., Christensen Charlotte and King Andrew J.
+#' 2023. Dynamics of collective motion across time and speciesPhil. Trans. R. Soc. B 378: 20220068. http://doi.org/10.1098/rstb.2022.0068
+#'
+#' @format A list of 5 elements, exported by the \code{stats::prcomp function}.
+#'
+#' @usage data('multi_species_pca')
+"multi_species_pca"
+
+
+#' @title Mutli-species PCA data
+#'
+#' @docType data
+#'
+#' @description  The positions of events from 4 species: stickleback fish, homing pigeons, goats and chacma baboons,
+#' in the PCA swarm space (see *multi_species_pca*). First published as part of:
+#' Papadopoulou Marina, Fürtbauer Ines, O'Bryan Lisa R., Garnier Simon, Georgopoulou Dimitra G., Bracken Anna M., Christensen Charlotte and King Andrew J.
+#' 2023. Dynamics of collective motion across time and speciesPhil. Trans. R. Soc. B 378: 20220068. http://doi.org/10.1098/rstb.2022.0068
+#'
+#' @format A dataframe of 3 columns: species, PC1, PC2, PC3.
+#'
+#' @usage data('multi_species_pca_data')
+"multi_species_pca_data"
