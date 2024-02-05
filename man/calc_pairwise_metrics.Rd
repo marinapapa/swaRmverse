@@ -8,14 +8,14 @@ calc_pairwise_metrics(df)
 }
 \arguments{
 \item{df}{data frame with time series of pairwise measurements.
-Columns must include:  set, t, id, dist, bangl}
+Columns must include:  set, t, id, nnd, bangl.}
 }
 \value{
 a dataframe with average and sd of pairwise measurement
 of a group at a single time step.
 }
 \description{
-Calculating group averages of pairwise measures
+Calculating group averages of pairwise measures.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

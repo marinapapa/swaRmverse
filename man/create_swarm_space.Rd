@@ -9,26 +9,33 @@ create_swarm_space(
   space_type = "pca",
   event_dur_limit = NA,
   tsne_rand_seed = NA,
-  tsne_perplexity = 10
+  tsne_perplexity = 25
 )
 }
 \arguments{
-\item{metrics_data}{Metrics of collective motion per species per event.}
+\item{metrics_data}{Metrics of collective motion per event.}
 
-\item{space_type}{Choice between pca and tsne.}
+\item{space_type}{Choice between PCA and t-SNE.}
 
 \item{event_dur_limit}{Filter out events that are shorter
-than given duration.}
+than a given duration. Default NA, no filtering is applied.}
 
-\item{tsne_rand_seed}{Random seed for tsne}
+\item{tsne_rand_seed}{Random seed for the t-SNE analysis.}
 
-\item{tsne_perplexity}{Perplexity parameter for tsne. Usually between 10-50.}
+\item{tsne_perplexity}{Perplexity parameter for the t-SNE analysis.
+Usually between 10-50, default 25.}
 }
 \value{
 the swarm space, x and y coordinates per event of each species
 }
 \description{
-Runs a pca or a tsne to produce a swarm space.
+Runs a PCA (Principal component analysis)
+or a t-SNE (t-distributed Stochastic Neighbor Embedding) over the
+global and pairwise metrics of collective motion per each event to
+produce a swarm space.
+}
+\seealso{
+\code{\link{global_metrics}, \link{nn_metrics}, \link{col_motion_metrics}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

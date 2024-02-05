@@ -1,3 +1,36 @@
+#' @title Frontness
+#'
+#' @description Given the bearing angle of an object to another, this function
+#'  calculates the frontness, a value that ranges from 0 to 1 and represents how
+#'  in front the focal object is from its neighbor.
+#'
+#' @param bs A vector of bearing angles (in rad) between objects.
+#'
+#' @return A vector of the same length as bs representing the frontness of
+#' a focal object to its neighbor.
+#'
+#' @author Simon Garnier, \email{garnier@@njit.edu},
+#'  Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
+#'
+#' @seealso \code{\link{nnba}}
+#'
+#' @examples
+#' bs <- rnorm(25, sd = 1)
+#' frontness(bs)
+#'
+#' @export
+frontness <- function(bs) {
+
+  if (!is.numeric(bs))
+    stop("bs should be numeric.")
+
+  if (any(abs(bs) > pi,  na.rm = TRUE)) {
+    stop("The bearing angle values should range between -pi and pi rad.")
+  }
+  abs(bs) / pi
+}
+
+
 #' @title Relative position coordinates.
 #'
 #' @description Calculates the x and y coordinates of a neighbor
@@ -27,6 +60,7 @@ add_rel_pos_coords <- function(data,
     sin(data$bangl) * focal_heading[2]
   y <- sin(data$bangl) * focal_heading[1] +
     cos(data$bangl) * focal_heading[2]
+
   data$nnx <- x * data$nnd
   data$nny <- y * data$nnd
 

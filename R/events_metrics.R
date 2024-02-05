@@ -1,12 +1,19 @@
 #' @title Calculate metrics of collective motion
-#' @description Calculates metrics of collective motion across sets and events
+#'
+#' @description Calculates metrics of collective motion across sets and events.
+#'
 #' @param global_df A data frame with time series of global group measurements.
-#' Columns must include:  set, t, event, pol, shape, speed
+#' Columns must include:  set, t, event, pol, shape, speed.
+#'
 #' @param pairwise_df A data frame with time series of pairwise measurements.
-#'  Columns must include:  set, t, id, dist, bangl
-#' @return A dataframe with 10 metrics per event
+#'  Columns must include:  set, t, id, nnd, bangl.
+#'
+#' @return A dataframe with 10 metrics per event.
+#'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
-#' @seealso \code{\link{global_metrics}}
+#'
+#' @seealso \code{\link{global_metrics}, \link{nn_metrics}}
+#'
 #' @export
 event_metrics <- function(global_df, pairwise_df) {
 
@@ -19,7 +26,7 @@ event_metrics <- function(global_df, pairwise_df) {
   if (nrow(global_df) < 1) {
     print("No collective motion events identified with given thresholds.")
     empt_ret <- as.data.frame(matrix(NA, ncol = 13, nrow = 0))
-    colnames(empt_ret) <- c("event", "group_size", "set", "mean_mean_nnd",
+    colnames(empt_ret) <- c("event", "N", "set", "mean_mean_nnd",
                             "mean_sd_nnd", "sd_mean_nnd", "mean_pol", "sd_pol",
                             "stdv_speed", "mean_sd_front", "mean_mean_bangl",
                             "mean_shape", "sd_shape")
@@ -33,12 +40,17 @@ event_metrics <- function(global_df, pairwise_df) {
 }
 
 #' @title Calculate pairwise metrics
-#' @description Calculating group averages of pairwise measures
+#'
+#' @description Calculating group averages of pairwise measures.
+#'
 #' @param df  data frame with time series of pairwise measurements.
-#'  Columns must include:  set, t, id, dist, bangl
+#'  Columns must include:  set, t, id, nnd, bangl.
+#'
 #' @return a dataframe with average and sd of pairwise measurement
 #' of a group at a single time step.
+#'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
 #' @keywords internal
 calc_pairwise_metrics <- function(df) {
   df$frontness <- frontness(df$bangl)
@@ -64,19 +76,24 @@ calc_pairwise_metrics <- function(df) {
 }
 
 #' @title Calculate events averages
-#' @description Calculating all metrics per event
+#'
+#' @description Calculating all metrics per event.
+#'
 #' @param df data frame with time series of group measurements
-#'  Columns must include:  event, set, group_size, mean_nnd,
+#'  Columns must include:  event, set, N, mean_nnd,
 #'  sd_nnd, pol, speed, sd_front, mean_bangl, and shape.
+#'
 #' @return a dataframe with a metric value per event.
+#'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
 #' @keywords internal
 calc_events_averages <- function(df) {
 
   df <- by(df, df$event, function(df) {
     with(df,
          data.frame(event = event[[1]],
-                    group_size = N[[1]],
+                    N = N[[1]],
                     set = set[[1]],
                     start_time = min(t),
                     mean_mean_nnd = mean(mean_nnd, na.rm = TRUE),

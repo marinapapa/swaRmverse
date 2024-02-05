@@ -14,7 +14,7 @@ group_global_metrics(
 }
 \arguments{
 \item{data_list}{A list of dataframes with groups timeseries per day.
-Column names must include: id, time, set, headx, heady, posx, posy}
+Column names must include: id, t, set, head, x, y.}
 
 \item{mov_av_time_window}{Integer, timesteps to use as a sliding window
 for average speed and polarization. Set NA if calculation is not needed.}

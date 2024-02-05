@@ -8,14 +8,14 @@ calc_events_averages(df)
 }
 \arguments{
 \item{df}{data frame with time series of group measurements
-Columns must include:  event, set, group_size, mean_nnd,
+Columns must include:  event, set, N, mean_nnd,
 sd_nnd, pol, speed, sd_front, mean_bangl, and shape.}
 }
 \value{
 a dataframe with a metric value per event.
 }
 \description{
-Calculating all metrics per event
+Calculating all metrics per event.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

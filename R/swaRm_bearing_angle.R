@@ -52,8 +52,8 @@ nnba <- function(x, y, hs, geo = FALSE) {
       m2 <- cbind(x[idx], y[idx])
       br <- geosphere::bearing(m1, m2) * pi / 180
   } else {
-      dx <- y[idx] - y
-      dy <- x[idx] - x
+      dy <- y[idx] - y
+      dx <- x[idx] - x
       br <- atan2(y = dy, x = dx)
   }
   db <- hs - br
@@ -64,35 +64,3 @@ nnba <- function(x, y, hs, geo = FALSE) {
   return(db)
 }
 
-
-#' @title Frontness
-#'
-#' @description Given the bearing angle of an object to another, this function
-#'  calculates the frontness, a value that ranges from 0 to 1 and represents how
-#'  in front the focal object is from its neighbor.
-#'
-#' @param bs A vector of bearing angles (in rad) between objects.
-#'
-#' @return A vector of the same length as bs representing the frontness of
-#' a focal object to its neighbor.
-#'
-#' @author Simon Garnier, \email{garnier@@njit.edu},
-#'  Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
-#'
-#' @seealso \code{\link{nnba}}
-#'
-#' @examples
-#' bs <- rnorm(25, sd = 1)
-#' frontness(bs)
-#'
-#' @export
-frontness <- function(bs) {
-
-  if (!is.numeric(bs))
-    stop("bs should be numeric.")
-
-  if (any(abs(bs) > pi,  na.rm = TRUE)) {
-    stop("The bearing angle values should range between -pi and +pi rad.")
-    }
-  abs(bs) / pi
-}

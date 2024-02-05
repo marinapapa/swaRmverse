@@ -12,21 +12,24 @@ expand_pca_swarm_space(
 )
 }
 \arguments{
-\item{metrics_data}{New metrics data to add in swarm space}
+\item{metrics_data}{New metrics data to add in swarm space.}
 
-\item{pca_space}{The PCA output to predict from}
+\item{pca_space}{The PCA output to predict from.}
 
-\item{pca_data}{Coordinates of initial data in swarm space}
+\item{pca_data}{Coordinates of initial data in swarm space.}
 
 \item{event_duration_limit}{Filter out events that are shorter
 than given duration.}
 }
 \value{
-the extended swarm space, x and y coordinates
+Τhe extended swarm space, x and y coordinates
 per event of each species.
 }
 \description{
-Predicts the positions of new event data in existing PCA space
+Predicts the positions of new event data in existing PCA space.
+}
+\seealso{
+\code{\link{create_swarm_space}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

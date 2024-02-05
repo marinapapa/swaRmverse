@@ -18,7 +18,7 @@ col_motion_metrics_from_raw(
 }
 \arguments{
 \item{data}{A data frame with time series of individual's positional
-data through time. Columns must include: id, set, time, posx, posy}
+data through time. Columns must include: id, set, t, x, y}
 
 \item{mov_av_time_window}{to average over (in timesteps)}
 
@@ -30,9 +30,9 @@ default = FALSE.}
 
 \item{verbose}{whether to post updates on progress}
 
-\item{speed_lim}{threshold for speed if interactive mode id off}
+\item{speed_lim}{threshold for speed if interactive mode is off}
 
-\item{pol_lim}{threshold for polarization if interactive mode id off}
+\item{pol_lim}{threshold for polarization if interactive mode is off}
 
 \item{parallelize_all}{whether or not to parallelize over ids and time.}
 

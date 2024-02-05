@@ -21,13 +21,13 @@ positional data through time with nearest neighbor analysis conducted}
 \item{global_metrics}{A data frame with the global metrics timeseries.}
 
 \item{step2time}{the sampling frequency, the relation between a time step
-and real time in seconds}
+and real time in seconds.}
 
-\item{verbose}{whether to post updates on progress}
+\item{verbose}{whether to post updates on progress.}
 
-\item{speed_lim}{threshold for speed if interactive mode id off}
+\item{speed_lim}{threshold for speed if interactive mode is off.}
 
-\item{pol_lim}{threshold for polarization if interactive mode id off}
+\item{pol_lim}{threshold for polarization if interactive mode is off.}
 
 \item{noise_thresh}{The limit of time difference between consecutive events
 to be considered the same event. Default value is 0 (no event merging).}
@@ -36,7 +36,8 @@ to be considered the same event. Default value is 0 (no event merging).}
 a dataframe with metrics of collective motion per event
 }
 \description{
-Calculates metrics of collective motion across sets and events
+Calculates metrics of collective motion across sets
+and events.
 }
 \seealso{
 \code{\link{moving_average}}

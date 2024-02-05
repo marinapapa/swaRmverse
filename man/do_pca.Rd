@@ -7,15 +7,15 @@
 do_pca(df)
 }
 \arguments{
-\item{df}{a dataframe with the metrics of collective motion
-per species/set per event.}
+\item{df}{A dataframe with the metrics of collective motion
+per event.}
 }
 \value{
 a list with the swarm space (a dataframe with PC1, PC2, PC3
-coordinates per event per species) and the new pca object.
+coordinates per event) and the complete pca object.
 }
 \description{
-Calculating the pca space.
+Run a PCA to place events on collective motion into less-dimentional space.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

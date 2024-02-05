@@ -1,23 +1,37 @@
 #' @title Collective motion metrics from raw data
+#'
 #' @description Calculates metrics of collective motion across sets and events
+#'
 #' @param data A data frame with time series of individual's positional
-#' data through time. Columns must include: id, set, time, posx, posy
+#' data through time. Columns must include: id, set, t, x, y
+#'
 #' @param mov_av_time_window to average over (in timesteps)
+#'
 #' @param step2time the sampling frequency, the relation between a time
 #' step and real time in seconds
+#'
 #' @param geo logical, whether positions are geographic coordinates,
 #'  default = FALSE.
+#'
 #' @param verbose whether to post updates on progress
-#' @param speed_lim threshold for speed if interactive mode id off
-#' @param pol_lim threshold for polarization if interactive mode id off
+#'
+#' @param speed_lim threshold for speed if interactive mode is off
+#'
+#' @param pol_lim threshold for polarization if interactive mode is off
+#'
 #' @param parallelize_all whether or not to parallelize over ids and time.
+#'
 #' @param noise_thresh The limit of time difference between consecutive events
 #'  to be considered the same event. Default value is 0 (no event merging).
+#'
 #' @return either a list of dataframes with neighbor ids, bearing angles,
 #' distances and heading deviations for each individual through time,
 #' or saves individual csvs per day, depending on input.
+#'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
 #' @seealso \code{\link{group_vels}}, \code{\link{nn_metrics}}
+#'
 #' @export
 col_motion_metrics_from_raw <- function(data,
                                mov_av_time_window,
@@ -70,20 +84,33 @@ col_motion_metrics_from_raw <- function(data,
 }
 
 #' @title Collective motion metrics
-#' @description Calculates metrics of collective motion across sets and events
+#'
+#' @description Calculates metrics of collective motion across sets
+#' and events.
+#'
 #' @param timeseries_data A data frame with time series of individual's
 #' positional data through time with nearest neighbor analysis conducted
+#'
 #' @param global_metrics A data frame with the global metrics timeseries.
+#'
 #' @param step2time the sampling frequency, the relation between a time step
-#' and real time in seconds
-#' @param verbose whether to post updates on progress
-#' @param speed_lim threshold for speed if interactive mode id off
-#' @param pol_lim threshold for polarization if interactive mode id off
+#' and real time in seconds.
+#'
+#' @param verbose whether to post updates on progress.
+#'
+#' @param speed_lim threshold for speed if interactive mode is off.
+#'
+#' @param pol_lim threshold for polarization if interactive mode is off.
+#'
 #' @param noise_thresh The limit of time difference between consecutive events
 #'  to be considered the same event. Default value is 0 (no event merging).
+#'
 #' @return a dataframe with metrics of collective motion per event
+#'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
 #' @seealso \code{\link{moving_average}}
+#'
 #' @export
 col_motion_metrics <- function(timeseries_data,
                                global_metrics,

@@ -8,19 +8,19 @@ event_metrics(global_df, pairwise_df)
 }
 \arguments{
 \item{global_df}{A data frame with time series of global group measurements.
-Columns must include:  set, t, event, pol, shape, speed}
+Columns must include:  set, t, event, pol, shape, speed.}
 
 \item{pairwise_df}{A data frame with time series of pairwise measurements.
-Columns must include:  set, t, id, dist, bangl}
+Columns must include:  set, t, id, nnd, bangl.}
 }
 \value{
-A dataframe with 10 metrics per event
+A dataframe with 10 metrics per event.
 }
 \description{
-Calculates metrics of collective motion across sets and events
+Calculates metrics of collective motion across sets and events.
 }
 \seealso{
-\code{\link{global_metrics}}
+\code{\link{global_metrics}, \link{nn_metrics}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

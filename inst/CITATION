@@ -1,15 +1,11 @@
 citHeader("To cite swaRmverse in publications use:")
 
 citEntry(
-  entry    = "Article",
+  entry    = "Manual",
   title    = "swaRmverse: an R package for the analysis of collective motion.",
-  author   = "Papadopoulou M., Garnier S., King A.J.",
-  journal  = "In prep.",
+  author   = "Papadopoulou M.",
   year     = "2024",
-  volume   = "",
-  number   = "",
-  pages    = "",
-  url      = "",
-  textVersion = paste(""
-  )
+  note     = "https://github.com/marinapapa/swaRmverse",
+  textVersion = "Marina Papadopoulou (2024). swaRmverse: an R package for the analysis of collective motion. https://github.com/marinapapa/swaRmverse "
 )
+

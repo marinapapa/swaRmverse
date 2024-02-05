@@ -7,15 +7,15 @@
 do_tsne(df, tsne_rand_seed, tsne_perplexity)
 }
 \arguments{
-\item{df}{a dataframe with the metrics of collective motion
-per species/set per event.}
+\item{df}{A dataframe with the metrics of collective motion
+per event.}
 
-\item{tsne_rand_seed}{Random seed for tsne.}
+\item{tsne_rand_seed}{Random seed to be able to reproduce the t-SNE analysis.}
 
 \item{tsne_perplexity}{Perplexity parameter for tsne. Usually between 10-50.}
 }
 \value{
-a dataframe with X and Y coordinates per event in the t-SNE space.
+A dataframe with X and Y coordinates per event in the t-SNE space.
 }
 \description{
 Calculating the coordinates of each event in the t-SNE space.

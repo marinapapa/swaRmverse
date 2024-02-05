@@ -16,12 +16,13 @@ Load the metrics of collective motion calculated previously. Include the events 
 library(swaRmverse)
 data("multi_species_metrics")
 
-all_data <- multi_species_metrics
+old_data <- multi_species_metrics
 
-## or uncomment bellow to bind with new data if continuing from step2
-# for_pca <- new_species_metrics[,!(colnames(new_species_metrics) %in% c("event_dur","set", "group_size", "start_time"))]
-# all_data <- rbind(multi_species_metrics,
-#                  for_pca)
+## Create the swarm space for this data only:
+all_data <- old_data
+
+## Or uncomment bellow to bind with new data if continuing from step2
+# all_data <- rbind(old_data, new_species_metrics)
 
 ```
 
@@ -30,7 +31,7 @@ all_data <- multi_species_metrics
 Create new swarm space with PCA analysis:
 
 ```{r}
-new_pca <- create_swarm_space(metrics_data = all_data,
+new_pca <- create_swarm_space(metrics_data = old_data,
                               space_type = "pca"
                               )
 
@@ -60,7 +61,10 @@ new_tsne <- create_swarm_space(metrics_data = all_data,
                               tsne_perplexity = 10
                               )
 
-ggplot2::ggplot(new_tsne, ggplot2::aes(x = X, y = Y, color = species)) +
+print("t-SNE was run with the following parameters:")
+print(new_tsne$tsne_setup)
+
+ggplot2::ggplot(new_tsne$swarm_space, ggplot2::aes(x = X, y = Y, color = species)) +
   ggplot2::geom_point() +
   ggplot2::theme_bw()
 
