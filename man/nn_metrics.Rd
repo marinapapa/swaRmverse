@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics_calc_pairwise.R
 \name{nn_metrics}
 \alias{nn_metrics}
-\title{Pairwise metrics of collective motion - Nearest neighbor only}
+\title{Nearest neighbour metrics}
 \usage{
 nn_metrics(
   data,
@@ -30,16 +30,16 @@ pipeling. Default = 'FALSE'.}
 \item{parallelize}{Logical, whether to parallelize the function over time.}
 }
 \value{
-a dataframe with a column for nearest neighbor id (nn_id),
+The input dataframe with new columns for nearest neighbor id (nn_id),
 bearing angle (bangl), and distance (nnd).
 If add_coords is TRUE, the columns nnx and nny are  added.
 }
 \description{
 Calculates the bearing angle and distance from
-a focal individual to its nearest neighbor over time.
+all focal individuals in a group to their nearest neighbor over time.
 }
 \seealso{
-\code{\link{add_rel_pos_coords}, \link{global_metrics}}
+\code{\link{add_rel_pos_coords}, \link{group_metrics}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

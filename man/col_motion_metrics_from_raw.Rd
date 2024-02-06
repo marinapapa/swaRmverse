@@ -8,8 +8,8 @@ col_motion_metrics_from_raw(
   data,
   mov_av_time_window,
   step2time = 1,
-  geo = TRUE,
-  verbose = TRUE,
+  geo = FALSE,
+  verbose = FALSE,
   speed_lim = NA,
   pol_lim = NA,
   parallelize_all = FALSE,
@@ -20,35 +20,36 @@ col_motion_metrics_from_raw(
 \item{data}{A data frame with time series of individual's positional
 data through time. Columns must include: id, set, t, x, y}
 
-\item{mov_av_time_window}{to average over (in timesteps)}
+\item{mov_av_time_window}{Numeric, a time window to average over for
+speed and polarization timeseries (in timesteps).}
 
-\item{step2time}{the sampling frequency, the relation between a time
-step and real time in seconds}
+\item{step2time}{Numeric, the sampling frequency of the dateset
+(the relation between a time step and real time in seconds).}
 
-\item{geo}{logical, whether positions are geographic coordinates,
+\item{geo}{Logical, whether positions are geographic coordinates,
 default = FALSE.}
 
-\item{verbose}{whether to post updates on progress}
+\item{verbose}{Logical, whether to post updates on progress, default = FALSE.}
 
-\item{speed_lim}{threshold for speed if interactive mode is off}
+\item{speed_lim}{Numeric, the threshold of speed for the definition of
+an event. For more info see: \code{\link{pick_threshold}}.}
 
-\item{pol_lim}{threshold for polarization if interactive mode is off}
+\item{pol_lim}{Numeric, the threshold of polarization for the definition of
+an event. For more info see: \code{\link{pick_threshold}}.}
 
-\item{parallelize_all}{whether or not to parallelize over ids and time.}
+\item{parallelize_all}{Logical, whether or not to parallelize over timesteps.}
 
-\item{noise_thresh}{The limit of time difference between consecutive events
+\item{noise_thresh}{Numeric, the limit of time difference between consecutive events
 to be considered the same event. Default value is 0 (no event merging).}
 }
 \value{
-either a list of dataframes with neighbor ids, bearing angles,
-distances and heading deviations for each individual through time,
-or saves individual csvs per day, depending on input.
+A dataframe with metrics of collective motion per event.
 }
 \description{
-Calculates metrics of collective motion across sets and events
+Calculates metrics of collective motion across sets and events.
 }
 \seealso{
-\code{\link{group_vels}}, \code{\link{nn_metrics}}
+\code{\link{group_vels}, \link{group_metrics}, \link{pairwise_metrics}, \link{moving_average}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

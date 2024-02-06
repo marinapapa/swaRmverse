@@ -15,16 +15,13 @@ calc_obb(x, y, geo = FALSE)
 geographic coordinates (pairs of longitude/latitude values). Default: FALSE.}
 }
 \value{
-A list with the bounding box coordinates, its heights, its width,
-and the orientation of its longest side in degrees.
+A list with the bounding box coordinates, its height, width,
+and the orientation of the longest side in degrees.
 }
 \description{
 Calculates the minimum bounding box of a group of objects
 }
-\seealso{
-\code{\link{is_chull}}
-}
 \author{
-Simon Garnier, \email{garnier@njit.edu},
 Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
 }
+\keyword{internal}

@@ -2,13 +2,17 @@
 #'
 #' @description Calculates the moving average of a time series.
 #'
-#' @param timeseries Vector of doubles represting a timeserie.
+#' @param timeseries Vector of doubles representing a timeseries.
 #'
-#' @param window Time-window to average over (in timesteps)
+#' @param window Double, the time-window to average over (in timesteps).
 #'
-#' @return a vector of doubles (average over the window)
+#' @return A vector of doubles (average over the window).
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
+#' @examples
+#' bs <- rnorm(20, mean = 10, sd = 1)
+#' moving_average(bs, 5)
 #'
 #' @export
 moving_average <- function(timeseries,

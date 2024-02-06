@@ -27,6 +27,5 @@ frontness(bs)
 \code{\link{nnba}}
 }
 \author{
-Simon Garnier, \email{garnier@njit.edu},
- Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
+Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
 }

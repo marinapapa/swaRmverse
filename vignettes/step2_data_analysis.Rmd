@@ -8,7 +8,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-`swaRverse` provides a pipeline to extract metrics of collective motion from grouping individuals trajectories. Metrics include either global (group-level) or local (pairwise) characteristics of the group. After calculating the timeseries of these metrics, the package estimates their averages over each 'event' of collective motion. More details about how an event is defined is given below. Let's start with ..
+`swaRverse` provides a pipeline to extract metrics of collective motion from grouping individuals trajectories. Metrics include either global (group-level) or pairwise (individual-level) characteristics of the group. After calculating the timeseries of these metrics, the package estimates their averages over each 'event' of collective motion. More details about how an event is defined is given below. Let's start with ..
 
 
 ## 2.1 Velocity estimations 
@@ -44,7 +44,7 @@ If there is a high number of sets in the dataset, the parallelization of the fun
 
 ## 2.2 Group characteristics 
 
-Based on the list of positional data and calculated velocities, we can now calculate the timeseries of group polarization, average speed, and shape. As a proxy for group shape we use the angle between the object-oriented bounding box that includes the position of all group members and the average heading of the group. Small angles close to 0 rads represent oblong groups, while large angles close to pi/2 rads wide groups. The _group_global_metrics_ function calculates the timeseries of each measurement across sets. To reduce noise, the function further calculates the smoothed timeseries of speed and polarization over a given time window (using a moving average).
+Based on the list of positional data and calculated velocities, we can now calculate the timeseries of group polarization, average speed, and shape. As a proxy for group shape we use the angle between the object-oriented bounding box that includes the position of all group members and the average heading of the group. Small angles close to 0 rads represent oblong groups, while large angles close to pi/2 rads wide groups. The _group_metrics_ function calculates the timeseries of each measurement across sets. To reduce noise, the function further calculates the smoothed timeseries of speed and polarization over a given time window (using a moving average).
 
 ```{r message=FALSE, warning=FALSE}
 
@@ -52,7 +52,7 @@ sampling_timestep <- 0.04
 time_window <- 1 # seconds
 smoothing_time_window <- time_window / sampling_timestep
 
-g_metr <- group_global_metrics(data_list = data_dfs,
+g_metr <- group_metrics_per_set(data_list = data_dfs,
                                mov_av_time_window = smoothing_time_window,
                                step2time = sampling_timestep,
                                geo = is_geo,
@@ -70,7 +70,7 @@ From the timeseries of positions and velocities, we can calculate information co
 
 ```{r message=FALSE, warning=FALSE}
 
-data_df <- group_nn_metrics(data_list = data_dfs,
+data_df <- pairwise_metrics(data_list = data_dfs,
                             geo = is_geo,
                             verbose = TRUE,
                             parallelize = FALSE,
@@ -82,7 +82,7 @@ tail(data_df)
 
 ## 2.4 Metrics of collective motion
 
-Based on the global and local measurements, we then calculate a series of metrics that aim to capture the dynamics of the collective motion of the group. These metrics are calculated over parts of the trajectories that the group is performing coordinated collective motion, when the group is moving (average speed is higher than a given threshold) and is somewhat polarized (polarization higher than a given threshold). These parts are defined as 'events'. The thresholds are asked by the user in run time if 'interactive_mode' is activated, after printing the quantiles of average speed and polarization across all data. Otherwise, the thresholds (pol_lim and speed_lim) should be given as inputs. If both limits are set to 0, a set will be taken as a complete event. The time between observation is needed as input to distinguish between continuous events. When the global and pairwise timeseries are calculated, one can calculate the metrics per event:
+Based on the global and local measurements, we then calculate a series of metrics that aim to capture the dynamics of the collective motion of the group. These metrics are calculated over parts of the trajectories that the group is performing coordinated collective motion, when the group is moving (average speed is higher than a given threshold) and is somewhat polarized (polarization higher than a given threshold). These parts are defined as 'events'. The thresholds are asked by the user in run time if 'interactive_mode' is activated, after printing the quantiles of average speed and polarization across all data. Otherwise, the thresholds (pol_lim and speed_lim) should be given as inputs. If both limits are set to 0, a set will be taken as a complete event. The time between observation is needed as input to distinguish between continuous events. When the group and pairwise timeseries are calculated, one can calculate the metrics per event:
 
 ```{r message=FALSE, warning=FALSE}
 

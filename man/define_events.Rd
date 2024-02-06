@@ -8,7 +8,7 @@ define_events(df, sp_lim, pol_lim, step2time, noise_thresh = 0)
 }
 \arguments{
 \item{df}{A dataframe with a pol_av and speed_av columns
-for polarization and speed (calculated by the \code{group_global_metrics}
+for polarization and speed (calculated by the \code{\link{group_metrics_per_set}}
 function).}
 
 \item{sp_lim}{The (lower) threshold of speed to use for defining which
@@ -39,7 +39,7 @@ thresholds, reflecting whether a timestep is considered
 part of an event or not.
 }
 \seealso{
-\code{\link{pick_threshold}, \link{group_global_metrics}}
+\code{\link{pick_threshold}, \link{group_metrics_per_set}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

@@ -3,8 +3,9 @@
 #' @docType data
 #'
 #' @description  A dataset containing the metrics of collective motion
-#' for 4 species: stickleback fish, homing pigeons, goats and chacma baboons.
-#' They were used for the construction of the initial swarm space:
+#' for 4 species: stickleback fish, homing pigeons, goats, and chacma baboons.
+#' They were used for the construction of the initial swarm space in:
+#'
 #' Papadopoulou Marina, Fürtbauer Ines, O'Bryan Lisa R., Garnier Simon, Georgopoulou Dimitra G., Bracken Anna M., Christensen Charlotte and King Andrew J.
 #' 2023. Dynamics of collective motion across time and speciesPhil. Trans. R. Soc. B 378: 20220068. http://doi.org/10.1098/rstb.2022.0068
 #'

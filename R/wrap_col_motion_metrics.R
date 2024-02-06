@@ -1,43 +1,44 @@
 #' @title Collective motion metrics from raw data
 #'
-#' @description Calculates metrics of collective motion across sets and events
+#' @description Calculates metrics of collective motion across sets and events.
 #'
 #' @param data A data frame with time series of individual's positional
 #' data through time. Columns must include: id, set, t, x, y
 #'
-#' @param mov_av_time_window to average over (in timesteps)
+#' @param mov_av_time_window Numeric, a time window to average over for
+#' speed and polarization timeseries (in timesteps).
 #'
-#' @param step2time the sampling frequency, the relation between a time
-#' step and real time in seconds
+#' @param step2time Numeric, the sampling frequency of the dateset
+#' (the relation between a time step and real time in seconds).
 #'
-#' @param geo logical, whether positions are geographic coordinates,
+#' @param geo Logical, whether positions are geographic coordinates,
 #'  default = FALSE.
 #'
-#' @param verbose whether to post updates on progress
+#' @param verbose Logical, whether to post updates on progress, default = FALSE.
 #'
-#' @param speed_lim threshold for speed if interactive mode is off
+#' @param speed_lim Numeric, the threshold of speed for the definition of
+#' an event. For more info see: \code{\link{pick_threshold}}.
 #'
-#' @param pol_lim threshold for polarization if interactive mode is off
+#' @param pol_lim Numeric, the threshold of polarization for the definition of
+#' an event. For more info see: \code{\link{pick_threshold}}.
 #'
-#' @param parallelize_all whether or not to parallelize over ids and time.
+#' @param parallelize_all Logical, whether or not to parallelize over timesteps.
 #'
-#' @param noise_thresh The limit of time difference between consecutive events
+#' @param noise_thresh Numeric, the limit of time difference between consecutive events
 #'  to be considered the same event. Default value is 0 (no event merging).
 #'
-#' @return either a list of dataframes with neighbor ids, bearing angles,
-#' distances and heading deviations for each individual through time,
-#' or saves individual csvs per day, depending on input.
+#' @return A dataframe with metrics of collective motion per event.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{group_vels}}, \code{\link{nn_metrics}}
+#' @seealso \code{\link{group_vels}, \link{group_metrics}, \link{pairwise_metrics}, \link{moving_average}}
 #'
 #' @export
 col_motion_metrics_from_raw <- function(data,
                                mov_av_time_window,
                                step2time = 1,
-                               geo = TRUE,
-                               verbose = TRUE,
+                               geo = FALSE,
+                               verbose = FALSE,
                                speed_lim = NA,
                                pol_lim = NA,
                                parallelize_all = FALSE,
@@ -59,7 +60,7 @@ col_motion_metrics_from_raw <- function(data,
                       verbose = verbose,
                       parallelize = parallelize_all
                       )
-    gl_m <- global_metrics(adf, geo, step2time = step2time,
+    gl_m <- group_metrics(adf, geo, step2time = step2time,
                            parallelize = parallelize_all)
 
     gl_m$speed_av <- moving_average(gl_m$speed, mov_av_time_window)
@@ -83,6 +84,7 @@ col_motion_metrics_from_raw <- function(data,
                   )
 }
 
+
 #' @title Collective motion metrics
 #'
 #' @description Calculates metrics of collective motion across sets
@@ -93,23 +95,25 @@ col_motion_metrics_from_raw <- function(data,
 #'
 #' @param global_metrics A data frame with the global metrics timeseries.
 #'
-#' @param step2time the sampling frequency, the relation between a time step
-#' and real time in seconds.
+#' @param step2time Numeric, the sampling frequency of the dataset
+#' (the relation between a time step and real time in seconds).
 #'
-#' @param verbose whether to post updates on progress.
+#' @param verbose Logical, whether to post updates on progress.
 #'
-#' @param speed_lim threshold for speed if interactive mode is off.
+#' @param speed_lim Numeric, the threshold of speed for the definition of
+#' an event. For more info see: \code{\link{pick_threshold}}.
 #'
-#' @param pol_lim threshold for polarization if interactive mode is off.
+#' @param pol_lim Numeric, the threshold of polarization for the definition of
+#' an event. For more info see: \code{\link{pick_threshold}}.
 #'
-#' @param noise_thresh The limit of time difference between consecutive events
-#'  to be considered the same event. Default value is 0 (no event merging).
+#' @param noise_thresh Numeric, the limit of time difference between consecutive
+#' events to be considered the same event. Default value is 0 (no event merging).
 #'
-#' @return a dataframe with metrics of collective motion per event
+#' @return A dataframe with metrics of collective motion per event.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{moving_average}}
+#' @seealso \code{\link{define_events}, \link{group_metrics}, \link{pairwise_metrics}}
 #'
 #' @export
 col_motion_metrics <- function(timeseries_data,

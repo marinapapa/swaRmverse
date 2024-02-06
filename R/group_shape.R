@@ -9,16 +9,16 @@
 #' @param geo A logical value indicating whether the locations are defined by
 #'  geographic coordinates (pairs of longitude/latitude values). Default: FALSE.
 #'
-#' @return A list with the bounding box coordinates, its heights, its width,
-#' and the orientation of its longest side in degrees.
+#' @return A list with the bounding box coordinates, its height, width,
+#' and the orientation of the longest side in degrees.
 #'
-#' @author Simon Garnier, \email{garnier@@njit.edu},
-#' Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
+#' @author Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{is_chull}}
-#'
-#' @export
-calc_obb <- function(x, y, geo = FALSE) {
+#' @keywords internal
+calc_obb <- function(x,
+                     y,
+                     geo = FALSE
+                     ) {
 
   H    <- grDevices::chull(x, y)  ## hull indices, vertices ordered clockwise
   n    <- length(H)      ## number of hull vertices
@@ -91,11 +91,11 @@ calc_obb <- function(x, y, geo = FALSE) {
 }
 
 
-#' @title Group shape estimations
+#' @title Group shape based on a OOBB
 #'
 #' @description Calculates how oblong the shape of a group is, relative
 #' to its average moving direction, along with the properties of the minimum
-#' bounding box around all objects.
+#' object oriented bounding box (OOBB) around all objects.
 #'
 #' @param x A vector of x (or longitude) coordinates.
 #'
@@ -110,13 +110,14 @@ calc_obb <- function(x, y, geo = FALSE) {
 #' the details of the bounding box, i.e. its coordinates, height,
 #' width, and orientation of its longest side in degrees.
 #'
-#' @author Simon Garnier, \email{garnier@@njit.edu},
-#' Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
-#'
-#' @seealso \code{\link{is_chull}}
+#' @author Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @export
-group_shape <- function(x, y, hs, geo = FALSE) {
+group_shape <- function(x,
+                        y,
+                        hs,
+                        geo = FALSE
+                        ) {
 
   if (!all(length(x) == c(length(y), length(hs))))
     stop("x, y and hs should have the same length.")

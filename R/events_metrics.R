@@ -12,7 +12,7 @@
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{global_metrics}, \link{nn_metrics}}
+#' @seealso \code{\link{group_metrics}, \link{nn_metrics}}
 #'
 #' @export
 event_metrics <- function(global_df, pairwise_df) {

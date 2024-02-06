@@ -7,10 +7,10 @@
 do_add_vels(per_id, geo = FALSE)
 }
 \arguments{
-\item{per_id}{Time series of individuals' positional data.
+\item{per_id}{Dataframe with the time series of individuals' positional data.
 Columns must include: id, t, x, y.}
 
-\item{geo}{Whether positions are geographic coordinates, default = FALSE.}
+\item{geo}{Logical, whether positions are geographic coordinates, default = FALSE.}
 }
 \value{
 the input dataframe with a new speed and heading (rotational) column.

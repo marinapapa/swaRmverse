@@ -7,15 +7,20 @@
 moving_average(timeseries, window)
 }
 \arguments{
-\item{timeseries}{Vector of doubles represting a timeserie.}
+\item{timeseries}{Vector of doubles representing a timeseries.}
 
-\item{window}{Time-window to average over (in timesteps)}
+\item{window}{Double, the time-window to average over (in timesteps).}
 }
 \value{
-a vector of doubles (average over the window)
+A vector of doubles (average over the window).
 }
 \description{
 Calculates the moving average of a time series.
+}
+\examples{
+bs <- rnorm(20, mean = 10, sd = 1)
+moving_average(bs, 5)
+
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

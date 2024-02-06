@@ -7,12 +7,12 @@
 parAddVelsVerb(per_id, geo = FALSE)
 }
 \arguments{
-\item{per_id}{Time series of individuals' positional data.
+\item{per_id}{Dataframe, the time series of individuals' positional data.
 Columns must include: id, t, x, y.}
 
-\item{geo}{Whether positions are geographic coordinates, default = FALSE.}
+\item{geo}{Logical, whether positions are geographic coordinates, default = FALSE.}
 
-\item{verbose}{whether to post updates on progress.}
+\item{verbose}{Logical, whether to post updates on progress.}
 }
 \value{
 the input dataframe with a new speed and heading (rotational) column.

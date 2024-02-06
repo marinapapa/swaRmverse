@@ -2,7 +2,7 @@
 % Please edit documentation in R/group_shape.R
 \name{group_shape}
 \alias{group_shape}
-\title{Group shape estimations}
+\title{Group shape based on a OOBB}
 \usage{
 group_shape(x, y, hs, geo = FALSE)
 }
@@ -24,12 +24,8 @@ width, and orientation of its longest side in degrees.
 \description{
 Calculates how oblong the shape of a group is, relative
 to its average moving direction, along with the properties of the minimum
-bounding box around all objects.
-}
-\seealso{
-\code{\link{is_chull}}
+object oriented bounding box (OOBB) around all objects.
 }
 \author{
-Simon Garnier, \email{garnier@njit.edu},
 Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
 }

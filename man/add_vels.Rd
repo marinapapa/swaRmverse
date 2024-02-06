@@ -17,7 +17,7 @@ Columns must include: id, t, x, y.}
 \item{parallelize}{Logical, whether to run the function in parallel, default = FALSE.}
 }
 \value{
-the input dataframe with a new speed and heading (rotational, in rads) columns.
+The input dataframe with a new speed and heading (rotational, in rads) columns.
 }
 \description{
 Calculates the headings and speeds of individuals based on

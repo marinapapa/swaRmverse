@@ -1,35 +1,46 @@
-#' @title Create swarm space
+#' @title Create a swarm space
 #'
 #' @description Runs a PCA (Principal component analysis)
 #' or a t-SNE (t-distributed Stochastic Neighbor Embedding) over the
 #' global and pairwise metrics of collective motion per each event to
-#' produce a swarm space.
+#' produce a swarm space. The PCA is computed with the \code{stats::prcomp}
+#' function and the t-SNE with the \code{Rtsne::Rtsne} function.
 #'
-#' @param metrics_data Metrics of collective motion per event.
+#' @param metrics_data A dataframe with metrics of collective motion per event.
 #'
-#' @param space_type Choice between PCA and t-SNE.
+#' @param space_type A string, stating the choice between PCA ("pca")
+#' and t-SNE ("tsne"), default = "pca".
 #'
-#' @param event_dur_limit Filter out events that are shorter
-#' than a given duration. Default NA, no filtering is applied.
+#' @param event_dur_limit Numeric, capturing an event duration value in seconds.
+#' Used to filter out events that are shorter that this value.
+#' Default = NA, no filtering is applied.
 #'
-#' @param tsne_rand_seed Random seed for the t-SNE analysis.
+#' @param tsne_rand_seed Numeric, the random seed for the t-SNE analysis, to
+#' ensure reproducibility. Default = NA, but a value should be given if the
+#' t-SNE analysis is selected.
 #'
-#' @param tsne_perplexity Perplexity parameter for the t-SNE analysis.
-#' Usually between 10-50, default 25.
+#' @param tsne_perplexity Numeric, the perplexity parameter for the t-SNE analysis.
+#' Usually between 10-50, default = 25.
 #'
-#' @return the swarm space, x and y coordinates per event of each species
+#' @return A list with 3 elements: a dataframe representing the
+#' swarm space (x and y coordinates per event of each species), a reference dataframe
+#' (ref) including all the additional event information from the input metric data
+#' dataframe, a dataframe for the t-SNE analysis (tsne_setup) that includes the
+#' input parameters used, and a list for the PCA analysis (pca) with the output
+#' of the \code{stats::prcomp} command.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{global_metrics}, \link{nn_metrics}, \link{col_motion_metrics}}
+#' @seealso \code{\link{group_metrics}, \link{pairwise_metrics}, \link{nn_metrics}, \link{col_motion_metrics}}
 #'
 #' @export
-create_swarm_space <- function(metrics_data,
+swarm_space <- function(metrics_data,
                         space_type = "pca",
                         event_dur_limit = NA,
                         tsne_rand_seed = NA,
                         tsne_perplexity = 25
                         ) {
+
   if (!(is.na(event_dur_limit))) {
     if (!(any(colnames(metrics_data) == "event_dur"))) {
       stop("A column named 'event_dur' is needed to
@@ -54,6 +65,7 @@ create_swarm_space <- function(metrics_data,
 
   return(swarm_space)
 }
+
 
 #' @title Perform PCA
 #'
@@ -121,36 +133,41 @@ do_tsne <- function(df,
   return(toret)
 }
 
-#' @title Expands existing swarm space (PCA)
+
+#' @title Expand existing swarm space (PCA)
 #'
-#' @description Predicts the positions of new event data in existing PCA space.
+#' @description Predicts the positions of new event data in an
+#' existing PCA space using the \code{stats::predict} function.
 #'
-#' @param metrics_data New metrics data to add in swarm space.
+#' @param metrics_data A dataframe with the new metrics data to add in swarm space.
 #'
-#' @param event_duration_limit Filter out events that are shorter
-#' than given duration.
+#' @param event_dur_limit Numeric, capturing an event duration value in seconds.
+#' Used to filter out events that are shorter that this value.
+#' Default = NA, no filtering is applied.
 #'
-#' @param pca_space The PCA output to predict from.
+#' @param pca_space The PCA object to predict from, the output of the
+#' \code{stats::prcomp} function or the pca element of the list output
+#' of the \code{swarm_space} function.
 #'
-#' @return Τhe extended swarm space, x and y coordinates
-#' per event of each species.
+#' @return A dataframe with the x and y coordinates in the input swarm space
+#' per event of the new species.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{create_swarm_space}}
+#' @seealso \code{\link{swarm_space}}
 #'
 #' @export
 expand_pca_swarm_space <- function(metrics_data,
                                    pca_space,
-                                   event_duration_limit = NA
+                                   event_dur_limit = NA
                         ) {
-  if (!(is.na(event_duration_limit))) {
+  if (!(is.na(event_dur_limit))) {
     if (!(any(colnames(metrics_data) == "event_dur_s"))) {
       stop("A column named 'event_dur_s' is
             needed to apply an event duration limit.")
     }
     metrics_data <- metrics_data[
-                      metrics_data$event_dur_s > event_duration_limit, ]
+                      metrics_data$event_dur_s > event_dur_limit, ]
   }
 
   metrics_data <- metrics_data[stats::complete.cases(metrics_data), ]

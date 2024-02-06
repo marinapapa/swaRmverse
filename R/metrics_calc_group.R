@@ -1,11 +1,69 @@
-#' @title Calculation of group metrics of collective motion
+#' @title Group metrics of collective motion in dataset
+#'
+#' @description Calculates the timeseries of average speed,
+#'  polarization and shape of all set in a dataset
+#'
+#' @param data_list A list of dataframes with groups timeseries per set.
+#'  Columns must include: id, t, set, head, x, y, speed.
+#'
+#' @param mov_av_time_window Integer, timesteps to use as a sliding window
+#' for average speed and polarization.
+#'
+#' @param geo Logical, whether positions are geographic coordinates,
+#' default = FALSE.
+#'
+#' @param step2time Double, the sampling frequency of the data (the relation
+#' between a time step and real time in seconds).
+#'
+#' @param parallelize Logical, whether or not to parallelize over the
+#' timesteps of each set.
+#'
+#' @return A dataframe with the group average timeseries for each set, with columns:
+#'  set, t, pol, speed, shape, N (number of individuals),
+#'  missing_ind (whether some individuals are missing), pol_av (moving average
+#'  of polarization based on input time window) and speed_av (moving average of
+#'  speed based on input time window).
+#'
+#' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
+#' @seealso \code{\link{group_metrics}}, \code{\link{moving_average}}
+#'
+#' @export
+group_metrics_per_set <- function(data_list,
+                                  mov_av_time_window,
+                                  geo,
+                                  step2time,
+                                  parallelize = FALSE
+) {
+
+  toret <- lapply(X = data_list, FUN = function(x, geo, par, tw, st2t) {
+    gm <- group_metrics(x,
+                         geo = geo,
+                         parallelize = par,
+                         step2time = st2t)
+    gm$speed_av <- moving_average(gm$speed, tw)
+    gm$pol_av <-  moving_average(gm$pol, tw)
+    return(gm)
+  },
+  geo = geo,
+  st2t = step2time,
+  par = parallelize,
+  tw = mov_av_time_window)
+
+  names(toret) <- NULL
+  toret <- do.call(rbind, toret)
+  return(toret)
+}
+
+
+#' @title Group metrics of collective motion
 #'
 #' @description Calculates the average speed, polarization
-#' and shape of the group through time.
+#' and shape of a group through time.
 #'
 #' @param data A dataframe of (ordered) time series of headings,
-#'  positions and speeds per individual. The dataframe may contain
-#'  several individuals. Should include column for:
+#'  positions, and speeds per individual. The dataframe may contain
+#'  several individuals. Should include the columns:
 #'  id, t, speed, x, y, head, set.
 #'
 #' @param geo Logical, whether positions are geographic coordinates,
@@ -26,10 +84,11 @@
 #' @seealso \code{\link{group_shape}, \link{group_vels}}
 #'
 #' @export
-global_metrics <- function(data,
+group_metrics <- function(data,
                            geo,
                            step2time = 1,
-                           parallelize = FALSE) {
+                           parallelize = FALSE
+                           ) {
 
   if (!is.data.frame(data) ||
       !("t" %in% colnames(data)) ||
@@ -42,10 +101,10 @@ global_metrics <- function(data,
     }
 
   if (length(unique(data$id)) < 2) {
-      warning("Some sets have group sizes of 1.")
+      warning("Some sets have group sizes of 1, we recommend removing them from the dataset before continuing.")
     }
 
-  ## the split function doesn't recognise decimal seconds in datetime format, so:
+  ## the split function doesn't recognize decimal seconds in datetime format, so:
   if (step2time < 1){
     data$only_time <- format(data$t, "%H:%M:%OS2")
   } else{
@@ -64,6 +123,7 @@ global_metrics <- function(data,
 
   return(gm)
 }
+
 
 #' @title Calculation of group metrics in parallel
 #'
@@ -102,6 +162,7 @@ par_calc_global_metrics <- function(dfs_per_time,
   parallel::stopCluster(cl)
   return(df)
 }
+
 
 #' @title Calculation of group metrics
 #'

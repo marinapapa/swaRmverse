@@ -28,6 +28,7 @@ events_n <- function(data) {
 }
 
 #' @title Calculates the number of events
+#'
 #' @description Makes the calculation of number of events
 #' of collective motion per set, given by \code{events_n}.
 #'

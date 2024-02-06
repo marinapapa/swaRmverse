@@ -26,9 +26,9 @@ of the variable to be used for the definition of an event.
 An interactive function that calculates and prints
  the quantiles of the input distribution and asks the user to
  input the threshold value they want to keep. If a threshold
- is given as input, then the function does nothing and just
- returns it. In the swaRmverse framework, the timesteps
- with lower values than the thershold will be labelled as not
+ is given as input, then the function checks that the threshold type
+ is correct and returns it. In the swaRmverse framework,
+ the timesteps with lower values than the thershold will be labelled as not
  part of an event.
 }
 \seealso{

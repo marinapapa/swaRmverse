@@ -9,8 +9,7 @@
 #' @return A vector of the same length as bs representing the frontness of
 #' a focal object to its neighbor.
 #'
-#' @author Simon Garnier, \email{garnier@@njit.edu},
-#'  Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
+#' @author Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @seealso \code{\link{nnba}}
 #'
@@ -31,19 +30,19 @@ frontness <- function(bs) {
 }
 
 
-#' @title Relative position coordinates.
+#' @title Relative position coordinates
 #'
 #' @description Calculates the x and y coordinates of a neighbor
-#' in the reference frame of a focal individual.
+#' in the reference frame of the focal individual.
 #'
 #' @param data Dataframe with the bearing angle and
 #' distance of each individual to specific neighbors.
 #' Column names must include: bangl, nnd.
 #'
-#' @param focal_heading the heading of the focal individual,
+#' @param focal_heading The heading of the focal individual,
 #' default = c(0,1) for plotting neighbor heading north.
 #'
-#' @return the input dataframe with additional nnx (nearest neighbor x coordinate)
+#' @return The input dataframe with additional nnx (nearest neighbor x coordinate)
 #'  and nny (nearest neighbor y coordinate) columns.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}

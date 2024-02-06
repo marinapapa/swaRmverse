@@ -3,9 +3,9 @@
 #' @description An interactive function that calculates and prints
 #'  the quantiles of the input distribution and asks the user to
 #'  input the threshold value they want to keep. If a threshold
-#'  is given as input, then the function does nothing and just
-#'  returns it. In the swaRmverse framework, the timesteps
-#'  with lower values than the thershold will be labelled as not
+#'  is given as input, then the function checks that the threshold type
+#'  is correct and returns it. In the swaRmverse framework,
+#'  the timesteps with lower values than the thershold will be labelled as not
 #'  part of an event.
 #'
 #' @param data_distr A numeric vector to pick a threshold for. In
@@ -77,7 +77,7 @@ pick_threshold <- function(data_distr,
 #' part of an event or not.
 #'
 #' @param df A dataframe with a pol_av and speed_av columns
-#' for polarization and speed (calculated by the \code{group_global_metrics}
+#' for polarization and speed (calculated by the \code{\link{group_metrics_per_set}}
 #' function).
 #'
 #' @param sp_lim The (lower) threshold of speed to use for defining which
@@ -101,7 +101,7 @@ pick_threshold <- function(data_distr,
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{pick_threshold}, \link{group_global_metrics}}
+#' @seealso \code{\link{pick_threshold}, \link{group_metrics_per_set}}
 #'
 #' @export
 define_events <- function(df,

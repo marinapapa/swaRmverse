@@ -48,8 +48,8 @@ for the output of most GPS trackers.}
 See strptime for how to specify this parameter.}
 
 \item{...}{Additional vectors representing categories that the data
-should be split by. If none, only the date
-will be used as a unit of data separation.}
+should be split by. If none, only the date will be used as a unit of data
+separation.}
 }
 \value{
 A track dataframe table, which is a colloquial term for an

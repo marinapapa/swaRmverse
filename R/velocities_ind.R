@@ -12,7 +12,7 @@
 #'
 #' @param parallelize Logical, whether to run the function in parallel, default = FALSE.
 #'
-#' @return the input dataframe with a new speed and heading (rotational, in rads) columns.
+#' @return The input dataframe with a new speed and heading (rotational, in rads) columns.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
@@ -64,10 +64,10 @@ add_vels <- function(
 #' @description Calculates headings and speeds based on
 #' two location points and the time taken to travel between those points.
 #'
-#' @param per_id Time series of individuals' positional data.
+#' @param per_id Dataframe with the time series of individuals' positional data.
 #' Columns must include: id, t, x, y.
 #'
-#' @param geo Whether positions are geographic coordinates, default = FALSE.
+#' @param geo Logical, whether positions are geographic coordinates, default = FALSE.
 #'
 #' @return the input dataframe with a new speed and heading (rotational) column.
 #'
@@ -97,17 +97,18 @@ parAddVels <- function(
   return(res)
 }
 
+
 #' @title Adding individual velocity information in parallel - verbose
 #'
 #' @description Calculates headings and speeds based on
 #' two location points and the time taken to travel between those points.
 #'
-#' @param per_id Time series of individuals' positional data.
+#' @param per_id Dataframe, the time series of individuals' positional data.
 #' Columns must include: id, t, x, y.
 #'
-#' @param geo Whether positions are geographic coordinates, default = FALSE.
+#' @param geo Logical, whether positions are geographic coordinates, default = FALSE.
 #'
-#' @param verbose whether to post updates on progress.
+#' @param verbose Logical, whether to post updates on progress.
 #'
 #' @return the input dataframe with a new speed and heading (rotational) column.
 #'
@@ -148,10 +149,10 @@ parAddVelsVerb <- function(
 #' @description Calculates headings and speeds based on
 #' two location points and the time taken to travel between those points.
 #'
-#' @param per_id Time series of individuals' positional data.
+#' @param per_id Dataframe with the time series of individuals' positional data.
 #' Columns must include: id, t, x, y.
 #'
-#' @param geo Whether positions are geographic coordinates, default = FALSE.
+#' @param geo Logical, whether positions are geographic coordinates, default = FALSE.
 #'
 #' @return the input dataframe with a new speed and heading (rotational) column.
 #'
@@ -170,6 +171,7 @@ do_add_vels <- function(
 
 
 #' @title Speed and heading calculation based on swaRm package.
+#'
 #' @description Calculates headings and speeds based on
 #' consecutive locations of 1 individual. Based on the _heading_ and the
 #' _linear\_speed_ functions of _swaRm_.

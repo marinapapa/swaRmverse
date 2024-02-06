@@ -20,7 +20,7 @@ A dataframe with 10 metrics per event.
 Calculates metrics of collective motion across sets and events.
 }
 \seealso{
-\code{\link{global_metrics}, \link{nn_metrics}}
+\code{\link{group_metrics}, \link{nn_metrics}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

@@ -4,7 +4,7 @@
 #'
 #' @param vec A numerical vector to normalize.
 #'
-#' @return a vector of doubles, the normalized values of the input vector.
+#' @return A vector of doubles, the normalized values of the input vector.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'

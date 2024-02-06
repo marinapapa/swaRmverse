@@ -1,7 +1,58 @@
-#' @title Pairwise metrics of collective motion - Nearest neighbor only
+#' @title Pairwise metrics of collective motion in dataset
+#'
+#' @description Calculates the bearing angle and distance from each
+#' focal individual of a group to its nearest neighbor over time, across
+#' the sets of a dataset.
+#'
+#' @param data_list A list of dataframes with groups timeseries per set.
+#' Columns must include: id, t, set, head, x, y.
+#'
+#' @param geo Logical, whether positions are geographic coordinates,
+#' default = FALSE.
+#'
+#' @param verbose Logical, whether to post updates on progress, default = FALSE.
+#'
+#' @param add_coords Logical, whether data on relative positions are converted
+#' into geographic coordinates, default = 'FALSE'.
+#'
+#' @param parallelize Logical, whether to run the function in parallel over
+#' timesteps, default = FALSE.
+#'
+#' @return A dataframe format of the input list, with new columns for nearest neighbor id (nn_id),
+#' bearing angles (bangl), and distances (nnd). If add_coords is TRUE, the columns
+#' nnx and nny are also added.
+#'
+#' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
+#' @seealso \code{\link{nn_metrics}, \link{group_metrics_per_set}}
+#'
+#' @export
+pairwise_metrics <- function(data_list,
+                             geo = FALSE,
+                             verbose = FALSE,
+                             parallelize = FALSE,
+                             add_coords = FALSE
+                             ) {
+  if (verbose) print("Pairwise analysis started..")
+
+  toret <- lapply(X = data_list,
+                  FUN = nn_metrics,
+                  add_coords = add_coords,
+                  geo = geo,
+                  verbose = verbose,
+                  parallelize = parallelize
+  )
+
+  names(toret) <- NULL
+  toret <- do.call(rbind, toret)
+  return(toret)
+}
+
+
+#' @title Nearest neighbour metrics
 #'
 #' @description Calculates the bearing angle and distance from
-#' a focal individual to its nearest neighbor over time.
+#' all focal individuals in a group to their nearest neighbor over time.
 #'
 #' @param data A dataframe with the group's positional timeseries for one set.
 #' Column names must include: id, x, y, t. The calculations are based on
@@ -19,13 +70,13 @@
 #'
 #' @param parallelize Logical, whether to parallelize the function over time.
 #'
-#' @return a dataframe with a column for nearest neighbor id (nn_id),
+#' @return The input dataframe with new columns for nearest neighbor id (nn_id),
 #' bearing angle (bangl), and distance (nnd).
 #' If add_coords is TRUE, the columns nnx and nny are  added.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{add_rel_pos_coords}, \link{global_metrics}}
+#' @seealso \code{\link{add_rel_pos_coords}, \link{group_metrics}}
 #'
 #' @export
 nn_metrics <- function(data,
@@ -85,7 +136,7 @@ par_nn_metrics <- function(per_time,
                           ) {
 
  num_cores <- parallel::detectCores()
-  cl <- parallel::makeCluster(num_cores)
+  cl <- parallel::makeCluster(num_cores - 1)
 
   res <- tryCatch({
     pbapply::pblapply(per_time,

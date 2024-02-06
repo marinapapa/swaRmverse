@@ -46,7 +46,7 @@ all_data <- rbind(multi_species_metrics, new_species)
 Create new swarm space with PCA analysis:
 
 ```{r}
-new_pca <- create_swarm_space(metrics_data = all_data,
+new_pca <- swarm_space(metrics_data = all_data,
                               space_type = "pca"
                               )
 
@@ -71,7 +71,7 @@ Or create a new swarm space with tSNE to better study the local structure of the
 
 ```{r}
 
-new_tsne <- create_swarm_space(metrics_data = all_data,
+new_tsne <- swarm_space(metrics_data = all_data,
                               space_type = "tsne",
                               tsne_rand_seed = 2023,
                               tsne_perplexity = 10

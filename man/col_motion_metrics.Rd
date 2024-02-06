@@ -20,27 +20,29 @@ positional data through time with nearest neighbor analysis conducted}
 
 \item{global_metrics}{A data frame with the global metrics timeseries.}
 
-\item{step2time}{the sampling frequency, the relation between a time step
-and real time in seconds.}
+\item{step2time}{Numeric, the sampling frequency of the dataset
+(the relation between a time step and real time in seconds).}
 
-\item{verbose}{whether to post updates on progress.}
+\item{verbose}{Logical, whether to post updates on progress.}
 
-\item{speed_lim}{threshold for speed if interactive mode is off.}
+\item{speed_lim}{Numeric, the threshold of speed for the definition of
+an event. For more info see: \code{\link{pick_threshold}}.}
 
-\item{pol_lim}{threshold for polarization if interactive mode is off.}
+\item{pol_lim}{Numeric, the threshold of polarization for the definition of
+an event. For more info see: \code{\link{pick_threshold}}.}
 
-\item{noise_thresh}{The limit of time difference between consecutive events
-to be considered the same event. Default value is 0 (no event merging).}
+\item{noise_thresh}{Numeric, the limit of time difference between consecutive
+events to be considered the same event. Default value is 0 (no event merging).}
 }
 \value{
-a dataframe with metrics of collective motion per event
+A dataframe with metrics of collective motion per event.
 }
 \description{
 Calculates metrics of collective motion across sets
 and events.
 }
 \seealso{
-\code{\link{moving_average}}
+\code{\link{define_events}, \link{group_metrics}, \link{pairwise_metrics}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

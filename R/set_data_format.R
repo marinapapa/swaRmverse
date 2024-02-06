@@ -13,27 +13,27 @@
 #' @param raw_id A vector representing the identity of each coordinate
 #' recording.
 #'
-#' @param proj  A character string or a sp::CRS object representing
+#' @param proj A character string or a sp::CRS object representing
 #' the projection of the coordinates. Leave empty if the coordinates are
 #' not projected (e.g., output of video tracking). "+proj=longlat" is suitable
 #' for the output of most GPS trackers.
 #'
-#' @param origin  Something that can be coerced to a date-time object by as_
+#' @param origin Something that can be coerced to a date-time object by as_
 #' datetime representing the start date and time of the observations when t is
 #' a numeric vector.
 #'
-#' @param tz  A time zone name. See OlsonNames.
+#' @param tz A time zone name. See OlsonNames.
 #'
 #' @param period A character vector in a shorthand format (e.g. "1 second")
 #' or ISO 8601 specification. This is used when t is a numeric vector to
 #' represent time unit of the observations.
 #'
-#' @param format  A character string indicating the formatting of 't'.
+#' @param format A character string indicating the formatting of 't'.
 #' See strptime for how to specify this parameter.
 #'
 #' @param ...  Additional vectors representing categories that the data
-#' should be split by. If none, only the date
-#' will be used as a unit of data separation.
+#' should be split by. If none, only the date will be used as a unit of data
+#' separation.
 #'
 #' @return A track dataframe table, which is a colloquial term for an
 #'  object of class track.
@@ -71,9 +71,10 @@ set_data_format <- function(raw_x,
                                table = "df")
 
   group_vars <- list(...)
+
   if (length(group_vars) != 0) {
     if (any(lengths(group_vars) != nrow(tracked_df))) {
-      warning("Extra set info of different lengths, they are being ignored.")
+      warning("Extra set information is of different lengths, they are being ignored.")
     } else {
       extr_df <- as.data.frame(group_vars)
       group_id <- do.call(paste, c(extr_df[seq_len(ncol(extr_df))], sep = "_"))

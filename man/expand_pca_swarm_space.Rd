@@ -2,27 +2,31 @@
 % Please edit documentation in R/swarm_space.R
 \name{expand_pca_swarm_space}
 \alias{expand_pca_swarm_space}
-\title{Expands existing swarm space (PCA)}
+\title{Expand existing swarm space (PCA)}
 \usage{
-expand_pca_swarm_space(metrics_data, pca_space, event_duration_limit = NA)
+expand_pca_swarm_space(metrics_data, pca_space, event_dur_limit = NA)
 }
 \arguments{
-\item{metrics_data}{New metrics data to add in swarm space.}
+\item{metrics_data}{A dataframe with the new metrics data to add in swarm space.}
 
-\item{pca_space}{The PCA output to predict from.}
+\item{pca_space}{The PCA object to predict from, the output of the
+\code{stats::prcomp} function or the pca element of the list output
+of the \code{swarm_space} function.}
 
-\item{event_duration_limit}{Filter out events that are shorter
-than given duration.}
+\item{event_dur_limit}{Numeric, capturing an event duration value in seconds.
+Used to filter out events that are shorter that this value.
+Default = NA, no filtering is applied.}
 }
 \value{
-Τhe extended swarm space, x and y coordinates
-per event of each species.
+A dataframe with the x and y coordinates in the input swarm space
+per event of the new species.
 }
 \description{
-Predicts the positions of new event data in existing PCA space.
+Predicts the positions of new event data in an
+existing PCA space using the \code{stats::predict} function.
 }
 \seealso{
-\code{\link{create_swarm_space}}
+\code{\link{swarm_space}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}
