@@ -35,8 +35,8 @@ data_dfs <- add_velocities(data_df,
                            geo = is_geo,
                            verbose = TRUE,
                            parallelize = FALSE
-                           )
-head(data_dfs[[1]])
+                           ) ## A list of dataframes
+#head(data_dfs[[1]])
 print(paste("Velocity information added for", length(data_dfs), "sets."))
 ```
 
@@ -58,7 +58,7 @@ g_metr <- group_metrics_per_set(data_list = data_dfs,
                                geo = is_geo,
                                parallelize = FALSE
                                )
-head(g_metr)
+summary(g_metr)
 
 ```
 
@@ -77,7 +77,7 @@ data_df <- pairwise_metrics(data_list = data_dfs,
                             add_coords = FALSE # could be set to TRUE if the relative positions of neighbors are needed 
                             )
 
-tail(data_df)
+#tail(data_df)
 ```
 
 ## 2.4 Metrics of collective motion

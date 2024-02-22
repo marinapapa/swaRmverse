@@ -61,8 +61,8 @@ ggplot2::ggplot(new_pca$swarm_space,
 Check what each principal component represents and get the info of each event:
 
 ```{r}
-pcs_info <- new_pca$pca$rotation[, new_pca$pca$sdev > 1]
-print(pcs_info)
+pca_info <- new_pca$pca$rotation[, new_pca$pca$sdev > 1]
+print(pca_info)
 
 ref_data <- new_pca$ref
 ```
@@ -91,8 +91,8 @@ ggplot2::ggplot(new_tsne$swarm_space, ggplot2::aes(x = X, y = Y, color = species
 Starting from previously generated PCA swarm space, add new data:
 
 ```{r}
-data("multi_species_pca.rda")
-data("multi_species_pca_data.rda")
+data("multi_species_pca")
+data("multi_species_pca_data")
 
 new_pca_data <- expand_pca_swarm_space(metrics_data = new_species_metrics,
                                        pca_space = multi_species_pca)
