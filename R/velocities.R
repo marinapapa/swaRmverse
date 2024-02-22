@@ -247,14 +247,15 @@ perIdVels <- function(
     per_id <- as.data.frame(per_id)
 
     if (nrow(per_id) < 2) {
-      warning(paste0("Id ", per_id[,'id'], "has only one data point, returning NA for its heading."))
+      warning(paste0("Id ", per_id[,'id'], " has only one data point, returning NA for its heading.
+                     We recommend cleaning your data before continuing."))
       return(per_id)
     }
 
     if (any(duplicated(per_id$t))){
       warning(paste0("Duplicated times found for individual ",
                      per_id[,'id'],
-                     ". Speed calculations will be affected."))
+                     ". Speed calculations may be affected."))
     }
     per_id[, "head"] <- swaRm::heading(x = per_id$x,
                                        y = per_id$y,

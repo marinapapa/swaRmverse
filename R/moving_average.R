@@ -19,13 +19,14 @@ moving_average <- function(timeseries,
                            window
                            ) {
   if (window < 2) {
-    stop("Moving average needs a time window larger than 1 time step.")
+    stop("The moving-average window is measured in timestep (rows), not real time,
+         and it should thus be larger than 1.")
   }
 
   mov_av <- rep(NA, length(timeseries))
 
   if (window / 2 > length(timeseries)) {
-    warning("Time series shorter than smoothing window,
+    warning("Found a time series that is shorter than the smoothing window,
              NAs returned for that set.")
     return(mov_av)
   }
