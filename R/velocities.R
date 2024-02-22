@@ -1,4 +1,59 @@
-#' @title Add velocity information
+#' @title Add velocity timeseries across sets
+#'
+#' @description Calculates and adds the speed and heading of each individual
+#' over time in the dataset, and splits it in a list of dataframes based
+#' on the defined sets.
+#'
+#' @param data A data frame with time series of individual's positional data,
+#' as exported by the \code{set_data_format} function.
+#' Columns needed: 't', 'x', 'y', 'id', 'set'.
+#'
+#' @param geo Logical, whether positions are geographic coordinates,
+#'  default = FALSE.
+#'
+#' @param verbose Logical, whether to post updates on progress, default = FALSE.
+#'
+#' @param parallelize Logical, whether to run the function in parallel over individuals,
+#'  default = FALSE.
+#'
+#' @return A list of dataframes, an element per set from the input dataframe
+#' with new columns: head and speed.
+#'
+#' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
+#' @seealso \code{\link{add_set_vels}}, \code{\link{set_data_format}}
+#'
+#' @export
+add_velocities <- function(data,
+                           geo = TRUE,
+                           verbose = FALSE,
+                           parallelize = FALSE
+) {
+
+  if (!("set" %in% colnames(data))){
+    stop("The data should include a set column, as standardised by the
+         set_data_format function.")
+  }
+
+  splitted_data <- split(data, data$set)
+
+  if (verbose) {
+    print("Adding velocity info to every set of the dataset..")
+  }
+  toret <- lapply(X = splitted_data,
+                  FUN = add_set_vels,
+                  verbose = verbose,
+                  geo = geo,
+                  parallelize = parallelize
+  )
+  if (verbose) {
+    print("Done!")
+  }
+  return(toret)
+}
+
+
+#' @title Add velocity timeseries
 #'
 #' @description Calculates the headings and speeds of individuals based on
 #' two location points and the time taken to travel between those points.
@@ -16,10 +71,10 @@
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{group_vels}}
+#' @seealso \code{\link{add_velocities}}
 #'
 #' @export
-add_vels <- function(
+add_set_vels <- function(
     data,
     geo = TRUE,
     verbose = FALSE,
@@ -47,7 +102,7 @@ add_vels <- function(
   data <- do.call(rbind, per_id)
 
   ## headings of 0 (from not moving) being replaced with NA for safety in group properties calculations
-  idx_without_head <- which(abs(data[, "head"]) < 0.0000000001)
+  idx_without_head <- which(abs(data[, "head"]) < 0.00000000001)
   if (length(idx_without_head) > 0){
     warning(paste0("Individuals ",
                    paste(unique(data[idx_without_head,"id"]), collapse = ", "),
@@ -173,8 +228,8 @@ do_add_vels <- function(
 #' @title Speed and heading calculation based on swaRm package.
 #'
 #' @description Calculates headings and speeds based on
-#' consecutive locations of 1 individual. Based on the _heading_ and the
-#' _linear\_speed_ functions of _swaRm_.
+#' consecutive locations of 1 individual. Based on the \code{heading} and the
+#' \code{linear_speed} functions of \code{swaRm}.
 #'
 #' @param data Time series of 1 individual's positional data.
 #'

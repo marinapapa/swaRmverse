@@ -31,11 +31,11 @@ data_df <- set_data_format(raw_x = raw$x,
                           )
 
 is_geo <- FALSE
-data_dfs <- group_vels(data_df,
-                       geo = is_geo,
-                       verbose = TRUE,
-                       parallelize = FALSE
-                       )
+data_dfs <- add_velocities(data_df,
+                           geo = is_geo,
+                           verbose = TRUE,
+                           parallelize = FALSE
+                           )
 head(data_dfs[[1]])
 print(paste("Velocity information added for", length(data_dfs), "sets."))
 ```
@@ -74,7 +74,7 @@ data_df <- pairwise_metrics(data_list = data_dfs,
                             geo = is_geo,
                             verbose = TRUE,
                             parallelize = FALSE,
-                            add_coords = TRUE # could be set to FALSE if the relative positions of neighbors are not needed
+                            add_coords = FALSE # could be set to TRUE if the relative positions of neighbors are needed 
                             )
 
 tail(data_df)
@@ -104,7 +104,7 @@ new_species_metrics <- col_motion_metrics(data_df,
                                            pol_lim = 0.3
 )
 
-summary(new_species_metrics)
+# summary(new_species_metrics)
 
 ```
 
@@ -122,27 +122,33 @@ new_species_metrics <- col_motion_metrics_from_raw(data_df,
                                 parallelize_all = FALSE
                                 )
 
-summary(new_species_metrics)
+# summary(new_species_metrics)
 
 ```
 
-Since we are interested in comparing different datasets across species or contexts, a new species id column can be added:
+Since we are interested in comparing different datasets across species or contexts, a new species id column should be added:
 
 ```{r message=FALSE, warning=FALSE}
 
-new_species_metrics$species <- "new_species_id"
+new_species_metrics$species <- "new_species_1"
 
 head(new_species_metrics)
+
+## Un-comment bellow to save the output in order to combine it with other datasets (replace 'path2file' with appropriate local path and name).
+# write.csv(new_species_metrics, file = path2file.csv, row.names = FALSE) # OR R object
+# save(new_species_metrics, file = path2file.rda) 
+
 ```
 
-The duration of each event is also added to the result dataframe. We suggest filtering out events of very small duration. The calculated metrics are: 
-1. _mean_mean_nnd_: the temporal average of the group's average nearest neighbor distance
-2. _mean_sd_nnd_: the temporal average of the group's standard deviation in nearest neighbor distance
-3. _sd_mean_nnd_: the temporal standard deviation of the group's average nearest neighbor distance     
-4. _mean_pol_: the average of the group's polarization during the event
-5. _sd_pol_: the standard deviation of the group's polarization during the event
-6. _stdv_speed_: the CV (coefficient of variation) of the group's average speed during the event
-7. _mean_sd_front_: the average standard deviation of the individuals' frontness to their nearest neighbor during an event
-8. _mean_mean_bangl_: the temporal average of the group's average angle
-9. _mean_shape_: the average shape index of the group during an event (0= perfectly wide and 1= perfectly long relative to the heading direction)
-10. _sd_mean_shape_: the standard deviation of the group's average shape index during an event.
+The duration, starting time and group size (N) of each event are also added to the result dataframe. We suggest filtering out events of very small duration and with less than 3 individuals (singletons and pairs). The calculated metrics are:
+
+* _mean_mean_nnd_: the temporal average of the group's average nearest neighbor distance
+* _mean_sd_nnd_: the temporal average of the group's standard deviation in nearest neighbor distance
+* _sd_mean_nnd_: the temporal standard deviation of the group's average nearest neighbor distance     
+* _mean_pol_: the average of the group's polarization during the event
+* _sd_pol_: the standard deviation of the group's polarization during the event
+* _stdv_speed_: the CV (coefficient of variation) of the group's average speed during the event
+* _mean_sd_front_: the average standard deviation of the individuals' frontness to their nearest neighbor during an event
+* _mean_mean_bangl_: the temporal average of the group's average angle
+* _mean_shape_: the average shape index of the group during an event (0= perfectly wide and 1= perfectly long relative to the heading direction)
+* _sd_mean_shape_: the standard deviation of the group's average shape index during an event.

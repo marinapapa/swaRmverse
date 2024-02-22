@@ -12,7 +12,7 @@ LazyData: true
 URL: https://marinapapa.github.io/swaRmverse/,
         https://github.com/marinapapa/swaRmverse
 BugReports: https://github.com/marinapapa/swaRmverse/issues
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Depends: 
   R (>= 3.5)
 Imports:

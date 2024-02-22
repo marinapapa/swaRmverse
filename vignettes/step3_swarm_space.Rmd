@@ -33,7 +33,7 @@ new_species_metrics <- col_motion_metrics_from_raw(data_df,
                                 parallelize_all = FALSE
                                 )
 
-new_species_metrics$species <- "new_species"
+new_species_metrics$species <- "new_species_2"
 
 ## Bind datasets for pca:
 new_species <- new_species_metrics[,!colnames(new_species_metrics) %in% c('event_dur', 'N', 'set', 'start_time')] # remove columns not needed for the swarm space
@@ -104,5 +104,30 @@ ggplot2::ggplot(expanded_pca,
                 ggplot2::aes(x = PC1, y = PC2, color = species)) +
    ggplot2::geom_point() +
    ggplot2::theme_bw()
+
+```
+
+
+## 3.4 Your own swarm space
+
+To compare several new datasets, one should run the analysis until the end of step 2 for each one of them. Then simply bind the result datasets together and run the swarm spaces as above:
+
+```{r message=FALSE, warning=FALSE}
+
+another_species <- new_species_metrics ## from the beginning of this step
+data("new_species_metrics") ## loads the output of step 2
+
+## Bind all the datasets you want to compare here
+all_data <- rbind(another_species, new_species_metrics)
+
+new_pca <- swarm_space(metrics_data = all_data,
+                       space_type = "pca"
+                       )
+
+ggplot2::ggplot(new_pca$swarm_space,
+                ggplot2::aes(x = PC1, y = PC2, color = species)
+                ) +
+  ggplot2::geom_point() +
+  ggplot2::theme_bw()
 
 ```

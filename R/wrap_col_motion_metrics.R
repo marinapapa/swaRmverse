@@ -31,7 +31,7 @@
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{group_vels}, \link{group_metrics}, \link{pairwise_metrics}, \link{moving_average}}
+#' @seealso \code{\link{add_velocities}, \link{group_metrics}, \link{pairwise_metrics}, \link{moving_average}}
 #'
 #' @export
 col_motion_metrics_from_raw <- function(data,
@@ -44,11 +44,11 @@ col_motion_metrics_from_raw <- function(data,
                                parallelize_all = FALSE,
                                noise_thresh = 0
                                ) {
-  sets_dfs <- group_vels(data,
-                         geo = geo,
-                         verbose = verbose,
-                         parallelize = parallelize_all
-                         )
+  sets_dfs <- add_velocities(data,
+                             geo = geo,
+                             verbose = verbose,
+                             parallelize = parallelize_all
+                             )
 
   gm_all <- vector("list", length = length(sets_dfs))
   nn_all <- vector("list", length = length(sets_dfs))

@@ -49,7 +49,7 @@ A dataframe with metrics of collective motion per event.
 Calculates metrics of collective motion across sets and events.
 }
 \seealso{
-\code{\link{group_vels}, \link{group_metrics}, \link{pairwise_metrics}, \link{moving_average}}
+\code{\link{add_velocities}, \link{group_metrics}, \link{pairwise_metrics}, \link{moving_average}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

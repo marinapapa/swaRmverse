@@ -81,7 +81,7 @@ group_metrics_per_set <- function(data_list,
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{group_shape}, \link{group_vels}}
+#' @seealso \code{\link{group_shape}, \link{add_velocities}}
 #'
 #' @export
 group_metrics <- function(data,

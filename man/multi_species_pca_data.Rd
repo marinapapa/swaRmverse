@@ -14,6 +14,6 @@ data('multi_species_pca_data')
 The positions of events from 4 species: stickleback fish, homing pigeons, goats and chacma baboons,
 in the PCA swarm space (see *multi_species_pca*). First published as part of:
 Papadopoulou Marina, Fürtbauer Ines, O'Bryan Lisa R., Garnier Simon, Georgopoulou Dimitra G., Bracken Anna M., Christensen Charlotte and King Andrew J.
-2023. Dynamics of collective motion across time and speciesPhil. Trans. R. Soc. B 378: 20220068. http://doi.org/10.1098/rstb.2022.0068
+2023. Dynamics of collective motion across time and species. Phil. Trans. R. Soc. B 378: 20220068. http://doi.org/10.1098/rstb.2022.0068
 }
 \keyword{datasets}

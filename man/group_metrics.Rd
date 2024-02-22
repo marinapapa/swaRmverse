@@ -31,7 +31,7 @@ Calculates the average speed, polarization
 and shape of a group through time.
 }
 \seealso{
-\code{\link{group_shape}, \link{group_vels}}
+\code{\link{group_shape}, \link{add_velocities}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}
