@@ -2,7 +2,7 @@
 % Please edit documentation in R/swarm_space.R
 \name{swarm_space}
 \alias{swarm_space}
-\title{Create a swarm space}
+\title{Create a Swarm Space}
 \usage{
 swarm_space(
   metrics_data,
@@ -32,13 +32,13 @@ Usually between 10-50, default = 25.}
 \value{
 A list with 3 elements: a dataframe representing the
 swarm space (x and y coordinates per event of each species), a reference dataframe
-(ref) including all the additional event information from the input metric data
-dataframe, a dataframe for the t-SNE analysis (tsne_setup) that includes the
+(\code{ref}) including all the additional event information from the input metric data
+dataframe, a dataframe for the t-SNE analysis (\code{tsne_setup}) that includes the
 input parameters used, and a list for the PCA analysis (pca) with the output
 of the \code{stats::prcomp} command.
 }
 \description{
-Runs a PCA (Principal component analysis)
+This function runs a PCA (Principal component analysis)
 or a t-SNE (t-distributed Stochastic Neighbor Embedding) over the
 global and pairwise metrics of collective motion per each event to
 produce a swarm space. The PCA is computed with the \code{stats::prcomp}

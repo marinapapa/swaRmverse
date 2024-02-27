@@ -2,13 +2,13 @@
 % Please edit documentation in R/velocities.R
 \name{add_set_vels}
 \alias{add_set_vels}
-\title{Add velocity timeseries}
+\title{Add Velocity Timeseries}
 \usage{
 add_set_vels(data, geo = TRUE, verbose = FALSE, parallelize = FALSE)
 }
 \arguments{
 \item{data}{A dataframe with the time series of individuals' positions.
-Columns must include: id, t, x, y.}
+Columns must include: \code{t}, \code{id}, \code{x}, \code{y}.}
 
 \item{geo}{Logical, whether positions are geographic coordinates, default = TRUE.}
 
@@ -20,7 +20,7 @@ Columns must include: id, t, x, y.}
 The input dataframe with a new speed and heading (rotational, in rads) columns.
 }
 \description{
-Calculates the headings and speeds of individuals based on
+This function calculates the headings and speeds of individuals based on
 two location points and the time taken to travel between those points.
 }
 \seealso{

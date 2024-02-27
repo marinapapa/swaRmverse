@@ -31,7 +31,7 @@ the dataframe that was given as input with an extra \code{keep}
  events.
 }
 \description{
-Adds a keep TRUE/FALSE column in the input dataframe based on
+This function adds a keep TRUE/FALSE column in the input dataframe based on
  whether the average speed and polarization of the group is larger than the
 input thresholds, reflecting whether a timestep is considered part of a
 collective event or not.

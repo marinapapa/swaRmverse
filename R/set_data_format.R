@@ -1,6 +1,6 @@
-#' @title Data formatting
+#' @title Data Formatting
 #'
-#' @description A wrapper for the track_df function of the \code{trackdf} package.
+#' @description This function is a wrapper for the  \code{track} function of the \code{trackdf} package.
 #'
 #' @param raw_x A numeric vector representing the x coordinates of individual(s).
 #'
@@ -13,7 +13,7 @@
 #' @param raw_id A vector representing the identity of each coordinate
 #' recording.
 #'
-#' @param proj A character string or a sp::CRS object representing
+#' @param proj A character string or a \code{sp::CRS} object representing
 #' the projection of the coordinates. Leave empty if the coordinates are
 #' not projected (e.g., output of video tracking). "+proj=longlat" is suitable
 #' for the output of most GPS trackers.
@@ -93,5 +93,5 @@ set_data_format <- function(raw_x,
                                          fixed = TRUE)))
   tracked_df$set <- date_df[, 1]
 
-  return(tracked_df)
+  tracked_df
 }

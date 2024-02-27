@@ -15,7 +15,7 @@ a list with the swarm space (a dataframe with PC1, PC2, PC3
 coordinates per event) and the complete pca object.
 }
 \description{
-Run a PCA to place events on collective motion into less-dimentional space.
+This function runs a PCA to place events on collective motion into less-dimentional space.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

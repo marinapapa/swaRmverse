@@ -2,24 +2,24 @@
 % Please edit documentation in R/metrics_calc_pairwise.R
 \name{par_nn_metrics}
 \alias{par_nn_metrics}
-\title{Adding motion properties in parallel - verbose}
+\title{Adding Motion Properties in Parallel - Verbose}
 \usage{
 par_nn_metrics(per_time, geo = FALSE)
 }
 \arguments{
 \item{per_time}{A groups positional data at a single timestep.
-Columns must include: id, t, x, y, head.}
+Columns must include: \code{id}, \code{t}, \code{head}, \code{x}, \code{y}.}
 
 \item{geo}{Logical, whether positions are geographic coordinates, default = FALSE.}
 
 \item{verbose}{Logical,whether to post updates on progress}
 }
 \value{
-The input dataframe with new columns for nnd (nearest neighbor distance),
-nn_id (its id) and bangl (nearest neighbor bearing angle).
+The input dataframe with new columns for \code{nnd} (nearest neighbor distance),
+ \code{nn_id} (its id) and  \code{bangl} (nearest neighbor bearing angle).
 }
 \description{
-Calculates the bearing angle and distance from
+This function calculates the bearing angle and distance from
 a focal individual to its nearest neighbor at the given timestep.
 }
 \author{

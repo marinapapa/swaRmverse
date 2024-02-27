@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics_calc_group.R
 \name{group_metrics_per_set}
 \alias{group_metrics_per_set}
-\title{Group metrics of collective motion in dataset}
+\title{Group Metrics of Collective Motion in a Dataset}
 \usage{
 group_metrics_per_set(
   data_list,
@@ -14,7 +14,8 @@ group_metrics_per_set(
 }
 \arguments{
 \item{data_list}{A list of dataframes with groups timeseries per set.
-Columns must include: id, t, set, head, x, y, speed.}
+Columns must include: \code{id}, \code{t}, \code{set}, \code{head},
+\code{x}, \code{y}, \code{speed}.}
 
 \item{mov_av_time_window}{Integer, timesteps to use as a sliding window
 for average speed and polarization.}
@@ -30,13 +31,13 @@ timesteps of each set.}
 }
 \value{
 A dataframe with the group average timeseries for each set, with columns:
- set, t, pol, speed, shape, N (number of individuals),
- missing_ind (whether some individuals are missing), pol_av (moving average
- of polarization based on input time window) and speed_av (moving average of
+ \code{set}, \code{t}, \code{pol}, \code{speed}, \code{shape}, \code{N} (number of individuals),
+ \code{missing_ind} (whether some individuals are missing), \code{pol_av} (moving average
+ of polarization based on input time window) and \code{speed_av} (moving average of
  speed based on input time window).
 }
 \description{
-Calculates the timeseries of average speed,
+This function calculates the timeseries of average speed,
  polarization and shape of all set in a dataset
 }
 \seealso{

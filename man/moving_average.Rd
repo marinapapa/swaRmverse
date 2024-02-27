@@ -2,7 +2,7 @@
 % Please edit documentation in R/moving_average.R
 \name{moving_average}
 \alias{moving_average}
-\title{Moving average}
+\title{Moving Average}
 \usage{
 moving_average(timeseries, window)
 }
@@ -15,7 +15,7 @@ moving_average(timeseries, window)
 A vector of doubles (average over the window).
 }
 \description{
-Calculates the moving average of a time series.
+This function calculates the moving average of a time series.
 }
 \examples{
 bs <- rnorm(20, mean = 10, sd = 1)

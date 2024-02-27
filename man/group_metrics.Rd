@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics_calc_group.R
 \name{group_metrics}
 \alias{group_metrics}
-\title{Group metrics of collective motion}
+\title{Group Metrics of Collective Motion}
 \usage{
 group_metrics(data, geo, step2time = 1, parallelize = FALSE)
 }
@@ -10,7 +10,7 @@ group_metrics(data, geo, step2time = 1, parallelize = FALSE)
 \item{data}{A dataframe of (ordered) time series of headings,
 positions, and speeds per individual. The dataframe may contain
 several individuals. Should include the columns:
-id, t, speed, x, y, head, set.}
+\code{id}, \code{t}, \code{speed}, \code{x}, \code{y}, \code{head}, \code{set}.}
 
 \item{geo}{Logical, whether positions are geographic coordinates,
 default = FALSE.}
@@ -23,11 +23,11 @@ Suggested only for very large datasets.}
 }
 \value{
 A dataframe with the group average timeseries, with columns:
- set, t, pol, speed, shape, N (number of individuals),
- missing_ind (whether some individuals are missing).
+ \code{set}, \code{t}, \code{pol}, \code{speed}, \code{shape}, \code{N} (number of individuals),
+ \code{missing_ind} (whether some individuals are missing).
 }
 \description{
-Calculates the average speed, polarization
+This function calculates the average speed, polarization
 and shape of a group through time.
 }
 \seealso{

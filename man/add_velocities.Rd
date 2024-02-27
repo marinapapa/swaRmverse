@@ -2,14 +2,14 @@
 % Please edit documentation in R/velocities.R
 \name{add_velocities}
 \alias{add_velocities}
-\title{Add velocity timeseries across sets}
+\title{Add Velocity Timeseries Across Sets}
 \usage{
 add_velocities(data, geo = TRUE, verbose = FALSE, parallelize = FALSE)
 }
 \arguments{
 \item{data}{A data frame with time series of individual's positional data,
 as exported by the \code{set_data_format} function.
-Columns needed: 't', 'x', 'y', 'id', 'set'.}
+Columns needed: \code{set}, \code{t}, \code{id}, \code{x}, \code{y}.}
 
 \item{geo}{Logical, whether positions are geographic coordinates,
 default = FALSE.}
@@ -21,10 +21,10 @@ default = FALSE.}
 }
 \value{
 A list of dataframes, an element per set from the input dataframe
-with new columns: head and speed.
+with new columns: \code{head} and \code{speed}.
 }
 \description{
-Calculates and adds the speed and heading of each individual
+This function calculates and adds the speed and heading of each individual
 over time in the dataset, and splits it in a list of dataframes based
 on the defined sets.
 }

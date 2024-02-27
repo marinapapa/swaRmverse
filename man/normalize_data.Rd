@@ -2,7 +2,7 @@
 % Please edit documentation in R/normalize_data.R
 \name{normalize_data}
 \alias{normalize_data}
-\title{Normalize data}
+\title{Normalize Data}
 \usage{
 normalize_data(vec)
 }
@@ -13,7 +13,7 @@ normalize_data(vec)
 A vector of doubles, the normalized values of the input vector.
 }
 \description{
-Rescales a vector to values between 0 and 1.
+This function rescales a vector to values between 0 and 1.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

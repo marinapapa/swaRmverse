@@ -1,6 +1,6 @@
-#' @title Create a swarm space
+#' @title Create a Swarm Space
 #'
-#' @description Runs a PCA (Principal component analysis)
+#' @description This function runs a PCA (Principal component analysis)
 #' or a t-SNE (t-distributed Stochastic Neighbor Embedding) over the
 #' global and pairwise metrics of collective motion per each event to
 #' produce a swarm space. The PCA is computed with the \code{stats::prcomp}
@@ -24,8 +24,8 @@
 #'
 #' @return A list with 3 elements: a dataframe representing the
 #' swarm space (x and y coordinates per event of each species), a reference dataframe
-#' (ref) including all the additional event information from the input metric data
-#' dataframe, a dataframe for the t-SNE analysis (tsne_setup) that includes the
+#' (\code{ref}) including all the additional event information from the input metric data
+#' dataframe, a dataframe for the t-SNE analysis (\code{tsne_setup}) that includes the
 #' input parameters used, and a list for the PCA analysis (pca) with the output
 #' of the \code{stats::prcomp} command.
 #'
@@ -68,13 +68,13 @@ swarm_space <- function(metrics_data,
 
   swarm_space$ref <- metrics_data[, names(metrics_data) %in% c("species", "event", "set", "start_time", "event_dur", "N")]
 
-  return(swarm_space)
+  swarm_space
 }
 
 
 #' @title Perform PCA
 #'
-#' @description Run a PCA to place events on collective motion into less-dimentional space.
+#' @description This function runs a PCA to place events on collective motion into less-dimentional space.
 #'
 #' @param df A dataframe with the metrics of collective motion
 #' per event.
@@ -94,13 +94,13 @@ do_pca <- function(df) {
  colnames(pca_data) <- c("event", "species", "PC1", "PC2", "PC3")
  toret <- list(swarm_space = pca_data, pca = pca_res)
 
- return(toret)
+ toret
 }
 
 
 #' @title Performs t-SNE
 #'
-#' @description Calculating the coordinates of each event in the t-SNE space.
+#' @description This function calculates the coordinates of each event in the t-SNE space.
 #'
 #' @param df A dataframe with the metrics of collective motion
 #'per event.
@@ -135,13 +135,13 @@ do_tsne <- function(df,
                           vals = c(tsne_perplexity, tsne_rand_seed, 10000))
 
   toret <- list(swarm_space = tsnedata, tsne_setup = tsne_prop)
-  return(toret)
+  toret
 }
 
 
-#' @title Expand existing swarm space (PCA)
+#' @title Expand Existing Swarm Space (PCA)
 #'
-#' @description Predicts the positions of new event data in an
+#' @description This function predicts the positions of new event data in an
 #' existing PCA space using the \code{stats::predict} function.
 #'
 #' @param metrics_data A dataframe with the new metrics data to add in swarm space.
@@ -184,5 +184,5 @@ expand_pca_swarm_space <- function(metrics_data,
   newpca$event <- metrics_data$event
 
   newpca <- newpca[, names(newpca) %in% c("species", "PC1", "PC2", "PC3")]
-  return(newpca)
+  newpca
 }

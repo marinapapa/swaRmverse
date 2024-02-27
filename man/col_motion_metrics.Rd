@@ -2,7 +2,7 @@
 % Please edit documentation in R/wrap_col_motion_metrics.R
 \name{col_motion_metrics}
 \alias{col_motion_metrics}
-\title{Collective motion metrics}
+\title{Collective Motion Metrics}
 \usage{
 col_motion_metrics(
   timeseries_data,
@@ -38,7 +38,7 @@ events to be considered the same event. Default value is 0 (no event merging).}
 A dataframe with metrics of collective motion per event.
 }
 \description{
-Calculates metrics of collective motion across sets
+This function calculates metrics of collective motion across sets
 and events.
 }
 \seealso{

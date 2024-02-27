@@ -61,6 +61,6 @@ nnba <- function(x, y, hs, geo = FALSE) {
   db[db <= (-pi) & !is.na(db)] <- 2 * pi + db[db <= (-pi) & !is.na(db)]
   db[db > pi & !is.na(db)] <- db[db > pi & !is.na(db)] - 2 * pi
 
-  return(db)
+  db
 }
 

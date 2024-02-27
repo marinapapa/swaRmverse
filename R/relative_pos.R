@@ -30,9 +30,9 @@ frontness <- function(bs) {
 }
 
 
-#' @title Relative position coordinates
+#' @title Relative Position Coordinates
 #'
-#' @description Calculates the x and y coordinates of a neighbor
+#' @description This function calculates the x and y coordinates of a neighbor
 #' in the reference frame of the focal individual.
 #'
 #' @param data Dataframe with the bearing angle and
@@ -42,8 +42,8 @@ frontness <- function(bs) {
 #' @param focal_heading The heading of the focal individual,
 #' default = c(0,1) for plotting neighbor heading north.
 #'
-#' @return The input dataframe with additional nnx (nearest neighbor x coordinate)
-#'  and nny (nearest neighbor y coordinate) columns.
+#' @return The input dataframe with additional \code{nnx} (nearest neighbor x coordinate)
+#'  and \code{nny} (nearest neighbor y coordinate) columns.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
@@ -63,5 +63,5 @@ add_rel_pos_coords <- function(data,
   data$nnx <- x * data$nnd
   data$nny <- y * data$nnd
 
-  return(data)
+  data
 }

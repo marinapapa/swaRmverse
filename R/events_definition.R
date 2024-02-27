@@ -73,7 +73,7 @@ pick_threshold <- function(data_distr,
 
 #' @title Define Events of Collective Motion
 #'
-#' @description Adds a keep TRUE/FALSE column in the input dataframe based on
+#' @description This function adds a keep TRUE/FALSE column in the input dataframe based on
 #'  whether the average speed and polarization of the group is larger than the
 #' input thresholds, reflecting whether a timestep is considered part of a
 #' collective event or not.
@@ -129,5 +129,6 @@ define_events <- function(df,
     events_dur(df, step2time = step2time) / 60,
     " min."
   ))
-  return(df)
+
+  df
 }

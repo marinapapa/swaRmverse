@@ -1,12 +1,12 @@
-#' @title Add velocity timeseries across sets
+#' @title Add Velocity Timeseries Across Sets
 #'
-#' @description Calculates and adds the speed and heading of each individual
+#' @description This function calculates and adds the speed and heading of each individual
 #' over time in the dataset, and splits it in a list of dataframes based
 #' on the defined sets.
 #'
 #' @param data A data frame with time series of individual's positional data,
 #' as exported by the \code{set_data_format} function.
-#' Columns needed: 't', 'x', 'y', 'id', 'set'.
+#' Columns needed: \code{set}, \code{t}, \code{id}, \code{x}, \code{y}.
 #'
 #' @param geo Logical, whether positions are geographic coordinates,
 #'  default = FALSE.
@@ -17,7 +17,7 @@
 #'  default = FALSE.
 #'
 #' @return A list of dataframes, an element per set from the input dataframe
-#' with new columns: head and speed.
+#' with new columns: \code{head} and \code{speed}.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
@@ -49,17 +49,18 @@ add_velocities <- function(data,
   if (verbose) {
     print("Done!")
   }
-  return(toret)
+
+  toret
 }
 
 
-#' @title Add velocity timeseries
+#' @title Add Velocity Timeseries
 #'
-#' @description Calculates the headings and speeds of individuals based on
+#' @description This function calculates the headings and speeds of individuals based on
 #' two location points and the time taken to travel between those points.
 #'
 #' @param data A dataframe with the time series of individuals' positions.
-#' Columns must include: id, t, x, y.
+#' Columns must include: \code{t}, \code{id}, \code{x}, \code{y}.
 #'
 #' @param geo Logical, whether positions are geographic coordinates, default = TRUE.
 #'
@@ -110,17 +111,17 @@ add_set_vels <- function(
     data[idx_without_head ,"head"] <- NA
   }
 
-  return(data)
+  data
 }
 
 
-#' @title Adding motion properties in parallel without progress updates
+#' @title Adding Motion Properties in Parallel without Progress Updates
 #'
-#' @description Calculates headings and speeds based on
+#' @description This function calculates headings and speeds based on
 #' two location points and the time taken to travel between those points.
 #'
 #' @param per_id Dataframe with the time series of individuals' positional data.
-#' Columns must include: id, t, x, y.
+#' Columns must include: \code{t}, \code{id}, \code{x}, \code{y}.
 #'
 #' @param geo Logical, whether positions are geographic coordinates, default = FALSE.
 #'
@@ -149,17 +150,17 @@ parAddVels <- function(
     })
   parallel::stopCluster(cl)
   names(res) <- NULL
-  return(res)
+  res
 }
 
 
-#' @title Adding individual velocity information in parallel - verbose
+#' @title Adding Individual Velocity Information in Parallel - Verbose
 #'
-#' @description Calculates headings and speeds based on
+#' @description This function calculates headings and speeds based on
 #' two location points and the time taken to travel between those points.
 #'
 #' @param per_id Dataframe, the time series of individuals' positional data.
-#' Columns must include: id, t, x, y.
+#' Columns must include: \code{t}, \code{id}, \code{x}, \code{y}.
 #'
 #' @param geo Logical, whether positions are geographic coordinates, default = FALSE.
 #'
@@ -196,17 +197,17 @@ parAddVelsVerb <- function(
   print("Parallel computation done!")
 
   names(res) <- NULL
-  return(res)
+  res
 }
 
 
-#' @title Adding velocity information for individuals in parallel without progress updates
+#' @title Adding Velocity Information for Individuals in Parallel without Progress Updates
 #'
-#' @description Calculates headings and speeds based on
+#' @description This function calculates headings and speeds based on
 #' two location points and the time taken to travel between those points.
 #'
 #' @param per_id Dataframe with the time series of individuals' positional data.
-#' Columns must include: id, t, x, y.
+#' Columns must include: \code{t}, \code{id}, \code{x}, \code{y}.
 #'
 #' @param geo Logical, whether positions are geographic coordinates, default = FALSE.
 #'
@@ -221,14 +222,14 @@ do_add_vels <- function(
     ) {
   res <- lapply(X = per_id, FUN = perIdVels, geo = geo)
   names(res) <- NULL
-  return(res)
+  res
 }
 
 
 
-#' @title Speed and heading calculation based on swaRm package.
+#' @title Speed and Heading Calculation based on \code{swaRm} Package.
 #'
-#' @description Calculates headings and speeds based on
+#' @description This function calculates headings and speeds based on
 #' consecutive locations of 1 individual. Based on the \code{heading} and the
 #' \code{linear_speed} functions of \code{swaRm}.
 #'
@@ -269,5 +270,5 @@ perIdVels <- function(
       geo = geo
       )
 
-    return(per_id)
+    per_id
 }

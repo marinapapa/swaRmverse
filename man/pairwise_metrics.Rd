@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics_calc_pairwise.R
 \name{pairwise_metrics}
 \alias{pairwise_metrics}
-\title{Pairwise metrics of collective motion in dataset}
+\title{Pairwise Metrics of Collective Motion in a Dataset}
 \usage{
 pairwise_metrics(
   data_list,
@@ -14,7 +14,8 @@ pairwise_metrics(
 }
 \arguments{
 \item{data_list}{A list of dataframes with groups timeseries per set.
-Columns must include: id, t, set, head, x, y.}
+Columns must include: \code{id}, \code{t}, \code{set}, \code{head},
+ \code{x}, \code{y}.}
 
 \item{geo}{Logical, whether positions are geographic coordinates,
 default = FALSE.}
@@ -28,12 +29,12 @@ timesteps, default = FALSE.}
 into geographic coordinates, default = 'FALSE'.}
 }
 \value{
-A dataframe format of the input list, with new columns for nearest neighbor id (nn_id),
-bearing angles (bangl), and distances (nnd). If add_coords is TRUE, the columns
-nnx and nny are also added.
+A dataframe format of the input list, with new columns for nearest neighbor id (\code{nn_id}),
+bearing angles (\code{bangl}), and distances (\code{nnd}). If \code{add_coords} is TRUE, the columns
+\code{nnx} and \code{nny} are also added.
 }
 \description{
-Calculates the bearing angle and distance from each
+This function calculates the bearing angle and distance from each
 focal individual of a group to its nearest neighbor over time, across
 the sets of a dataset.
 }

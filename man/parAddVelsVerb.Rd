@@ -2,13 +2,13 @@
 % Please edit documentation in R/velocities.R
 \name{parAddVelsVerb}
 \alias{parAddVelsVerb}
-\title{Adding individual velocity information in parallel - verbose}
+\title{Adding Individual Velocity Information in Parallel - Verbose}
 \usage{
 parAddVelsVerb(per_id, geo = FALSE)
 }
 \arguments{
 \item{per_id}{Dataframe, the time series of individuals' positional data.
-Columns must include: id, t, x, y.}
+Columns must include: \code{t}, \code{id}, \code{x}, \code{y}.}
 
 \item{geo}{Logical, whether positions are geographic coordinates, default = FALSE.}
 
@@ -18,7 +18,7 @@ Columns must include: id, t, x, y.}
 the input dataframe with a new speed and heading (rotational) column.
 }
 \description{
-Calculates headings and speeds based on
+This function calculates headings and speeds based on
 two location points and the time taken to travel between those points.
 }
 \author{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/velocities.R
 \name{perIdVels}
 \alias{perIdVels}
-\title{Speed and heading calculation based on swaRm package.}
+\title{Speed and Heading Calculation based on \code{swaRm} Package.}
 \usage{
 perIdVels(per_id, geo)
 }
@@ -15,7 +15,7 @@ perIdVels(per_id, geo)
 the input dataframe with a new speed and heading (rotational) column.
 }
 \description{
-Calculates headings and speeds based on
+This function calculates headings and speeds based on
 consecutive locations of 1 individual. Based on the \code{heading} and the
 \code{linear_speed} functions of \code{swaRm}.
 }

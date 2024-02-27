@@ -18,7 +18,7 @@ per event.}
 A dataframe with X and Y coordinates per event in the t-SNE space.
 }
 \description{
-Calculating the coordinates of each event in the t-SNE space.
+This function calculates the coordinates of each event in the t-SNE space.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

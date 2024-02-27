@@ -1,11 +1,12 @@
-#' @title Pairwise metrics of collective motion in dataset
+#' @title Pairwise Metrics of Collective Motion in a Dataset
 #'
-#' @description Calculates the bearing angle and distance from each
+#' @description This function calculates the bearing angle and distance from each
 #' focal individual of a group to its nearest neighbor over time, across
 #' the sets of a dataset.
 #'
 #' @param data_list A list of dataframes with groups timeseries per set.
-#' Columns must include: id, t, set, head, x, y.
+#' Columns must include: \code{id}, \code{t}, \code{set}, \code{head},
+#'  \code{x}, \code{y}.
 #'
 #' @param geo Logical, whether positions are geographic coordinates,
 #' default = FALSE.
@@ -18,9 +19,9 @@
 #' @param parallelize Logical, whether to run the function in parallel over
 #' timesteps, default = FALSE.
 #'
-#' @return A dataframe format of the input list, with new columns for nearest neighbor id (nn_id),
-#' bearing angles (bangl), and distances (nnd). If add_coords is TRUE, the columns
-#' nnx and nny are also added.
+#' @return A dataframe format of the input list, with new columns for nearest neighbor id (\code{nn_id}),
+#' bearing angles (\code{bangl}), and distances (\code{nnd}). If \code{add_coords} is TRUE, the columns
+#' \code{nnx} and \code{nny} are also added.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
@@ -45,24 +46,24 @@ pairwise_metrics <- function(data_list,
 
   names(toret) <- NULL
   toret <- do.call(rbind, toret)
-  return(toret)
+  toret
 }
 
 
-#' @title Nearest neighbour metrics
+#' @title Nearest Neighbour Metrics
 #'
-#' @description Calculates the bearing angle and distance from
+#' @description This function calculates the bearing angle and distance from
 #' all focal individuals in a group to their nearest neighbor over time.
 #'
 #' @param data A dataframe with the group's positional timeseries for one set.
-#' Column names must include: id, x, y, t, head. The calculations are based on
-#' the \code{swaRm} package.
+#' Column names must include: \code{id}, \code{t}, \code{head}, \code{x}, \code{y}.
+#' The calculations are based on the \code{swaRm} package.
 #'
 #' @param geo Logical, whether positions are geographic coordinates, default = FALSE.
 #'
 #' @param add_coords Logical, whether the data on relative positions of
 #' nearest neighbours should be converted into
-#' coordinates in the reference frame of the focal individual (nnx, nny). This
+#' coordinates in the reference frame of the focal individual (\code{nnx}, \code{nny}). This
 #' can be useful for visualization purposes but it is not used in the package
 #' pipeling. Default = 'FALSE'.
 #'
@@ -70,9 +71,9 @@ pairwise_metrics <- function(data_list,
 #'
 #' @param parallelize Logical, whether to parallelize the function over time.
 #'
-#' @return The input dataframe with new columns for nearest neighbor id (nn_id),
-#' bearing angle (bangl), and distance (nnd).
-#' If add_coords is TRUE, the columns nnx and nny are  added.
+#' @return The input dataframe with new columns for nearest neighbor id (\code{nn_id}),
+#' bearing angle (\code{bangl}), and distance (\code{nnd}).
+#' If \code{add_coords} is TRUE, the columns \code{nnx} and \code{nny} are  added.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
@@ -114,23 +115,24 @@ nn_metrics <- function(data,
   if (add_coords) {
     nm <- add_rel_pos_coords(nm)
   }
-  return(nm)
+
+  nm
 }
 
-#' @title Adding motion properties in parallel - verbose
+#' @title Adding Motion Properties in Parallel - Verbose
 #'
-#' @description Calculates the bearing angle and distance from
+#' @description This function calculates the bearing angle and distance from
 #' a focal individual to its nearest neighbor at the given timestep.
 #'
 #' @param per_time A groups positional data at a single timestep.
-#' Columns must include: id, t, x, y, head.
+#' Columns must include: \code{id}, \code{t}, \code{head}, \code{x}, \code{y}.
 #'
 #' @param geo Logical, whether positions are geographic coordinates, default = FALSE.
 #'
 #' @param verbose Logical,whether to post updates on progress
 #'
-#' @return The input dataframe with new columns for nnd (nearest neighbor distance),
-#' nn_id (its id) and bangl (nearest neighbor bearing angle).
+#' @return The input dataframe with new columns for \code{nnd} (nearest neighbor distance),
+#'  \code{nn_id} (its id) and  \code{bangl} (nearest neighbor bearing angle).
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
@@ -154,21 +156,21 @@ par_nn_metrics <- function(per_time,
   })
 
   parallel::stopCluster(cl)
-  return(res)
+  res
 }
 
 
-#' @title Relative position of nearest neighbor function to parallelize
+#' @title Relative Position of Nearest Neighbor Function to Parallelize
 #'
-#' @description Calculates the bearing angle and distance from a focal
+#' @description This function calculates the bearing angle and distance from a focal
 #' individual to its nearest neighbor.
 #'
 #' @param thists A timestep of individual positions, ids and headings.
 #'
 #' @param geo Logical, whether positions are geographic coordinates.
 #'
-#' @return The input dataframe with new columns for nnd (nearest neighbor distance),
-#' nn_id (its id) and bangl (nearest neighbor bearing angle).
+#' @return The input dataframe with new columns for \code{nnd} (nearest neighbor distance),
+#' \code{nn_id} (its id) and \code{bangl} (nearest neighbor bearing angle).
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
@@ -180,5 +182,5 @@ calc_nn_metrics <- function(thists,
   thists$nnd <- as.numeric(swaRm::nnd(thists$x, thists$y, geo = geo))
   thists$bangl <- nnba(thists$x, thists$y, hs = thists$head, geo = geo)
 
-  return(thists)
+  thists
 }

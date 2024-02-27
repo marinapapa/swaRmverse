@@ -2,7 +2,7 @@
 % Please edit documentation in R/set_data_format.R
 \name{set_data_format}
 \alias{set_data_format}
-\title{Data formatting}
+\title{Data Formatting}
 \usage{
 set_data_format(
   raw_x,
@@ -39,7 +39,7 @@ represent time unit of the observations.}
 
 \item{tz}{A time zone name. See OlsonNames.}
 
-\item{proj}{A character string or a sp::CRS object representing
+\item{proj}{A character string or a \code{sp::CRS} object representing
 the projection of the coordinates. Leave empty if the coordinates are
 not projected (e.g., output of video tracking). "+proj=longlat" is suitable
 for the output of most GPS trackers.}
@@ -56,7 +56,7 @@ A track dataframe table, which is a colloquial term for an
  object of class track.
 }
 \description{
-A wrapper for the track_df function of the \code{trackdf} package.
+This function is a wrapper for the  \code{track} function of the \code{trackdf} package.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

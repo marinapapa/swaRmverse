@@ -2,7 +2,7 @@
 % Please edit documentation in R/swarm_space.R
 \name{expand_pca_swarm_space}
 \alias{expand_pca_swarm_space}
-\title{Expand existing swarm space (PCA)}
+\title{Expand Existing Swarm Space (PCA)}
 \usage{
 expand_pca_swarm_space(metrics_data, pca_space, event_dur_limit = NA)
 }
@@ -22,7 +22,7 @@ A dataframe with the x and y coordinates in the input swarm space
 per event of the new species.
 }
 \description{
-Predicts the positions of new event data in an
+This function predicts the positions of new event data in an
 existing PCA space using the \code{stats::predict} function.
 }
 \seealso{

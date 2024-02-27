@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics_calc_group.R
 \name{par_calc_global_metrics}
 \alias{par_calc_global_metrics}
-\title{Calculation of group metrics in parallel}
+\title{Calculation of Group Metrics in Parallel}
 \usage{
 par_calc_global_metrics(dfs_per_time, geo)
 }
@@ -14,11 +14,11 @@ geographic coordinates, default = FALSE.}
 }
 \value{
 A dataframe with the group average timeseries, with columns:
- set, time, pol, speed, shape, N (number of individuals),
- missing_ind (whether some individuals are missing).
+ \code{set}, \code{t}, \code{pol}, \code{speed}, \code{shape}, \code{N} (number of individuals),
+ \code{missing_ind} (whether some individuals are missing).
 }
 \description{
-Calls calc_global_metrics in parallel.
+This function calls calc_global_metrics in parallel.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

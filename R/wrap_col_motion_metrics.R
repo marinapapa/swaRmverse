@@ -1,9 +1,9 @@
-#' @title Collective motion metrics from raw data
+#' @title Collective Motion Metrics from Raw Data
 #'
-#' @description Calculates metrics of collective motion across sets and events.
+#' @description This function calculates metrics of collective motion across sets and events.
 #'
 #' @param data A data frame with time series of individual's positional
-#' data through time. Columns must include: id, set, t, x, y
+#' data through time. Columns must include: \code{id}, \code{set}, \code{t}, \code{x}, \code{y}.
 #'
 #' @param mov_av_time_window Numeric, a time window to average over for
 #' speed and polarization timeseries (in timesteps).
@@ -85,9 +85,9 @@ col_motion_metrics_from_raw <- function(data,
 }
 
 
-#' @title Collective motion metrics
+#' @title Collective Motion Metrics
 #'
-#' @description Calculates metrics of collective motion across sets
+#' @description This function calculates metrics of collective motion across sets
 #' and events.
 #'
 #' @param timeseries_data A data frame with time series of individual's
@@ -160,5 +160,6 @@ col_motion_metrics <- function(timeseries_data,
   }
   event_sum <- calc_dur_per_event(gm_all, step2time)
   toret <- merge(toret, event_sum, all.x = TRUE)
-  return(toret)
+
+  toret
 }

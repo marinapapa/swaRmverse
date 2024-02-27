@@ -1,6 +1,6 @@
-#' @title Normalize data
+#' @title Normalize Data
 #'
-#' @description Rescales a vector to values between 0 and 1.
+#' @description This function rescales a vector to values between 0 and 1.
 #'
 #' @param vec A numerical vector to normalize.
 #'
@@ -12,5 +12,6 @@
 normalize_data <- function(vec) {
   vmax <- max(vec, na.rm = TRUE)
   vmin <- min(vec, na.rm = TRUE)
-  return((vec - vmin) / (vmax - vmin))
+
+  ((vec - vmin) / (vmax - vmin))
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/wrap_col_motion_metrics.R
 \name{col_motion_metrics_from_raw}
 \alias{col_motion_metrics_from_raw}
-\title{Collective motion metrics from raw data}
+\title{Collective Motion Metrics from Raw Data}
 \usage{
 col_motion_metrics_from_raw(
   data,
@@ -18,7 +18,7 @@ col_motion_metrics_from_raw(
 }
 \arguments{
 \item{data}{A data frame with time series of individual's positional
-data through time. Columns must include: id, set, t, x, y}
+data through time. Columns must include: \code{id}, \code{set}, \code{t}, \code{x}, \code{y}.}
 
 \item{mov_av_time_window}{Numeric, a time window to average over for
 speed and polarization timeseries (in timesteps).}
@@ -46,7 +46,7 @@ to be considered the same event. Default value is 0 (no event merging).}
 A dataframe with metrics of collective motion per event.
 }
 \description{
-Calculates metrics of collective motion across sets and events.
+This function calculates metrics of collective motion across sets and events.
 }
 \seealso{
 \code{\link{add_velocities}, \link{group_metrics}, \link{pairwise_metrics}, \link{moving_average}}

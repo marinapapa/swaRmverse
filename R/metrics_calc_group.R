@@ -1,10 +1,11 @@
-#' @title Group metrics of collective motion in dataset
+#' @title Group Metrics of Collective Motion in a Dataset
 #'
-#' @description Calculates the timeseries of average speed,
+#' @description This function calculates the timeseries of average speed,
 #'  polarization and shape of all set in a dataset
 #'
 #' @param data_list A list of dataframes with groups timeseries per set.
-#'  Columns must include: id, t, set, head, x, y, speed.
+#'  Columns must include: \code{id}, \code{t}, \code{set}, \code{head},
+#'  \code{x}, \code{y}, \code{speed}.
 #'
 #' @param mov_av_time_window Integer, timesteps to use as a sliding window
 #' for average speed and polarization.
@@ -19,9 +20,9 @@
 #' timesteps of each set.
 #'
 #' @return A dataframe with the group average timeseries for each set, with columns:
-#'  set, t, pol, speed, shape, N (number of individuals),
-#'  missing_ind (whether some individuals are missing), pol_av (moving average
-#'  of polarization based on input time window) and speed_av (moving average of
+#'  \code{set}, \code{t}, \code{pol}, \code{speed}, \code{shape}, \code{N} (number of individuals),
+#'  \code{missing_ind} (whether some individuals are missing), \code{pol_av} (moving average
+#'  of polarization based on input time window) and \code{speed_av} (moving average of
 #'  speed based on input time window).
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
@@ -52,19 +53,19 @@ group_metrics_per_set <- function(data_list,
 
   names(toret) <- NULL
   toret <- do.call(rbind, toret)
-  return(toret)
+  toret
 }
 
 
-#' @title Group metrics of collective motion
+#' @title Group Metrics of Collective Motion
 #'
-#' @description Calculates the average speed, polarization
+#' @description This function calculates the average speed, polarization
 #' and shape of a group through time.
 #'
 #' @param data A dataframe of (ordered) time series of headings,
 #'  positions, and speeds per individual. The dataframe may contain
 #'  several individuals. Should include the columns:
-#'  id, t, speed, x, y, head, set.
+#'  \code{id}, \code{t}, \code{speed}, \code{x}, \code{y}, \code{head}, \code{set}.
 #'
 #' @param geo Logical, whether positions are geographic coordinates,
 #'  default = FALSE.
@@ -76,8 +77,8 @@ group_metrics_per_set <- function(data_list,
 #' Suggested only for very large datasets.
 #'
 #' @return A dataframe with the group average timeseries, with columns:
-#'  set, t, pol, speed, shape, N (number of individuals),
-#'  missing_ind (whether some individuals are missing).
+#'  \code{set}, \code{t}, \code{pol}, \code{speed}, \code{shape}, \code{N} (number of individuals),
+#'  \code{missing_ind} (whether some individuals are missing).
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
@@ -121,13 +122,13 @@ group_metrics <- function(data,
   names(gm) <- NULL
   gm <- do.call(rbind, gm)
 
-  return(gm)
+  gm
 }
 
 
-#' @title Calculation of group metrics in parallel
+#' @title Calculation of Group Metrics in Parallel
 #'
-#' @description Calls calc_global_metrics in parallel.
+#' @description This function calls calc_global_metrics in parallel.
 #'
 #' @param dfs_per_time A list of dataframes per timestep.
 #'
@@ -135,8 +136,8 @@ group_metrics <- function(data,
 #' geographic coordinates, default = FALSE.
 #'
 #' @return A dataframe with the group average timeseries, with columns:
-#'  set, time, pol, speed, shape, N (number of individuals),
-#'  missing_ind (whether some individuals are missing).
+#'  \code{set}, \code{t}, \code{pol}, \code{speed}, \code{shape}, \code{N} (number of individuals),
+#'  \code{missing_ind} (whether some individuals are missing).
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
@@ -160,13 +161,13 @@ par_calc_global_metrics <- function(dfs_per_time,
     )
 
   parallel::stopCluster(cl)
-  return(df)
+  df
 }
 
 
-#' @title Calculation of group metrics
+#' @title Calculation of Group Metrics
 #'
-#' @description Calculates the average speed,
+#' @description This function calculates the average speed,
 #'  polarization and shape of the group through time.
 #'
 #' @param x A dataframe of a timestep of a group.
@@ -176,8 +177,8 @@ par_calc_global_metrics <- function(dfs_per_time,
 #'
 #' @return A dataframe with one row,
 #' with the group metrics for that timesteps, with columns:
-#' set, t, pol, speed, shape, N (number of individuals),
-#' missing_ind (whether some individuals are missing).
+#' \code{set}, \code{t}, \code{pol}, \code{speed}, \code{shape}, \code{N} (number of individuals),
+#' \code{missing_ind} (whether some individuals are missing).
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'

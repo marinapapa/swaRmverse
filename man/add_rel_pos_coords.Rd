@@ -2,7 +2,7 @@
 % Please edit documentation in R/relative_pos.R
 \name{add_rel_pos_coords}
 \alias{add_rel_pos_coords}
-\title{Relative position coordinates}
+\title{Relative Position Coordinates}
 \usage{
 add_rel_pos_coords(data, focal_heading = c(0, 1))
 }
@@ -15,11 +15,11 @@ Column names must include: bangl, nnd.}
 default = c(0,1) for plotting neighbor heading north.}
 }
 \value{
-The input dataframe with additional nnx (nearest neighbor x coordinate)
- and nny (nearest neighbor y coordinate) columns.
+The input dataframe with additional \code{nnx} (nearest neighbor x coordinate)
+ and \code{nny} (nearest neighbor y coordinate) columns.
 }
 \description{
-Calculates the x and y coordinates of a neighbor
+This function calculates the x and y coordinates of a neighbor
 in the reference frame of the focal individual.
 }
 \author{

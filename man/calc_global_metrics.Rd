@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics_calc_group.R
 \name{calc_global_metrics}
 \alias{calc_global_metrics}
-\title{Calculation of group metrics}
+\title{Calculation of Group Metrics}
 \usage{
 calc_global_metrics(x, geo)
 }
@@ -15,11 +15,11 @@ geographic coordinates, default = FALSE.}
 \value{
 A dataframe with one row,
 with the group metrics for that timesteps, with columns:
-set, t, pol, speed, shape, N (number of individuals),
-missing_ind (whether some individuals are missing).
+\code{set}, \code{t}, \code{pol}, \code{speed}, \code{shape}, \code{N} (number of individuals),
+\code{missing_ind} (whether some individuals are missing).
 }
 \description{
-Calculates the average speed,
+This function calculates the average speed,
  polarization and shape of the group through time.
 }
 \author{

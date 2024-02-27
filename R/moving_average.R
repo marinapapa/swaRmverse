@@ -1,6 +1,6 @@
-#' @title Moving average
+#' @title Moving Average
 #'
-#' @description Calculates the moving average of a time series.
+#' @description This function calculates the moving average of a time series.
 #'
 #' @param timeseries Vector of doubles representing a timeseries.
 #'
@@ -34,5 +34,6 @@ moving_average <- function(timeseries,
     mov_av[t] <- mean(timeseries[(t - window / 2):(t + window / 2)],
                       na.rm = TRUE)
   }
-  return(mov_av)
+
+  mov_av
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics_calc_pairwise.R
 \name{nn_metrics}
 \alias{nn_metrics}
-\title{Nearest neighbour metrics}
+\title{Nearest Neighbour Metrics}
 \usage{
 nn_metrics(
   data,
@@ -14,12 +14,12 @@ nn_metrics(
 }
 \arguments{
 \item{data}{A dataframe with the group's positional timeseries for one set.
-Column names must include: id, x, y, t, head. The calculations are based on
-the \code{swaRm} package.}
+Column names must include: \code{id}, \code{t}, \code{head}, \code{x}, \code{y}.
+The calculations are based on the \code{swaRm} package.}
 
 \item{add_coords}{Logical, whether the data on relative positions of
 nearest neighbours should be converted into
-coordinates in the reference frame of the focal individual (nnx, nny). This
+coordinates in the reference frame of the focal individual (\code{nnx}, \code{nny}). This
 can be useful for visualization purposes but it is not used in the package
 pipeling. Default = 'FALSE'.}
 
@@ -30,12 +30,12 @@ pipeling. Default = 'FALSE'.}
 \item{parallelize}{Logical, whether to parallelize the function over time.}
 }
 \value{
-The input dataframe with new columns for nearest neighbor id (nn_id),
-bearing angle (bangl), and distance (nnd).
-If add_coords is TRUE, the columns nnx and nny are  added.
+The input dataframe with new columns for nearest neighbor id (\code{nn_id}),
+bearing angle (\code{bangl}), and distance (\code{nnd}).
+If \code{add_coords} is TRUE, the columns \code{nnx} and \code{nny} are  added.
 }
 \description{
-Calculates the bearing angle and distance from
+This function calculates the bearing angle and distance from
 all focal individuals in a group to their nearest neighbor over time.
 }
 \seealso{
