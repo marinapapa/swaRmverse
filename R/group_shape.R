@@ -1,6 +1,7 @@
 #' @title Minimum Bounding Box
 #'
-#' @description Calculates the minimum bounding box of a group of objects
+#' @description This function calculates the minimum bounding box of a group of
+#'  objects
 #'
 #' @param x A vector of x (or longitude) coordinates.
 #'
@@ -9,28 +10,26 @@
 #' @param geo A logical value indicating whether the locations are defined by
 #'  geographic coordinates (pairs of longitude/latitude values). Default: FALSE.
 #'
-#' @return A list with the bounding box coordinates, its height, width,
-#' and the orientation of the longest side in degrees.
+#' @return A list with the bounding box coordinates, its height, width, and the
+#'  orientation of the longest side in degrees.
 #'
 #' @author Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @keywords internal
 calc_obb <- function(x,
                      y,
-                     geo = FALSE
-                     ) {
-
-  H    <- grDevices::chull(x, y)  ## hull indices, vertices ordered clockwise
-  n    <- length(H)      ## number of hull vertices
-  hull <- as.matrix(data.frame(x = x[H], y = y[H]))        ## hull vertices
+                     geo = FALSE) {
+  H <- grDevices::chull(x, y) ## hull indices, vertices ordered clockwise
+  n <- length(H) ## number of hull vertices
+  hull <- as.matrix(data.frame(x = x[H], y = y[H])) ## hull vertices
 
   ## unit basis vectors for all subspaces spanned by the hull edges
   hDir <- diff(rbind(hull, hull[1, ])) ## hull vertices are circular
-  hLens <- sqrt(rowSums(hDir^2))        ## length of basis vectors
+  hLens <- sqrt(rowSums(hDir^2)) ## length of basis vectors
   if (any(is.na(hLens)) || any(hLens == 0)) {
     return(list(pts = NA, height = NA, width = NA, angle = NA))
   }
-  huDir <- diag(1 / hLens) %*% hDir       ## scaled to unit length
+  huDir <- diag(1 / hLens) %*% hDir ## scaled to unit length
 
   ## unit basis vectors for the orthogonal subspaces
   ## rotation by 90 deg -> y' = x, x' = -y
@@ -43,21 +42,21 @@ calc_obb <- function(x,
   ## range of projections and corresponding width/height of bounding rectangle
   HO <- list(seq_len(n), (seq_len(n) + n))
 
-  rangeH  <- matrix(numeric(n * 2), ncol = 2)  ## hull edge
-  rangeO  <- matrix(numeric(n * 2), ncol = 2)  ## orthogonal subspace
-  widths  <- numeric(n)
+  rangeH <- matrix(numeric(n * 2), ncol = 2) ## hull edge
+  rangeO <- matrix(numeric(n * 2), ncol = 2) ## orthogonal subspace
+  widths <- numeric(n)
   heights <- numeric(n)
 
   for (i in 1:n) {
     rangeH[i, ] <- range(projMat[i, ])
     ## the orthogonal subspace is in the 2nd half of the matrix
     rangeO[i, ] <- range(projMat[n + i, ])
-    widths[i]   <- abs(diff(rangeH[i, ]))
-    heights[i]  <- abs(diff(rangeO[i, ]))
+    widths[i] <- abs(diff(rangeH[i, ]))
+    heights[i] <- abs(diff(rangeO[i, ]))
   }
   ## extreme projections for min-area rect in subspace coordinates
   ## hull edge leading to minimum-area
-  eMin  <- which.min(widths * heights)
+  eMin <- which.min(widths * heights)
 
   ## move projections to rectangle corners
   hPts <- rbind(rangeH[eMin, ], rep(rangeO[eMin, 1], 2))
@@ -69,14 +68,14 @@ calc_obb <- function(x,
   basis <- cbind(huDir[eMin, ], ouDir[eMin, ])
   hCorn <- basis %*% hPts
   oCorn <- basis %*% oPts
-  pts   <- t(cbind(hCorn, oCorn[, c(2, 1)]))
+  pts <- t(cbind(hCorn, oCorn[, c(2, 1)]))
   colnames(pts) <- c("X", "Y")
 
   ## angle of longer edge pointing up
   dPts <- diff(pts)
-  e    <- dPts[which.max(rowSums(dPts^2)), ] ## one of the longer edges
-  eUp  <- e * sign(e[2])       ## rotate upwards 180 deg if necessary
-  deg  <- atan2(eUp[2], eUp[1])    ## angle in rads
+  e <- dPts[which.max(rowSums(dPts^2)), ] ## one of the longer edges
+  eUp <- e * sign(e[2]) ## rotate upwards 180 deg if necessary
+  deg <- atan2(eUp[2], eUp[1]) ## angle in rads
 
   if (geo) {
     geodists <- geosphere::distGeo(p1 = pts)
@@ -87,15 +86,15 @@ calc_obb <- function(x,
     bheight <- heights[eMin]
   }
 
-  return(list(pts = pts, height = bheight, width = bwidth, angle = deg))
+  list(pts = pts, height = bheight, width = bwidth, angle = deg)
 }
 
 
-#' @title Group shape based on a OOBB
+#' @title Group Shape Based on a OOBB
 #'
-#' @description Calculates how oblong the shape of a group is, relative
-#' to its average moving direction, along with the properties of the minimum
-#' object oriented bounding box (OOBB) around all objects.
+#' @description Calculates how oblong the shape of a group is, relative to its
+#'  average moving direction, along with the properties of the minimum object
+#'  oriented bounding box (OOBB) around all objects.
 #'
 #' @param x A vector of x (or longitude) coordinates.
 #'
@@ -106,9 +105,9 @@ calc_obb <- function(x,
 #' @param geo A logical value indicating whether the locations are defined by
 #'  geographic coordinates (pairs of longitude/latitude values). Default: FALSE.
 #'
-#' @return A list with the estimate of how oblong the group is, and
-#' the details of the bounding box, i.e. its coordinates, height,
-#' width, and orientation of its longest side in degrees.
+#' @return A list with the estimate of how oblong the group is, and the details
+#'  of the bounding box, i.e. its coordinates, height, width, and orientation of
+#'  its longest side in degrees.
 #'
 #' @author Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
@@ -116,14 +115,14 @@ calc_obb <- function(x,
 group_shape <- function(x,
                         y,
                         hs,
-                        geo = FALSE
-                        ) {
-
-  if (!all(length(x) == c(length(y), length(hs))))
+                        geo = FALSE) {
+  if (!all(length(x) == c(length(y), length(hs)))) {
     stop("x, y and hs should have the same length.")
+  }
 
-  if (!is.numeric(x) || !is.numeric(y) || !is.numeric(hs))
+  if (!is.numeric(x) || !is.numeric(y) || !is.numeric(hs)) {
     stop("x, y and hs should be numeric.")
+  }
 
   theobb <- calc_obb(x, y, geo)
 
@@ -137,5 +136,5 @@ group_shape <- function(x,
   db[db > pi / 2 & !is.na(db)] <- pi - db
   theobb$shape <- abs(db)
 
-  return(theobb)
+  theobb
 }

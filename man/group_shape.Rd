@@ -2,7 +2,7 @@
 % Please edit documentation in R/group_shape.R
 \name{group_shape}
 \alias{group_shape}
-\title{Group shape based on a OOBB}
+\title{Group Shape Based on a OOBB}
 \usage{
 group_shape(x, y, hs, geo = FALSE)
 }
@@ -17,14 +17,14 @@ group_shape(x, y, hs, geo = FALSE)
 geographic coordinates (pairs of longitude/latitude values). Default: FALSE.}
 }
 \value{
-A list with the estimate of how oblong the group is, and
-the details of the bounding box, i.e. its coordinates, height,
-width, and orientation of its longest side in degrees.
+A list with the estimate of how oblong the group is, and the details
+ of the bounding box, i.e. its coordinates, height, width, and orientation of
+ its longest side in degrees.
 }
 \description{
-Calculates how oblong the shape of a group is, relative
-to its average moving direction, along with the properties of the minimum
-object oriented bounding box (OOBB) around all objects.
+Calculates how oblong the shape of a group is, relative to its
+ average moving direction, along with the properties of the minimum object
+ oriented bounding box (OOBB) around all objects.
 }
 \author{
 Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
