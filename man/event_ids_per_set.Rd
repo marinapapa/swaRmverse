@@ -2,20 +2,19 @@
 % Please edit documentation in R/events_idxs.R
 \name{event_ids_per_set}
 \alias{event_ids_per_set}
-\title{Event indexes per set}
+\title{Event Indexes per Set}
 \usage{
 event_ids_per_set(setdf, ev_idx)
 }
 \arguments{
-\item{setdf}{The dataframe for one set of the data. Should not
-have discontinuities in time.}
+\item{setdf}{The dataframe for one set of the data. It should not have 
+discontinuities in time.}
 
-\item{ev_idx}{The last event index added so far at the dataset
-(e.g., from a previous set).}
+\item{ev_idx}{The last event index added so far at the dataset (e.g., from a
+previous set).}
 }
 \value{
-a vector with the timeseries of event indexes for the input
-set.
+A vector with the timeseries of event indexes for the input set.
 }
 \description{
 The execution of \code{event_ids} per set.

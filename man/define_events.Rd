@@ -2,41 +2,39 @@
 % Please edit documentation in R/events_definition.R
 \name{define_events}
 \alias{define_events}
-\title{Define events of collective motion}
+\title{Define Events of Collective Motion}
 \usage{
 define_events(df, sp_lim, pol_lim, step2time, noise_thresh = 0)
 }
 \arguments{
-\item{df}{A dataframe with a pol_av and speed_av columns
-for polarization and speed (calculated by the \code{\link{group_metrics_per_set}}
-function).}
+\item{df}{A dataframe with a \code{pol_av} and \code{speed_av} columns for
+polarization and speed, respectively (as calculated by the
+\code{\link{group_metrics_per_set}} function).}
 
 \item{sp_lim}{The (lower) threshold of speed to use for defining which
-timesteps are part of an events of collective motion.
-In other words, during an event the group should have an average speed of
-at least sp_lim.}
+timesteps are part of an events of collective motion. In other words, during
+an event the group should have an average speed of at least \code{sp_lim}.}
 
-\item{pol_lim}{The (lower) threshold of polarization to use for defining which
-timesteps are part of an events of collective motion.
-In other words, during an event the group's polarization should be
-at least pol_lim.}
+\item{pol_lim}{The (lower) threshold of polarization to use for defining
+which timesteps are part of an events of collective motion. In other words,
+during an event the group's polarization should be at least \code{pol_lim}.}
 
-\item{step2time}{Sampling frequency, the relation between
-time steps (rows) in the input dataframe and real time (in seconds).}
+\item{step2time}{Sampling frequency, i.e. the relation between time steps
+(rows) in the input dataframe and real time (in seconds).}
 
 \item{noise_thresh}{The limit of time difference between consecutive events
-to be considered the same event. Default value is 0 (no event merging).}
+to be considered the same event. The default value is 0 (no event merging).}
 }
 \value{
-the dataframe that was given as input with an extra \'keep\' column.
-The function also prints the number and duration of the defined events.
+the dataframe that was given as input with an extra \code{keep}
+ column. The function also prints the number and duration of the defined
+ events.
 }
 \description{
-Adds a keep TRUE/FALSE column in the input
-dataframe based on whether the average speed and
-polarization of the group is larger than the input
-thresholds, reflecting whether a timestep is considered
-part of an event or not.
+Adds a keep TRUE/FALSE column in the input dataframe based on
+ whether the average speed and polarization of the group is larger than the
+input thresholds, reflecting whether a timestep is considered part of a
+collective event or not.
 }
 \seealso{
 \code{\link{pick_threshold}, \link{group_metrics_per_set}}

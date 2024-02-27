@@ -2,34 +2,32 @@
 % Please edit documentation in R/events_definition.R
 \name{pick_threshold}
 \alias{pick_threshold}
-\title{Pick the thresholds for the events' definition}
+\title{Pick the Thresholds for the Events' Definition}
 \usage{
 pick_threshold(data_distr, var, threshold = NA)
 }
 \arguments{
-\item{data_distr}{A numeric vector to pick a threshold for. In
-the package's pipeline it is the timeseries of polarization and
-average speed of a group.}
+\item{data_distr}{A numeric vector to pick a threshold for. In the package's
+pipeline it is the timeseries of polarization and average speed of a group.}
 
-\item{var}{A string, the of the distribution to use at the interactive
-step to ask the user for input.}
+\item{var}{A string, the of the distribution to use at the interactive step
+to ask the user for input.}
 
-\item{threshold}{Default NA. If NA, the function runs an interactive
-mode and the user inputs a given value to return. If numeric, the
-function just returns this input (interactive case is off).}
+\item{threshold}{If NA (the default), the function runs in interactive mode
+and the user inputs a given value to return. If numeric, the function just
+returns this input (interactive case is off).}
 }
 \value{
-the selected or input value of the user for the lower threshold,
-of the variable to be used for the definition of an event.
+the selected or input value of the user for the lower threshold, of
+ the variable to be used for the definition of an event.
 }
 \description{
-An interactive function that calculates and prints
- the quantiles of the input distribution and asks the user to
- input the threshold value they want to keep. If a threshold
- is given as input, then the function checks that the threshold type
- is correct and returns it. In the swaRmverse framework,
- the timesteps with lower values than the thershold will be labelled as not
- part of an event.
+An interactive function that calculates and prints the quantiles
+ of the input distribution and asks the user to input the threshold value
+ they want to keep. If a threshold is given as input, then the function
+ checks that the threshold type is correct and returns it. In the swaRmverse
+ framework, the timesteps with lower values than the threshold will be
+ labelled as not part of an event.
 }
 \seealso{
 \code{\link{define_events}}

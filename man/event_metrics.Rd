@@ -2,25 +2,28 @@
 % Please edit documentation in R/events_metrics.R
 \name{event_metrics}
 \alias{event_metrics}
-\title{Calculate metrics of collective motion}
+\title{Metrics of Collective Motion}
 \usage{
 event_metrics(global_df, pairwise_df)
 }
 \arguments{
 \item{global_df}{A data frame with time series of global group measurements.
-Columns must include:  set, t, event, pol, shape, speed.}
+Columns must include: \code{set}, \code{t}, \code{event}, \code{pol},
+\code{shape}, \code{speed}.}
 
 \item{pairwise_df}{A data frame with time series of pairwise measurements.
-Columns must include:  set, t, id, nnd, bangl.}
+Columns must include: \code{set}, \code{t}, \code{id}, \code{nnd},
+\code{bangl}.}
 }
 \value{
 A dataframe with 10 metrics per event.
 }
 \description{
-Calculates metrics of collective motion across sets and events.
+This function calculates metrics of collective motion across
+ sets and events.
 }
 \seealso{
-\code{\link{group_metrics}, \link{nn_metrics}}
+\code{\link{group_metrics}}, \code{\link{nn_metrics}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

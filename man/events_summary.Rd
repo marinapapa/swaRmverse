@@ -2,28 +2,27 @@
 % Please edit documentation in R/events_N_duration.R
 \name{events_summary}
 \alias{events_summary}
-\title{Events summary}
+\title{Events Summary}
 \usage{
 events_summary(data, step2time)
 }
 \arguments{
-\item{data}{A dataframe with a keep column
-(representing which rows are defined as events of collective motion)
-and a set column.}
+\item{data}{A dataframe with a \code{keep} column (representing which rows
+are defined as events of collective motion) and a set column.}
 
-\item{step2time}{the sampling frequency of the dataframe (how many
-seconds are between each row of the data).}
+\item{step2time}{The sampling frequency of the dataframe (how many seconds
+are between each row of the data).}
 }
 \value{
-a dataframe with 3 columns: set, ev_count (number of events), and
- dur (duration of events in seconds).
+A dataframe with 3 columns: \code{set}, \code{ev_count} (number of
+ events), and \code{dur} (duration of events in seconds).
 }
 \description{
-Provides a summary with the number of events and their
- total duration in the dataset.
+This function summarizes the number of events and their total
+ duration in the dataset.
 }
 \seealso{
-\code{\link{events_dur}, \link{events_n}}
+\code{\link{events_dur}}, \code{\link{events_n}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

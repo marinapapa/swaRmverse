@@ -3,7 +3,7 @@
 \docType{data}
 \name{new_species_metrics}
 \alias{new_species_metrics}
-\title{The collective motion metrics of a new species}
+\title{The Collective Motion Metrics of a New Species}
 \format{
 An object of class \code{data.frame} with 60 rows and 16 columns.
 }
@@ -11,7 +11,7 @@ An object of class \code{data.frame} with 60 rows and 16 columns.
 data('new_species_metrics')
 }
 \description{
-The output dataset of vignette 2, containing the metrics of collective motion
-for a new species.
+The output dataset of vignette 2, containing the metrics of 
+ collective motion for a new species.
 }
 \keyword{datasets}

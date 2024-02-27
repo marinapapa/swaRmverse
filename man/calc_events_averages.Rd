@@ -2,20 +2,21 @@
 % Please edit documentation in R/events_metrics.R
 \name{calc_events_averages}
 \alias{calc_events_averages}
-\title{Calculate events averages}
+\title{Events Averages}
 \usage{
 calc_events_averages(df)
 }
 \arguments{
-\item{df}{data frame with time series of group measurements
-Columns must include:  event, set, N, mean_nnd,
-sd_nnd, pol, speed, sd_front, mean_bangl, and shape.}
+\item{df}{data frame with time series of group measurements. Columns must
+include: \code{event}, \code{set}, \code{N}, \code{mean_nnd}, \code{sd_nnd},
+\code{pol}, \code{speed}, \code{sd_front}, \code{mean_bangl}, and
+\code{shape}.}
 }
 \value{
 a dataframe with a metric value per event.
 }
 \description{
-Calculating all metrics per event.
+This function calculates all metrics per event.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

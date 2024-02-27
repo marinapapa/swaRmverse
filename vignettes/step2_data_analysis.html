@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Marina Papadopoulou" />
+
+
+<title>2 - Data Analysis</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">2 - Data Analysis</h1>
+<h4 class="author">Marina Papadopoulou</h4>
+
+
+
+<p><code>swaRverse</code> provides a pipeline to extract metrics of
+collective motion from grouping individuals trajectories. Metrics
+include either global (group-level) or pairwise (individual-level)
+characteristics of the group. After calculating the timeseries of these
+metrics, the package estimates their averages over each ‘event’ of
+collective motion. More details about how an event is defined is given
+below. Let’s start with ..</p>
+<div id="velocity-estimations" class="section level2">
+<h2>2.1 Velocity estimations</h2>
+<p>We start by adding headings and speeds to the trajectory data, and
+splitting the whole dataframe into a list of dataframes, one per set.
+For this, we need to specify whether the data correspond to geo data
+(lon-lat) or not.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(swaRmverse)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#data_df &lt;- trackdf::tracks</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#raw$set &lt;- c(rep(&#39;ctx1&#39;, nrow(raw)/2 ), rep(&#39;ctx2&#39;, nrow(raw)/2))</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;trackdf&quot;</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>raw <span class="ot">&lt;-</span> raw[<span class="sc">!</span>raw<span class="sc">$</span>ignore, ]</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="do">## Add fake context</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>raw<span class="sc">$</span>context <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;ctx1&quot;</span>, <span class="fu">nrow</span>(raw) <span class="sc">/</span> <span class="dv">2</span>), <span class="fu">rep</span>(<span class="st">&quot;ctx2&quot;</span>, <span class="fu">nrow</span>(raw) <span class="sc">/</span> <span class="dv">2</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">set_data_format</span>(<span class="at">raw_x =</span> raw<span class="sc">$</span>x,</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>                          <span class="at">raw_y =</span> raw<span class="sc">$</span>y,</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>                          <span class="at">raw_t =</span> raw<span class="sc">$</span>frame,</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>                          <span class="at">raw_id =</span> raw<span class="sc">$</span>id,</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>                          <span class="at">origin =</span> <span class="st">&quot;2020-02-1 12:00:21&quot;</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>                          <span class="at">period =</span> <span class="st">&quot;0.04S&quot;</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>                          <span class="at">tz =</span> <span class="st">&quot;America/New_York&quot;</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>                          <span class="at">raw_context =</span> raw<span class="sc">$</span>context</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>                          )</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>is_geo <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>data_dfs <span class="ot">&lt;-</span> <span class="fu">add_velocities</span>(data_df,</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>                           <span class="at">geo =</span> is_geo,</span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>                           <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>                           <span class="at">parallelize =</span> <span class="cn">FALSE</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>                           ) <span class="do">## A list of dataframes</span></span></code></pre></div>
+<pre><code>## [1] &quot;Adding velocity info to every set of the dataset..&quot;
+## [1] &quot;Done!&quot;</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">#head(data_dfs[[1]])</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Velocity information added for&quot;</span>, <span class="fu">length</span>(data_dfs), <span class="st">&quot;sets.&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;Velocity information added for 2 sets.&quot;</code></pre>
+<p>If there is a high number of sets in the dataset, the parallelization
+of the function can be turned on (setting <em>parallelize</em> argument
+to TRUE). This is not recommended for small to intermediate data
+sizes.</p>
+</div>
+<div id="group-characteristics" class="section level2">
+<h2>2.2 Group characteristics</h2>
+<p>Based on the list of positional data and calculated velocities, we
+can now calculate the timeseries of group polarization, average speed,
+and shape. As a proxy for group shape we use the angle between the
+object-oriented bounding box that includes the position of all group
+members and the average heading of the group. Small angles close to 0
+rads represent oblong groups, while large angles close to pi/2 rads wide
+groups. The <em>group_metrics</em> function calculates the timeseries of
+each measurement across sets. To reduce noise, the function further
+calculates the smoothed timeseries of speed and polarization over a
+given time window (using a moving average).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>sampling_timestep <span class="ot">&lt;-</span> <span class="fl">0.04</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>time_window <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># seconds</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>smoothing_time_window <span class="ot">&lt;-</span> time_window <span class="sc">/</span> sampling_timestep</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>g_metr <span class="ot">&lt;-</span> <span class="fu">group_metrics_per_set</span>(<span class="at">data_list =</span> data_dfs,</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>                               <span class="at">mov_av_time_window =</span> smoothing_time_window,</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>                               <span class="at">step2time =</span> sampling_timestep,</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>                               <span class="at">geo =</span> is_geo,</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>                               <span class="at">parallelize =</span> <span class="cn">FALSE</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>                               )</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="fu">summary</span>(g_metr)</span></code></pre></div>
+<pre><code>##      set                  t                               pol         
+##  Length:2802        Min.   :2020-02-01 12:00:21.03   Min.   :0.01027  
+##  Class :character   1st Qu.:2020-02-01 12:00:49.04   1st Qu.:0.20701  
+##  Mode  :character   Median :2020-02-01 12:01:17.05   Median :0.32532  
+##                     Mean   :2020-02-01 12:01:17.03   Mean   :0.33785  
+##                     3rd Qu.:2020-02-01 12:01:45.02   3rd Qu.:0.44768  
+##                     Max.   :2020-02-01 12:02:13.03   Max.   :0.97476  
+##                                                      NA&#39;s   :2        
+##      speed              shape                 N          missing_ind    
+##  Min.   :   35.42   Min.   :0.0002811   Min.   :3.000   Min.   :0.0000  
+##  1st Qu.:  132.02   1st Qu.:0.4236876   1st Qu.:7.000   1st Qu.:0.0000  
+##  Median :  175.98   Median :0.8327600   Median :7.000   Median :1.0000  
+##  Mean   :  742.80   Mean   :0.8132883   Mean   :7.291   Mean   :0.5543  
+##  3rd Qu.:  243.84   3rd Qu.:1.1976395   3rd Qu.:8.000   3rd Qu.:1.0000  
+##  Max.   :12232.96   Max.   :1.5706044   Max.   :9.000   Max.   :5.0000  
+##  NA&#39;s   :2          NA&#39;s   :2                           NA&#39;s   :2       
+##     speed_av          pol_av      
+##  Min.   : 111.5   Min.   :0.1696  
+##  1st Qu.: 426.3   1st Qu.:0.2852  
+##  Median : 670.1   Median :0.3259  
+##  Mean   : 746.7   Mean   :0.3379  
+##  3rd Qu.:1005.7   3rd Qu.:0.3812  
+##  Max.   :2241.2   Max.   :0.5599  
+##  NA&#39;s   :50       NA&#39;s   :50</code></pre>
+<p>As before, one can parallelize the function if the data are from many
+different days/sets. A column of N and missing_ind are added to the
+dataframe, showing the group size of that time point and whether an
+individual has NA data.</p>
+</div>
+<div id="pairwise-measurements" class="section level2">
+<h2>2.3 Pairwise measurements</h2>
+<p>From the timeseries of positions and velocities, we can calculate
+information concerning the nearest neighbor of each group member. Here
+we estimate the distance and the bearing angle (angle between the focal
+individual’s heading and its neighbor) to the nearest neighbor of each
+individual. These, along with the id of the nearest neighbor, are added
+as columns to the positional timeseries dataframe:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">pairwise_metrics</span>(<span class="at">data_list =</span> data_dfs,</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>                            <span class="at">geo =</span> is_geo,</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>                            <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>                            <span class="at">parallelize =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>                            <span class="at">add_coords =</span> <span class="cn">FALSE</span> <span class="co"># could be set to TRUE if the relative positions of neighbors are needed </span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>                            )</span></code></pre></div>
+<pre><code>## [1] &quot;Pairwise analysis started..&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co">#tail(data_df)</span></span></code></pre></div>
+</div>
+<div id="metrics-of-collective-motion" class="section level2">
+<h2>2.4 Metrics of collective motion</h2>
+<p>Based on the global and local measurements, we then calculate a
+series of metrics that aim to capture the dynamics of the collective
+motion of the group. These metrics are calculated over parts of the
+trajectories that the group is performing coordinated collective motion,
+when the group is moving (average speed is higher than a given
+threshold) and is somewhat polarized (polarization higher than a given
+threshold). These parts are defined as ‘events’. The thresholds are
+asked by the user in run time if ‘interactive_mode’ is activated, after
+printing the quantiles of average speed and polarization across all
+data. Otherwise, the thresholds (pol_lim and speed_lim) should be given
+as inputs. If both limits are set to 0, a set will be taken as a
+complete event. The time between observation is needed as input to
+distinguish between continuous events. When the group and pairwise
+timeseries are calculated, one can calculate the metrics per event:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="do">### Interactive mode, if the limits of speed and polarization are unknown</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co"># new_species_metrics &lt;- col_motion_metrics(data_df,</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#                                            global_metrics = g_metr,</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#                                            step2time = sampling_timestep,</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#                                            verbose = TRUE,</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#                                            speed_lim = NA,</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#                                            pol_lim = NA</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#                                             </span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>new_species_metrics <span class="ot">&lt;-</span> <span class="fu">col_motion_metrics</span>(data_df,</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>                                           <span class="at">global_metrics =</span> g_metr,</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>                                           <span class="at">step2time =</span> sampling_timestep,</span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>                                           <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>                                           <span class="at">speed_lim =</span> <span class="dv">150</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>                                           <span class="at">pol_lim =</span> <span class="fl">0.3</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;Given thresholds return a total of:&quot;
+## [1] &quot;60 events, over 1.24066666666667 min.&quot;</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># summary(new_species_metrics)</span></span></code></pre></div>
+<p>The number of events and their total duration given the input
+thresholds is also printed. If we are not interested in inspecting the
+timeseries of the measurements, on can calculate the metrics directly
+from the formatted dataset:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>new_species_metrics <span class="ot">&lt;-</span> <span class="fu">col_motion_metrics_from_raw</span>(data_df,</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>                                <span class="at">mov_av_time_window =</span> smoothing_time_window,</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>                                <span class="at">step2time =</span> sampling_timestep,</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>                                <span class="at">geo =</span> is_geo,</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>                                <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>                                <span class="at">speed_lim =</span> <span class="dv">150</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>                                <span class="at">pol_lim =</span> <span class="fl">0.3</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>                                <span class="at">parallelize_all =</span> <span class="cn">FALSE</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>                                )</span></code></pre></div>
+<pre><code>## [1] &quot;Adding velocity info to every set of the dataset..&quot;
+## [1] &quot;Done!&quot;
+## [1] &quot;Given thresholds return a total of:&quot;
+## [1] &quot;60 events, over 1.24066666666667 min.&quot;</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># summary(new_species_metrics)</span></span></code></pre></div>
+<p>Since we are interested in comparing different datasets across
+species or contexts, a new species id column should be added:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>new_species_metrics<span class="sc">$</span>species <span class="ot">&lt;-</span> <span class="st">&quot;new_species_1&quot;</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="fu">head</span>(new_species_metrics)</span></code></pre></div>
+<pre><code>##   event N             set          start_time mean_mean_nnd mean_sd_nnd
+## 1     1 8 2020-02-01_ctx1 2020-02-01 12:00:21      260.5298   196.39392
+## 2     2 8 2020-02-01_ctx1 2020-02-01 12:00:23      194.2149   125.30859
+## 3     3 7 2020-02-01_ctx1 2020-02-01 12:00:25      178.0867    70.25351
+## 4     4 8 2020-02-01_ctx1 2020-02-01 12:00:26      214.7076    68.20413
+## 5     5 8 2020-02-01_ctx1 2020-02-01 12:00:27      156.2709   132.57649
+## 6     6 7 2020-02-01_ctx1 2020-02-01 12:00:28      159.9396    97.68897
+##   sd_mean_nnd  mean_pol    sd_pol stdv_speed mean_sd_front mean_mean_bangl
+## 1    3.779780 0.3334596 0.1445072  1.8472052     0.2927575        1.585528
+## 2   29.110134 0.3260762 0.1675038  1.6394169     0.2781643        1.222012
+## 3   25.204944 0.3260333 0.2012695  1.8615297     0.3184363        1.807799
+## 4          NA 0.4152229        NA         NA     0.2949830        1.495182
+## 5    4.245226 0.2857535 0.1470665  0.9509542     0.2441024        1.513099
+## 6   26.605974 0.3996904 0.1786352  1.9967636     0.2936794        1.691812
+##   mean_shape  sd_shape event_dur       species
+## 1  0.7726862 0.4708161      1.28 new_species_1
+## 2  0.7073765 0.3808718      1.12 new_species_1
+## 3  0.9843532 0.4146392      1.08 new_species_1
+## 4  1.1002695        NA      0.04 new_species_1
+## 5  1.0568951 0.3726853      0.32 new_species_1
+## 6  0.9988084 0.3790848      7.80 new_species_1</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="do">## Un-comment bellow to save the output in order to combine it with other datasets (replace &#39;path2file&#39; with appropriate local path and name).</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="co"># write.csv(new_species_metrics, file = path2file.csv, row.names = FALSE) # OR R object</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co"># save(new_species_metrics, file = path2file.rda) </span></span></code></pre></div>
+<p>The duration, starting time and group size (N) of each event are also
+added to the result dataframe. We suggest filtering out events of very
+small duration and with less than 3 individuals (singletons and pairs).
+The calculated metrics are:</p>
+<ul>
+<li><em>mean_mean_nnd</em>: the temporal average of the group’s average
+nearest neighbor distance</li>
+<li><em>mean_sd_nnd</em>: the temporal average of the group’s standard
+deviation in nearest neighbor distance</li>
+<li><em>sd_mean_nnd</em>: the temporal standard deviation of the group’s
+average nearest neighbor distance<br />
+</li>
+<li><em>mean_pol</em>: the average of the group’s polarization during
+the event</li>
+<li><em>sd_pol</em>: the standard deviation of the group’s polarization
+during the event</li>
+<li><em>stdv_speed</em>: the CV (coefficient of variation) of the
+group’s average speed during the event</li>
+<li><em>mean_sd_front</em>: the average standard deviation of the
+individuals’ frontness to their nearest neighbor during an event</li>
+<li><em>mean_mean_bangl</em>: the temporal average of the group’s
+average angle</li>
+<li><em>mean_shape</em>: the average shape index of the group during an
+event (0= perfectly wide and 1= perfectly long relative to the heading
+direction)</li>
+<li><em>sd_mean_shape</em>: the standard deviation of the group’s
+average shape index during an event.</li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

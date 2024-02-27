@@ -2,15 +2,25 @@ Package: swaRmverse
 Type: Package
 Title: Swarm Space Creation
 Version: 0.1.0
-Author: person("Marina", "Papadopoulou", , "m.papadopoulou.rug@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-6478-8365"))
+Date: 2024-02-29
+Authors@R: c(
+  person("Marina", "Papadopoulou", , "m.papadopoulou.rug@gmail.com", role = 
+    c("aut", "cre"), comment = c(ORCID = "0000-0002-6478-8365")),
+  person("Simon", "Garnier", email = "garnier@njit.edu", role = c("ctb", "cph"),
+    comment = c(ORCID = "0000-0002-3886-3974"))
+  )
 Maintainer: Marina Papadopoulou <m.papadopoulou.rug@gmail.com>
-Description: The package provides a pipeline for the comparative analysis of collective movement data (e.g. fish schools, bird flocks, baboon troops) by processing 2-dimensional positional data (x,y,t) from GPS trackers or computer vision tracking systems, discretizing events of collecitve motion, calculating a set of established metrics that characterize each event, and placing the events in a multi-dimensional 'swarm space' constructed from these metrics.
-License: MIT + file LICENSE
+Description: The package provides a pipeline for the comparative analysis of 
+  collective movement data (e.g. fish schools, bird flocks, baboon troops) by 
+  processing 2-dimensional positional data (x,y,t) from GPS trackers or computer
+  vision tracking systems, discretizing events of collecitve motion, calculating
+  a set of established metrics that characterize each event, and placing the
+  events in a multi-dimensional 'swarm space' constructed from these metrics.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 URL: https://marinapapa.github.io/swaRmverse/,
-        https://github.com/marinapapa/swaRmverse
+  https://github.com/marinapapa/swaRmverse
 BugReports: https://github.com/marinapapa/swaRmverse/issues
 RoxygenNote: 7.3.1
 Depends: 
@@ -23,10 +33,10 @@ Imports:
   swaRm,
   geosphere
 Suggests:
-    knitr,
-    rmarkdown,
-    ggplot2,
-    testthat (>= 3.0.0),
-    covr
+  knitr,
+  rmarkdown,
+  ggplot2,
+  testthat (>= 3.0.0),
+  covr
 VignetteBuilder: knitr
 Config/testthat/edition: 3

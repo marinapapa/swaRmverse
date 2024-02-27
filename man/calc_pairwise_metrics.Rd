@@ -2,20 +2,20 @@
 % Please edit documentation in R/events_metrics.R
 \name{calc_pairwise_metrics}
 \alias{calc_pairwise_metrics}
-\title{Calculate pairwise metrics}
+\title{Pairwise Metrics}
 \usage{
 calc_pairwise_metrics(df)
 }
 \arguments{
-\item{df}{data frame with time series of pairwise measurements.
-Columns must include:  set, t, id, nnd, bangl.}
+\item{df}{A data frame with time series of pairwise measurements. Columns
+must include: \code{set}, \code{t}, \code{id}, \code{nnd}, \code{bangl}.}
 }
 \value{
-a dataframe with average and sd of pairwise measurement
-of a group at a single time step.
+A dataframe with average and standard deviation of pairwise
+ measurements for a group at a single time step.
 }
 \description{
-Calculating group averages of pairwise measures.
+This function calculates group averages of pairwise measures.
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

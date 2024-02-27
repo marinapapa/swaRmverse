@@ -2,25 +2,24 @@
 % Please edit documentation in R/events_idxs.R
 \name{get_event_ids}
 \alias{get_event_ids}
-\title{Event indexes}
+\title{Event Indexes}
 \usage{
 get_event_ids(df)
 }
 \arguments{
-\item{df}{A dataframe with a set and a keep column to get the
-timeseries of event ids. The keep column is added by the
-\code{define_events} function and represents whether each
-timestep is part of an event or not (whether it should be kept
-in for the rest of the analysis). Each set of the dataframe
-should be ordered in time.}
+\item{df}{A dataframe with a set and a keep column to get the timeseries of
+event IDs. The \code{keep} column is added by the
+\code{\link{define_events}} function and represents whether each timestep is
+part of an event or not (whether it should be kept in for the rest of the
+analysis). Each set of the dataframe should be ordered in time.}
 }
 \value{
-a vector of the same length as the rows of the input
-dataframe with the timeseries of event ids.
+a vector of the same length as the rows of the input dataframe with
+ the timeseries of event IDs.
 }
 \description{
-Returns a vector with the timeseries of event ids
-according to the input keep column of the dataframe.
+This function returns a vector with the timeseries of event IDs
+ according to the input keep column of the dataframe.
 }
 \seealso{
 \code{\link{define_events}}

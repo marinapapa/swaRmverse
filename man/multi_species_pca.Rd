@@ -3,7 +3,7 @@
 \docType{data}
 \name{multi_species_pca}
 \alias{multi_species_pca}
-\title{Mutli-species PCA}
+\title{Multi-Species PCA}
 \format{
 A list of 5 elements, exported by the \code{stats::prcomp function}.
 }
@@ -11,9 +11,21 @@ A list of 5 elements, exported by the \code{stats::prcomp function}.
 data('multi_species_pca')
 }
 \description{
-The swarm space PCA of 4 species: stickleback fish, homing pigeons, goats and chacma baboons.
-First published as part of:
-Papadopoulou Marina, Fürtbauer Ines, O'Bryan Lisa R., Garnier Simon, Georgopoulou Dimitra G., Bracken Anna M., Christensen Charlotte and King Andrew J.
-2023. Dynamics of collective motion across time and speciesPhil. Trans. R. Soc. B 378: 20220068. http://doi.org/10.1098/rstb.2022.0068
+The swarm space PCA of 4 species: stickleback fish, homing
+ pigeons, goats and chacma baboons. First published as part of:
+
+ Papadopoulou Marina, Fürtbauer Ines, O'Bryan Lisa R., Garnier Simon,
+ Georgopoulou Dimitra G., Bracken Anna M., Christensen Charlotte and King
+ Andrew J. 2023. Dynamics of collective motion across time and species. Phil.
+ Trans. R. Soc. B 378: 20220068. http://doi.org/10.1098/rstb.2022.0068
+}
+\references{
+Papadopoulou Marina, Fürtbauer Ines, O'Bryan Lisa R., Garnier Simon,
+ Georgopoulou Dimitra G., Bracken Anna M., Christensen Charlotte and King
+ Andrew J. 2023. Dynamics of collective motion across time and species. Phil.
+ Trans. R. Soc. B 378: 20220068. http://doi.org/10.1098/rstb.2022.0068
+}
+\seealso{
+\code{\link{multi_species_pca_data}}
 }
 \keyword{datasets}

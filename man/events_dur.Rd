@@ -2,27 +2,28 @@
 % Please edit documentation in R/events_N_duration.R
 \name{events_dur}
 \alias{events_dur}
-\title{Total duration of all events}
+\title{Total Duration of All Events}
 \usage{
 events_dur(data, step2time)
 }
 \arguments{
-\item{data}{A dataframe with a keep column,
-representing which rows are defined as events of collective motion
-(added by the \code{define_events} function).}
+\item{data}{A dataframe with a \code{keep} column, representing which rows
+are defined as events of collective motion (added by the
+\code{\link{define_events}} function).}
 
-\item{step2time}{the sampling frequency of the dataframe (how many
-seconds are between each row of the data).}
+\item{step2time}{The sampling frequency of the dataframe (how many seconds
+are between each row of the data).}
 }
 \value{
-a double, the total duration of events in the dataset in seconds.
+A numeric corresponding to the total duration of events in the
+ dataset in seconds.
 }
 \description{
-Calculates the total duration (in seconds) of events of
-collective motion in a dataset.
+This function calculates the total duration (in seconds) of
+ events of collective motion in a dataset.
 }
 \seealso{
-\code{\link{define_events}, \link{events_n}}
+\code{\link{define_events}}, \code{\link{events_n}}
 }
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}

@@ -2,22 +2,21 @@
 % Please edit documentation in R/events_N_duration.R
 \name{events_n}
 \alias{events_n}
-\title{Number of events}
+\title{Number of Events}
 \usage{
 events_n(data)
 }
 \arguments{
-\item{data}{A dataframe with a keep column
-(representing which rows are defined as events of collective motion)
-and a set column.}
+\item{data}{A dataframe with a \code{keep} column (representing which rows
+are defined as events of collective motion) and a \code{set} column.}
 }
 \value{
-an integer with the number of events of collective motion
-(sequences of keep == TRUE).
+an integer with the number of events of collective motion (sequences
+ of \code{keep == TRUE}).
 }
 \description{
-Calculates the number of events of collective motion
- in a dataset.
+This function calculates the number of events of collective
+ motion in a dataset.
 }
 \seealso{
 \code{\link{define_events}}
