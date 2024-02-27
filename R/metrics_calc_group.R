@@ -97,7 +97,7 @@ group_metrics <- function(data,
       !("x" %in% colnames(data)) ||
       !("y" %in% colnames(data)) ||
       !("speed" %in% colnames(data))) {
-      stop("Data should be a dataframe that includes columns: set, t, x, y, head, and speed")
+      stop("Input data should be a dataframe that includes columns: set, t, x, y, head, and speed. Did you forget to run the set_data_format or the add_velocities functions?")
     }
 
   if (length(unique(data$id)) < 2) {

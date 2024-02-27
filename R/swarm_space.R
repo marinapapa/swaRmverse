@@ -49,6 +49,11 @@ swarm_space <- function(metrics_data,
     metrics_data <- metrics_data[metrics_data$event_dur_s > event_dur_limit, ]
   }
 
+  if (!('species' %in% colnames(metrics_data))){
+    warning('A column with species id is needed in the input dataframe, currently missing. A generic id has been added.')
+    metrics_data$species <- 'species_NA'
+  }
+
   metrics_data <- metrics_data[stats::complete.cases(metrics_data), ]
   df <- metrics_data[, !(
             names(metrics_data) %in% c("event_dur", "N", "start_time", "set")

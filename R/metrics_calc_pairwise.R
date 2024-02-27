@@ -55,7 +55,7 @@ pairwise_metrics <- function(data_list,
 #' all focal individuals in a group to their nearest neighbor over time.
 #'
 #' @param data A dataframe with the group's positional timeseries for one set.
-#' Column names must include: id, x, y, t. The calculations are based on
+#' Column names must include: id, x, y, t, head. The calculations are based on
 #' the \code{swaRm} package.
 #'
 #' @param geo Logical, whether positions are geographic coordinates, default = FALSE.
@@ -85,6 +85,10 @@ nn_metrics <- function(data,
                        verbose = FALSE,
                        parallelize = FALSE
                        ) {
+
+  if (!('head' %in% colnames(data))){
+    stop('A heading column (head) is needed to calculate pairwise metrics, did you forget to run the add_velocities function?')
+  }
 
   data$only_time <- format(data$t, "%H:%M:%OS2")
   per_time <- split(data, data$only_time)

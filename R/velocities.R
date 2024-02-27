@@ -174,7 +174,8 @@ parAddVelsVerb <- function(
     per_id,
     geo = FALSE
     ) {
-  print("Calculating heading timeseries in parallel...")
+  print(paste0("Calculating heading timeseries in parallel for set ", per_id[[1]][1, "set"],
+               " with ", length(per_id), " individuals..."))
 
   num_cores <- parallel::detectCores()
   cl <- parallel::makeCluster(num_cores)
@@ -247,7 +248,7 @@ perIdVels <- function(
     per_id <- as.data.frame(per_id)
 
     if (nrow(per_id) < 2) {
-      warning(paste0("Id ", per_id[,'id'], " has only one data point, returning NA for its heading.
+      warning(paste0("Id ", per_id[,"id"], " has only one data point, returning NA for its heading.
                      We recommend cleaning your data before continuing."))
       return(per_id)
     }

@@ -1,9 +1,9 @@
 ---
-title: "2 - Data analysis"
+title: "2 - Data Analysis"
 author: "Marina Papadopoulou"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{2 - Data analysis}
+  %\VignetteIndexEntry{2 - Data Analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -21,13 +21,17 @@ library(swaRmverse)
 raw <- read.csv(system.file("extdata/video/01.csv", package = "trackdf"))
 raw <- raw[!raw$ignore, ]
 
+## Add fake context
+raw$context <- c(rep("ctx1", nrow(raw) / 2), rep("ctx2", nrow(raw) / 2))
+
 data_df <- set_data_format(raw_x = raw$x,
                           raw_y = raw$y,
                           raw_t = raw$frame,
                           raw_id = raw$id,
                           origin = "2020-02-1 12:00:21",
                           period = "0.04S",
-                          tz = "America/New_York"
+                          tz = "America/New_York",
+                          raw_context = raw$context
                           )
 
 is_geo <- FALSE

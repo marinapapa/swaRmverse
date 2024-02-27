@@ -1,12 +1,14 @@
 ---
-title: "3 - Create the swarm space"
+title: "3 - The Swarm-Verse"
 author: "Marina Papadopoulou"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{3 - Create the swarm space}
+  %\VignetteIndexEntry{3 - The Swarm-Verse}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+After having analyzed our data, we can examine the intra- and inter-specific variation present across datasets through dimensionality reduction techniques (create 'swarm spaces').
 
 ## 3.1 Load data
 
@@ -14,30 +16,21 @@ Load the metrics of collective motion calculated previously. Include the events 
 
 ```{r message=FALSE, warning=FALSE}
 library(swaRmverse)
+
+# load pacakge data for many species
 data("multi_species_metrics")
 
-## Create the swarm space for this data only:
+## A] Create the swarm space for this data only:
 all_data <- multi_species_metrics
 
-## Or bind with new data if continuing from step2
-data_df <- get(data("tracks", package = "trackdf"))
-data_df$set <- as.Date(data_df$t)
+## B] Or bind with new data if continuing from step2
+data("new_species_metrics") ## loads the output of step 2
 
-new_species_metrics <- col_motion_metrics_from_raw(data_df,
-                                mov_av_time_window = 10,
-                                step2time = 1,
-                                geo = TRUE,
-                                verbose = FALSE,
-                                speed_lim = 0,
-                                pol_lim = 0.3,
-                                parallelize_all = FALSE
-                                )
+new_species_tobind <- new_species_metrics[,!colnames(new_species_metrics) %in% c('event_dur', 'N', 'set', 'start_time')] # remove columns not needed for the swarm space
+all_data <- rbind(multi_species_metrics, new_species_tobind)
 
-new_species_metrics$species <- "new_species_2"
-
-## Bind datasets for pca:
-new_species <- new_species_metrics[,!colnames(new_species_metrics) %in% c('event_dur', 'N', 'set', 'start_time')] # remove columns not needed for the swarm space
-all_data <- rbind(multi_species_metrics, new_species)
+## C] Or to use just the new data (overwrites previous command, comment out to compare with the other species):
+all_data <- new_species_metrics
 
 ```
 
@@ -47,8 +40,8 @@ Create new swarm space with PCA analysis:
 
 ```{r}
 new_pca <- swarm_space(metrics_data = all_data,
-                              space_type = "pca"
-                              )
+                       space_type = "pca"
+                       )
 
 ggplot2::ggplot(new_pca$swarm_space,
                  ggplot2::aes(x = PC1, y = PC2, color = species)
@@ -65,6 +58,8 @@ pca_info <- new_pca$pca$rotation[, new_pca$pca$sdev > 1]
 print(pca_info)
 
 ref_data <- new_pca$ref
+head(ref_data)
+
 ```
 
 Or create a new swarm space with tSNE to better study the local structure of the data:
@@ -114,8 +109,23 @@ To compare several new datasets, one should run the analysis until the end of st
 
 ```{r message=FALSE, warning=FALSE}
 
-another_species <- new_species_metrics ## from the beginning of this step
 data("new_species_metrics") ## loads the output of step 2
+
+## Use another dataset:
+data_df <- get(data("tracks", package = "trackdf"))
+data_df$set <- as.Date(data_df$t)
+
+another_species <- col_motion_metrics_from_raw(data_df,
+                                mov_av_time_window = 10,
+                                step2time = 1,
+                                geo = TRUE,
+                                verbose = FALSE,
+                                speed_lim = 0,
+                                pol_lim = 0.3,
+                                parallelize_all = FALSE
+                                )
+
+another_species$species <- "new_species_2"
 
 ## Bind all the datasets you want to compare here
 all_data <- rbind(another_species, new_species_metrics)

@@ -1,9 +1,9 @@
 ---
-title: "1 - Data preparation"
+title: "1 - Data Preparation"
 author: "Marina Papadopoulou"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{1 - Data preparation}
+  %\VignetteIndexEntry{1 - Data Preparation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

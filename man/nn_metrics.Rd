@@ -14,7 +14,7 @@ nn_metrics(
 }
 \arguments{
 \item{data}{A dataframe with the group's positional timeseries for one set.
-Column names must include: id, x, y, t. The calculations are based on
+Column names must include: id, x, y, t, head. The calculations are based on
 the \code{swaRm} package.}
 
 \item{add_coords}{Logical, whether the data on relative positions of
