@@ -15,6 +15,11 @@ A vector of doubles, the normalized values of the input vector.
 \description{
 This function rescales a vector to values between 0 and 1.
 }
+\examples{
+d <- rnorm(20, mean = 10, sd = 1)
+normalize_data(d)
+
+}
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}
 }

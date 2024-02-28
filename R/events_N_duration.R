@@ -13,6 +13,15 @@
 #'
 #' @seealso \code{\link{define_events}}
 #'
+#' @examples
+#'
+#' data <- data.frame(
+#' set = c(rep('1', 50), rep('2', 50)),
+#' keep = c(rep(FALSE, 10), rep(TRUE, 70), rep(FALSE, 20))
+#' )
+#'
+#' events_n(data) ## 2 events
+#'
 #' @export
 events_n <- function(data) {
   if (!("keep" %in% colnames(data))) {
@@ -102,6 +111,17 @@ events_dur <- function(data,
 #'
 #' @seealso \code{\link{events_dur}}, \code{\link{get_event_ids}}
 #'
+#' @examples
+#'
+#' data <- data.frame(
+#' set = c(rep('1', 50), rep('2', 50)),
+#' event = c(rep(NA, 10), rep(1, 40), rep(2, 30), rep(NA, 20))
+#' )
+#'
+#' time_per_row <- 1 # seconds
+#'
+#' calc_dur_per_event(data, time_per_row)
+#'
 #' @export
 calc_dur_per_event <- function(data,
                                step2time) {
@@ -132,6 +152,17 @@ calc_dur_per_event <- function(data,
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @seealso \code{\link{events_dur}}, \code{\link{events_n}}
+#'
+#' @examples
+#'
+#' data <- data.frame(
+#' set = c(rep('1', 50), rep('2', 50)),
+#' keep = c(rep(FALSE, 10), rep(TRUE, 70), rep(FALSE, 20))
+#' )
+#'
+#' time_per_row <- 1 # seconds
+#'
+#' events_summary(data, time_per_row)
 #'
 #' @export
 events_summary <- function(data, step2time) {

@@ -32,6 +32,10 @@
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @seealso \code{\link{group_metrics}, \link{pairwise_metrics}, \link{nn_metrics}, \link{col_motion_metrics}}
+#' @examples
+#'
+#' data(multi_species_metrics)
+#' ss <- swarm_space(multi_species_metrics)
 #'
 #' @export
 swarm_space <- function(metrics_data,
@@ -160,6 +164,13 @@ do_tsne <- function(df,
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @seealso \code{\link{swarm_space}}
+#'
+#' @examples
+#'
+#' data(multi_species_metrics)
+#' data(multi_species_pca)
+#' ss <- expand_pca_swarm_space(multi_species_metrics,
+#' multi_species_pca)
 #'
 #' @export
 expand_pca_swarm_space <- function(metrics_data,

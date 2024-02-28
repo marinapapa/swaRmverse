@@ -22,6 +22,18 @@ A dataframe with two columns, event ID and duration in seconds.
 This function calculates the duration of each event of
  collective motion in a dataset.
 }
+\examples{
+
+data <- data.frame(
+set = c(rep('1', 50), rep('2', 50)),
+event = c(rep(NA, 10), rep(1, 40), rep(2, 30), rep(NA, 20))
+)
+
+time_per_row <- 1 # seconds
+
+calc_dur_per_event(data, time_per_row)
+
+}
 \seealso{
 \code{\link{events_dur}}, \code{\link{get_event_ids}}
 }

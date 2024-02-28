@@ -4,7 +4,7 @@
 \alias{add_velocities}
 \title{Add Velocity Timeseries Across Sets}
 \usage{
-add_velocities(data, geo = TRUE, verbose = FALSE, parallelize = FALSE)
+add_velocities(data, geo = FALSE, verbose = FALSE, parallelize = FALSE)
 }
 \arguments{
 \item{data}{A data frame with time series of individual's positional data,
@@ -27,6 +27,20 @@ with new columns: \code{head} and \code{speed}.
 This function calculates and adds the speed and heading of each individual
 over time in the dataset, and splits it in a list of dataframes based
 on the defined sets.
+}
+\examples{
+\dontrun{
+data <- data.frame(
+set = rep(1, 25),
+x = rnorm(25, sd = 3),
+y = rnorm(25, sd = 3),
+t = 1:25,
+id = rep(1, 25)
+)
+
+data_list <- add_velocities(data, FALSE)
+}
+
 }
 \seealso{
 \code{\link{add_set_vels}}, \code{\link{set_data_format}}

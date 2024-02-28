@@ -33,6 +33,18 @@
 #'
 #' @seealso \code{\link{add_velocities}, \link{group_metrics}, \link{pairwise_metrics}, \link{moving_average}}
 #'
+#' @examples
+#' \dontrun{
+#' data <- data.frame(
+#' set = rep(1, 25),
+#' x = rnorm(25, sd = 3),
+#' y = rnorm(25, sd = 3),
+#' t = 1:25,
+#' id = rep(1, 25)
+#' )
+#'
+#' metrics <- col_motion_metrics_from_raw(data, 3, 1, FALSE)
+#' }
 #' @export
 col_motion_metrics_from_raw <- function(data,
                                mov_av_time_window,
@@ -115,6 +127,32 @@ col_motion_metrics_from_raw <- function(data,
 #'
 #' @seealso \code{\link{define_events}, \link{group_metrics}, \link{pairwise_metrics}}
 #'
+#' @examples
+#' \dontrun{
+#'
+#' ## A dataframe with group timeseries
+#' g_df <- data.frame(
+#' t = 1:25,
+#' set = rep(1, 25),
+#' pol = c(rnorm(25)),
+#' speed = c(rnorm(25)),
+#' shape = c(rnorm(25)),
+#' event = rep(1, 25),
+#' N = rep(2, 25)
+#' )
+#'
+#' ## A dataframe with individual timeseries
+#' p_df <- data.frame(
+#' t = rep(1:25, 2),
+#' set = rep(1, 50),
+#' nnd = c(rnorm(50)),
+#' bangl = runif(25, 0, pi),
+#' id = c(rep(1, 25), rep(2, 25)),
+#' event = rep(1, 50)
+#' )
+#'
+#' metrics <- col_motion_metrics(p_df, g_df)
+#' }
 #' @export
 col_motion_metrics <- function(timeseries_data,
                                global_metrics,

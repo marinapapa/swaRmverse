@@ -16,6 +16,13 @@
 #'
 #' @seealso \code{\link{define_events}}
 #'
+#' @examples
+#' data <- data.frame(
+#' set = c(rep('1', 50), rep('2', 50)),
+#' keep = c(rep(FALSE, 10), rep(TRUE, 70), rep(FALSE, 20))
+#' )
+#' data$event <- get_event_ids(data)
+#'
 #' @export
 get_event_ids <- function(df) {
   if (!("keep" %in% colnames(df))) {
@@ -40,7 +47,7 @@ get_event_ids <- function(df) {
 #'
 #' @description The execution of \code{event_ids} per set.
 #'
-#' @param setdf The dataframe for one set of the data. It should not have 
+#' @param setdf The dataframe for one set of the data. It should not have
 #'  discontinuities in time.
 #'
 #' @param ev_idx The last event index added so far at the dataset (e.g., from a

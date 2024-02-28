@@ -38,6 +38,21 @@ This function calculates the bearing angle and distance from each
 focal individual of a group to its nearest neighbor over time, across
 the sets of a dataset.
 }
+\examples{
+\dontrun{
+
+#' data <- data.frame(
+set = rep('1', 50),
+t = rep(1:25, 2),
+id = c(rep(1, 25), rep(2, 25)),
+x = rnorm(50),
+y = rnorm(50),
+head = runif(50, 0, 2 * pi),
+)
+gm <- pairwise_metrics(list(data), FALSE)
+
+}
+}
 \seealso{
 \code{\link{nn_metrics}, \link{group_metrics_per_set}}
 }

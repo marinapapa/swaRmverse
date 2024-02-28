@@ -41,6 +41,33 @@ A dataframe with metrics of collective motion per event.
 This function calculates metrics of collective motion across sets
 and events.
 }
+\examples{
+\dontrun{
+
+## A dataframe with group timeseries
+g_df <- data.frame(
+t = 1:25,
+set = rep(1, 25),
+pol = c(rnorm(25)),
+speed = c(rnorm(25)),
+shape = c(rnorm(25)),
+event = rep(1, 25),
+N = rep(2, 25)
+)
+
+## A dataframe with individual timeseries
+p_df <- data.frame(
+t = rep(1:25, 2),
+set = rep(1, 50),
+nnd = c(rnorm(50)),
+bangl = runif(25, 0, pi),
+id = c(rep(1, 25), rep(2, 25)),
+event = rep(1, 50)
+)
+
+metrics <- col_motion_metrics(p_df, g_df)
+}
+}
 \seealso{
 \code{\link{define_events}, \link{group_metrics}, \link{pairwise_metrics}}
 }

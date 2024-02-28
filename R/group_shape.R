@@ -111,6 +111,13 @@ calc_obb <- function(x,
 #'
 #' @author Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
+#' @examples
+#'
+#' x <- rnorm(25)
+#' y <- rnorm(25, sd = 3)
+#' h <- runif(25, 0, 2 * pi)
+#' group_shape(x, y, h, geo = FALSE)
+#'
 #' @export
 group_shape <- function(x,
                         y,

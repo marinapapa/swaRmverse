@@ -1,4 +1,4 @@
-#' @title Pick the Thresholds for the Events' Definition
+#' @title Pick a Threshold for the Events' Definition
 #'
 #' @description An interactive function that calculates and prints the quantiles
 #'  of the input distribution and asks the user to input the threshold value
@@ -24,6 +24,16 @@
 #'
 #' @seealso \code{\link{define_events}}
 #'
+#' @examples
+#' d <- rnorm(25, sd = 1)
+#' d_variable_name <- "a variable"
+#' the_threshold <- 0
+#' pick_threshold(d, d_variable_name, threshold = the_threshold)
+#'
+#' ## Or if the threshold is not known, run the interactive version:
+#' \dontrun{
+#' pick_threshold(d, d_variable_name)
+#' }
 #' @export
 pick_threshold <- function(data_distr,
                            var,
@@ -103,6 +113,14 @@ pick_threshold <- function(data_distr,
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
 #' @seealso \code{\link{pick_threshold}, \link{group_metrics_per_set}}
+#'
+#' @examples
+#' data <- data.frame(
+#' set = rep('1', 50),
+#' pol_av = rnorm(50, mean = 0.5, sd = 0.2),
+#' speed_av = rnorm(50, mean = 5)
+#' )
+#' data <- define_events(data, sp_lim = 5, pol_lim = 0.4, step2time = 1)
 #'
 #' @export
 define_events <- function(df,

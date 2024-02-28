@@ -23,9 +23,22 @@
 #'
 #' @seealso \code{\link{add_set_vels}}, \code{\link{set_data_format}}
 #'
+#' @examples
+#' \dontrun{
+#' data <- data.frame(
+#' set = rep(1, 25),
+#' x = rnorm(25, sd = 3),
+#' y = rnorm(25, sd = 3),
+#' t = 1:25,
+#' id = rep(1, 25)
+#' )
+#'
+#' data_list <- add_velocities(data, FALSE)
+#' }
+#'
 #' @export
 add_velocities <- function(data,
-                           geo = TRUE,
+                           geo = FALSE,
                            verbose = FALSE,
                            parallelize = FALSE
 ) {
@@ -74,10 +87,23 @@ add_velocities <- function(data,
 #'
 #' @seealso \code{\link{add_velocities}}
 #'
+#' @examples
+#' \dontrun{
+#'
+#' data <- data.frame(
+#' x = rnorm(25, sd = 3),
+#' y = rnorm(25, sd = 3),
+#' t = 1:25,
+#' id = rep(1, 25)
+#' )
+#'
+#' data_list <- add_set_vels(data, FALSE)
+#' }
+#'
 #' @export
 add_set_vels <- function(
     data,
-    geo = TRUE,
+    geo = FALSE,
     verbose = FALSE,
     parallelize = FALSE
     ) {

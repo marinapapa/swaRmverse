@@ -36,6 +36,15 @@ This function adds a keep TRUE/FALSE column in the input dataframe based on
 input thresholds, reflecting whether a timestep is considered part of a
 collective event or not.
 }
+\examples{
+data <- data.frame(
+set = rep('1', 50),
+pol_av = rnorm(50, mean = 0.5, sd = 0.2),
+speed_av = rnorm(50, mean = 5)
+)
+data <- define_events(data, sp_lim = 5, pol_lim = 0.4, step2time = 1)
+
+}
 \seealso{
 \code{\link{pick_threshold}, \link{group_metrics_per_set}}
 }

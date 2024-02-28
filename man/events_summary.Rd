@@ -21,6 +21,18 @@ A dataframe with 3 columns: \code{set}, \code{ev_count} (number of
 This function summarizes the number of events and their total
  duration in the dataset.
 }
+\examples{
+
+data <- data.frame(
+set = c(rep('1', 50), rep('2', 50)),
+keep = c(rep(FALSE, 10), rep(TRUE, 70), rep(FALSE, 20))
+)
+
+time_per_row <- 1 # seconds
+
+events_summary(data, time_per_row)
+
+}
 \seealso{
 \code{\link{events_dur}}, \code{\link{events_n}}
 }

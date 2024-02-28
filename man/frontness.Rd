@@ -19,7 +19,7 @@ Given the bearing angle of an object to another, this function
  in front the focal object is from its neighbor.
 }
 \examples{
-bs <- rnorm(25, sd = 1)
+bs <- runif(25, max = pi)
 frontness(bs)
 
 }

@@ -8,6 +8,10 @@
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
+#' @examples
+#' d <- rnorm(20, mean = 10, sd = 1)
+#' normalize_data(d)
+#'
 #' @export
 normalize_data <- function(vec) {
   vmax <- max(vec, na.rm = TRUE)

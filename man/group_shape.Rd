@@ -26,6 +26,14 @@ Calculates how oblong the shape of a group is, relative to its
  average moving direction, along with the properties of the minimum object
  oriented bounding box (OOBB) around all objects.
 }
+\examples{
+
+x <- rnorm(25)
+y <- rnorm(25, sd = 3)
+h <- runif(25, 0, 2 * pi)
+group_shape(x, y, h, geo = FALSE)
+
+}
 \author{
 Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}
 }

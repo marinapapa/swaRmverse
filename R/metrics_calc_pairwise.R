@@ -27,6 +27,20 @@
 #'
 #' @seealso \code{\link{nn_metrics}, \link{group_metrics_per_set}}
 #'
+#' @examples
+#' \dontrun{
+#'
+#' #' data <- data.frame(
+#' set = rep('1', 50),
+#' t = rep(1:25, 2),
+#' id = c(rep(1, 25), rep(2, 25)),
+#' x = rnorm(50),
+#' y = rnorm(50),
+#' head = runif(50, 0, 2 * pi),
+#' )
+#' gm <- pairwise_metrics(list(data), FALSE)
+#'
+#' }
 #' @export
 pairwise_metrics <- function(data_list,
                              geo = FALSE,
@@ -79,6 +93,20 @@ pairwise_metrics <- function(data_list,
 #'
 #' @seealso \code{\link{add_rel_pos_coords}, \link{group_metrics}}
 #'
+#' @examples
+#' \dontrun{
+#'
+#' #' data <- data.frame(
+#' set = rep('1', 50),
+#' t = rep(1:25, 2),
+#' id = c(rep(1, 25), rep(2, 25)),
+#' x = rnorm(50),
+#' y = rnorm(50),
+#' head = runif(50, 0, 2 * pi),
+#' )
+#' gm <- nn_metrics(data)
+#'
+#' }
 #' @export
 nn_metrics <- function(data,
                        add_coords = FALSE,

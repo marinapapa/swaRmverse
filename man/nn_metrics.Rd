@@ -38,6 +38,21 @@ If \code{add_coords} is TRUE, the columns \code{nnx} and \code{nny} are  added.
 This function calculates the bearing angle and distance from
 all focal individuals in a group to their nearest neighbor over time.
 }
+\examples{
+\dontrun{
+
+#' data <- data.frame(
+set = rep('1', 50),
+t = rep(1:25, 2),
+id = c(rep(1, 25), rep(2, 25)),
+x = rnorm(50),
+y = rnorm(50),
+head = runif(50, 0, 2 * pi),
+)
+gm <- nn_metrics(data)
+
+}
+}
 \seealso{
 \code{\link{add_rel_pos_coords}, \link{group_metrics}}
 }

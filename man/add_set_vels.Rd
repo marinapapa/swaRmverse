@@ -4,7 +4,7 @@
 \alias{add_set_vels}
 \title{Add Velocity Timeseries}
 \usage{
-add_set_vels(data, geo = TRUE, verbose = FALSE, parallelize = FALSE)
+add_set_vels(data, geo = FALSE, verbose = FALSE, parallelize = FALSE)
 }
 \arguments{
 \item{data}{A dataframe with the time series of individuals' positions.
@@ -22,6 +22,20 @@ The input dataframe with a new speed and heading (rotational, in rads) columns.
 \description{
 This function calculates the headings and speeds of individuals based on
 two location points and the time taken to travel between those points.
+}
+\examples{
+\dontrun{
+
+data <- data.frame(
+x = rnorm(25, sd = 3),
+y = rnorm(25, sd = 3),
+t = 1:25,
+id = rep(1, 25)
+)
+
+data_list <- add_set_vels(data, FALSE)
+}
+
 }
 \seealso{
 \code{\link{add_velocities}}

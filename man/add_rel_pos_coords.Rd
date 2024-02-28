@@ -22,6 +22,15 @@ The input dataframe with additional \code{nnx} (nearest neighbor x coordinate)
 This function calculates the x and y coordinates of a neighbor
 in the reference frame of the focal individual.
 }
+\examples{
+
+data <- data.frame(
+bangl = runif(25, 0, pi),
+nnd = runif(25)
+)
+data <- add_rel_pos_coords(data)
+
+}
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}
 }

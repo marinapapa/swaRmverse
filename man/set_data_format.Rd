@@ -58,6 +58,13 @@ A track dataframe table, which is a colloquial term for an
 \description{
 This function is a wrapper for the  \code{track} function of the \code{trackdf} package.
 }
+\examples{
+\dontrun{
+data(raw_df)
+t_df <- set_data_format(x = raw_df$x,
+ y = raw_df$y, t = raw_df$t, id = raw_df$id)
+}
+}
 \author{
 Marina Papadopoulou \email{m.papadopoulou.rug@gmail.com}
 }

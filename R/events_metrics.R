@@ -17,6 +17,31 @@
 #'
 #' @seealso \code{\link{group_metrics}}, \code{\link{nn_metrics}}
 #'
+#' @examples
+#'
+#' ## A dataframe with group timeseries
+#' g_df <- data.frame(
+#' t = 1:25,
+#' set = rep(1, 25),
+#' pol = c(rnorm(25)),
+#' speed = c(rnorm(25)),
+#' shape = c(rnorm(25)),
+#' event = rep(1, 25),
+#' N = rep(2, 25)
+#' )
+#'
+#' ## A dataframe with individual timeseries
+#' p_df <- data.frame(
+#' t = rep(1:25, 2),
+#' set = rep(1, 50),
+#' nnd = c(rnorm(50)),
+#' bangl = runif(25, 0, pi),
+#' id = c(rep(1, 25), rep(2, 25)),
+#' event = rep(1, 50)
+#' )
+#'
+#' events_dataframe <- event_metrics(g_df, p_df)
+#'
 #' @export
 event_metrics <- function(global_df, pairwise_df) {
   if (!(all(c("pol", "speed", "shape", "nnd", "bangl", "set", "t", "event")

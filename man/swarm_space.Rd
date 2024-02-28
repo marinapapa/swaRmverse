@@ -44,6 +44,12 @@ global and pairwise metrics of collective motion per each event to
 produce a swarm space. The PCA is computed with the \code{stats::prcomp}
 function and the t-SNE with the \code{Rtsne::Rtsne} function.
 }
+\examples{
+
+data(multi_species_metrics)
+ss <- swarm_space(multi_species_metrics)
+
+}
 \seealso{
 \code{\link{group_metrics}, \link{pairwise_metrics}, \link{nn_metrics}, \link{col_motion_metrics}}
 }

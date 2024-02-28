@@ -2,7 +2,7 @@
 % Please edit documentation in R/events_definition.R
 \name{pick_threshold}
 \alias{pick_threshold}
-\title{Pick the Thresholds for the Events' Definition}
+\title{Pick a Threshold for the Events' Definition}
 \usage{
 pick_threshold(data_distr, var, threshold = NA)
 }
@@ -28,6 +28,17 @@ An interactive function that calculates and prints the quantiles
  checks that the threshold type is correct and returns it. In the swaRmverse
  framework, the timesteps with lower values than the threshold will be
  labelled as not part of an event.
+}
+\examples{
+d <- rnorm(25, sd = 1)
+d_variable_name <- "a variable"
+the_threshold <- 0
+pick_threshold(d, d_variable_name, threshold = the_threshold)
+
+## Or if the threshold is not known, run the interactive version:
+\dontrun{
+pick_threshold(d, d_variable_name)
+}
 }
 \seealso{
 \code{\link{define_events}}

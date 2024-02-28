@@ -25,6 +25,14 @@ per event of the new species.
 This function predicts the positions of new event data in an
 existing PCA space using the \code{stats::predict} function.
 }
+\examples{
+
+data(multi_species_metrics)
+data(multi_species_pca)
+ss <- expand_pca_swarm_space(multi_species_metrics,
+multi_species_pca)
+
+}
 \seealso{
 \code{\link{swarm_space}}
 }

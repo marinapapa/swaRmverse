@@ -40,6 +40,12 @@
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
+#' @examples
+#' \dontrun{
+#' data(raw_df)
+#' t_df <- set_data_format(x = raw_df$x,
+#'  y = raw_df$y, t = raw_df$t, id = raw_df$id)
+#' }
 #' @export
 set_data_format <- function(raw_x,
                             raw_y,

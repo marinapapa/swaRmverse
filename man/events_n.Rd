@@ -18,6 +18,16 @@ an integer with the number of events of collective motion (sequences
 This function calculates the number of events of collective
  motion in a dataset.
 }
+\examples{
+
+data <- data.frame(
+set = c(rep('1', 50), rep('2', 50)),
+keep = c(rep(FALSE, 10), rep(TRUE, 70), rep(FALSE, 20))
+)
+
+events_n(data) ## 2 events
+
+}
 \seealso{
 \code{\link{define_events}}
 }

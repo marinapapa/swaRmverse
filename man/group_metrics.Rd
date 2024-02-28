@@ -30,6 +30,23 @@ A dataframe with the group average timeseries, with columns:
 This function calculates the average speed, polarization
 and shape of a group through time.
 }
+\examples{
+\dontrun{
+
+data <- data.frame(
+set = rep('1', 50),
+t = rep(1:25, 2),
+id = c(rep(1, 25), rep(2, 25)),
+x = rnorm(50),
+y = rnorm(50),
+head = runif(50, 0, 2 * pi),
+speed = rnorm(50)
+)
+gm <- group_metrics(data, FALSE, 1)
+
+}
+
+}
 \seealso{
 \code{\link{group_shape}, \link{add_velocities}}
 }

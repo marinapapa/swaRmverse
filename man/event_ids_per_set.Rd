@@ -7,7 +7,7 @@
 event_ids_per_set(setdf, ev_idx)
 }
 \arguments{
-\item{setdf}{The dataframe for one set of the data. It should not have 
+\item{setdf}{The dataframe for one set of the data. It should not have
 discontinuities in time.}
 
 \item{ev_idx}{The last event index added so far at the dataset (e.g., from a

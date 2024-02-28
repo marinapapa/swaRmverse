@@ -14,7 +14,7 @@
 #' @seealso \code{\link{nnba}}
 #'
 #' @examples
-#' bs <- rnorm(25, sd = 1)
+#' bs <- runif(25, max = pi)
 #' frontness(bs)
 #'
 #' @export
@@ -46,6 +46,14 @@ frontness <- function(bs) {
 #'  and \code{nny} (nearest neighbor y coordinate) columns.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
+#' @examples
+#'
+#' data <- data.frame(
+#' bangl = runif(25, 0, pi),
+#' nnd = runif(25)
+#' )
+#' data <- add_rel_pos_coords(data)
 #'
 #' @export
 add_rel_pos_coords <- function(data,

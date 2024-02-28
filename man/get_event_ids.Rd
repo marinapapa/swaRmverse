@@ -21,6 +21,14 @@ a vector of the same length as the rows of the input dataframe with
 This function returns a vector with the timeseries of event IDs
  according to the input keep column of the dataframe.
 }
+\examples{
+data <- data.frame(
+set = c(rep('1', 50), rep('2', 50)),
+keep = c(rep(FALSE, 10), rep(TRUE, 70), rep(FALSE, 20))
+)
+data$event <- get_event_ids(data)
+
+}
 \seealso{
 \code{\link{define_events}}
 }
