@@ -30,27 +30,27 @@ document.addEventListener('DOMContentLoaded', function(e) {
 </script>
 
 <style type="text/css">
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 
 <style type="text/css">
-code {
-white-space: pre;
-}
-.sourceCode {
-overflow: visible;
-}
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -64,54 +64,55 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-{ counter-reset: source-line 0; }
+  { counter-reset: source-line 0; }
 pre.numberSource code > span
-{ position: relative; left: -4em; counter-increment: source-line; }
+  { position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-{ content: counter(source-line);
-position: relative; left: -1em; text-align: right; vertical-align: baseline;
-border: none; display: inline-block;
--webkit-touch-callout: none; -webkit-user-select: none;
--khtml-user-select: none; -moz-user-select: none;
--ms-user-select: none; user-select: none;
-padding: 0 4px; width: 4em;
-color: #aaaaaa;
-}
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-{ }
+  {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } 
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.at { color: #7d9029; } 
-code span.bn { color: #40a070; } 
-code span.bu { color: #008000; } 
-code span.cf { color: #007020; font-weight: bold; } 
-code span.ch { color: #4070a0; } 
-code span.cn { color: #880000; } 
-code span.co { color: #60a0b0; font-style: italic; } 
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.do { color: #ba2121; font-style: italic; } 
-code span.dt { color: #902000; } 
-code span.dv { color: #40a070; } 
-code span.er { color: #ff0000; font-weight: bold; } 
-code span.ex { } 
-code span.fl { color: #40a070; } 
-code span.fu { color: #06287e; } 
-code span.im { color: #008000; font-weight: bold; } 
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.kw { color: #007020; font-weight: bold; } 
-code span.op { color: #666666; } 
-code span.ot { color: #007020; } 
-code span.pp { color: #bc7a00; } 
-code span.sc { color: #4070a0; } 
-code span.ss { color: #bb6688; } 
-code span.st { color: #4070a0; } 
-code span.va { color: #19177c; } 
-code span.vs { color: #4070a0; } 
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -348,18 +349,25 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 package to standardize the input dataset. Data are expected to be
 trajectories (id, x, y, t) generated by GPS or video tracking. First,
 lets load some data from <code>trackdf</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(swaRmverse)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;trackdf&quot;</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>raw <span class="ot">&lt;-</span> raw[<span class="sc">!</span>raw<span class="sc">$</span>ignore, ]</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">head</span>(raw)</span></code></pre></div>
-<pre><code>##   id         x        y size frame track ignore track_fixed
-## 1  1  629.3839 882.4783 1154     1     1  FALSE           1
-## 2  2 1056.1692 656.5207 1064     1     2  FALSE           2
-## 3  3  508.0092 375.2451 1624     1     3  FALSE           3
-## 4  4 1277.6466 373.7491 1443     1     4  FALSE           4
-## 5  5 1379.2844 343.0853 1431     1     5  FALSE           5
-## 6  6 1137.1378 174.5110 1321     1     6  FALSE           6</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(swaRmverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;trackdf&quot;</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> raw[<span class="sc">!</span>raw<span class="sc">$</span>ignore, ]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(raw)</span></code></pre></div>
+<pre><code>##   id         x        y size frame track ignore
+## 1  1  629.3839 882.4783 1154     1     1  FALSE
+## 2  2 1056.1692 656.5207 1064     1     2  FALSE
+## 3  3  508.0092 375.2451 1624     1     3  FALSE
+## 4  4 1277.6466 373.7491 1443     1     4  FALSE
+## 5  5 1379.2844 343.0853 1431     1     5  FALSE
+## 6  6 1137.1378 174.5110 1321     1     6  FALSE
+##   track_fixed
+## 1           1
+## 2           2
+## 3           3
+## 4           4
+## 5           5
+## 6           6</code></pre>
 </div>
 <div id="transform-data" class="section level2">
 <h2>1.2 Transform data</h2>
@@ -368,31 +376,40 @@ series (x,y) along with an vector of ids and time. Time will be
 transformed to date-time POSIXct format. Without additional information,
 the package uses UTC as timezone, current time as the origin of the
 experiment, and 1 second as the sampling step (time between
-observations). For more details, see <a href="https://swarm-lab.github.io/trackdf/index.html" class="uri">https://swarm-lab.github.io/trackdf/index.html</a>. For now,
+observations). If your <em>t</em> column corresponds to real time (and
+not frames or sampling steps, e.g., <em>c(1, 2, 3, 4)</em>), then the
+period doesn’t have to be specified. For more details, see <a href="https://swarm-lab.github.io/trackdf/index.html" class="uri">https://swarm-lab.github.io/trackdf/index.html</a>. For now,
 let’s specify these attributes and create our main dataset (as a
 dataframe):</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">set_data_format</span>(<span class="at">raw_x =</span> raw<span class="sc">$</span>x,</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>                          <span class="at">raw_y =</span> raw<span class="sc">$</span>y,</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>                          <span class="at">raw_t =</span> raw<span class="sc">$</span>frame,</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>                          <span class="at">raw_id =</span> raw<span class="sc">$</span>track_fixed,</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>                          <span class="at">origin =</span> <span class="st">&quot;2020-02-1 12:00:21&quot;</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>                          <span class="at">period =</span> <span class="st">&quot;0.04S&quot;</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>                          <span class="at">tz =</span> <span class="st">&quot;America/New_York&quot;</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>                          )</span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="fu">head</span>(data_df)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">set_data_format</span>(<span class="at">raw_x =</span> raw<span class="sc">$</span>x,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">raw_y =</span> raw<span class="sc">$</span>y,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">raw_t =</span> raw<span class="sc">$</span>frame,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">raw_id =</span> raw<span class="sc">$</span>track_fixed,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">origin =</span> <span class="st">&quot;2020-02-1 12:00:21&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">period =</span> <span class="st">&quot;0.04S&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">tz =</span> <span class="st">&quot;America/New_York&quot;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                          )</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_df)</span></code></pre></div>
 <pre><code>## Track table [6 observations]
 ## Number of tracks:  6 
 ## Dimensions:  2D 
 ## Geographic:  FALSE 
-## Table class:  data frame (&#39;data.frame&#39;)
-##   id                   t         x        y        set
-## 1  1 2020-02-01 12:00:21  629.3839 882.4783 2020-02-01
-## 2  2 2020-02-01 12:00:21 1056.1692 656.5207 2020-02-01
-## 3  3 2020-02-01 12:00:21  508.0092 375.2451 2020-02-01
-## 4  4 2020-02-01 12:00:21 1277.6466 373.7491 2020-02-01
-## 5  5 2020-02-01 12:00:21 1379.2844 343.0853 2020-02-01
-## 6  6 2020-02-01 12:00:21 1137.1378 174.5110 2020-02-01</code></pre>
+## Table class:  data frame
+##   id                   t         x        y
+## 1  1 2020-02-01 12:00:21  629.3839 882.4783
+## 2  2 2020-02-01 12:00:21 1056.1692 656.5207
+## 3  3 2020-02-01 12:00:21  508.0092 375.2451
+## 4  4 2020-02-01 12:00:21 1277.6466 373.7491
+## 5  5 2020-02-01 12:00:21 1379.2844 343.0853
+## 6  6 2020-02-01 12:00:21 1137.1378 174.5110
+##          set
+## 1 2020-02-01
+## 2 2020-02-01
+## 3 2020-02-01
+## 4 2020-02-01
+## 5 2020-02-01
+## 6 2020-02-01</code></pre>
 <p>You can now notice that a ‘set’ column is added to the dataset.
 <code>swaRmverse</code> is using this column as the main unit for
 grouping the tracks into separate events. By default, the day of data
@@ -406,33 +423,40 @@ observations are conducted in the same day, or an additional label on
 the data is needed, such as context or species, additional information
 can be given to the function. For instance, let’s assume that data from
 2 different contexts exist in the data set:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># dummy column</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>raw<span class="sc">$</span>context <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;ctx1&quot;</span>, <span class="fu">nrow</span>(raw) <span class="sc">/</span> <span class="dv">2</span>), <span class="fu">rep</span>(<span class="st">&quot;ctx2&quot;</span>, <span class="fu">nrow</span>(raw) <span class="sc">/</span> <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dummy column</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>raw<span class="sc">$</span>context <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;ctx1&quot;</span>, <span class="fu">nrow</span>(raw) <span class="sc">/</span> <span class="dv">2</span>), <span class="fu">rep</span>(<span class="st">&quot;ctx2&quot;</span>, <span class="fu">nrow</span>(raw) <span class="sc">/</span> <span class="dv">2</span>))</span></code></pre></div>
 <p>We can give any additional vector to the function and it will be
 combined with the date column as a set:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">set_data_format</span>(<span class="at">raw_x =</span> raw<span class="sc">$</span>x,</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>                          <span class="at">raw_y =</span> raw<span class="sc">$</span>y,</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>                          <span class="at">raw_t =</span> raw<span class="sc">$</span>frame,</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>                          <span class="at">raw_id =</span> raw<span class="sc">$</span>track_fixed,</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>                          <span class="at">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>                          <span class="at">period =</span> <span class="st">&quot;1 sec&quot;</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>                          <span class="at">tz =</span> <span class="st">&quot;America/New_York&quot;</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>                          <span class="at">raw_context =</span> raw<span class="sc">$</span>context</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>                          )</span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="fu">head</span>(data_df)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">set_data_format</span>(<span class="at">raw_x =</span> raw<span class="sc">$</span>x,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">raw_y =</span> raw<span class="sc">$</span>y,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">raw_t =</span> raw<span class="sc">$</span>frame,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">raw_id =</span> raw<span class="sc">$</span>track_fixed,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">origin =</span> <span class="st">&quot;2020-02-1 12:00:21&quot;</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">period =</span> <span class="st">&quot;0.04 seconds&quot;</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">tz =</span> <span class="st">&quot;America/New_York&quot;</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">raw_context =</span> raw<span class="sc">$</span>context</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                          )</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_df)</span></code></pre></div>
 <pre><code>## Track table [6 observations]
 ## Number of tracks:  6 
 ## Dimensions:  2D 
 ## Geographic:  FALSE 
-## Table class:  data frame (&#39;data.frame&#39;)
-##   id                   t         x        y             set
-## 1  1 2019-03-24 12:55:24  629.3839 882.4783 2019-03-24_ctx1
-## 2  2 2019-03-24 12:55:24 1056.1692 656.5207 2019-03-24_ctx1
-## 3  3 2019-03-24 12:55:24  508.0092 375.2451 2019-03-24_ctx1
-## 4  4 2019-03-24 12:55:24 1277.6466 373.7491 2019-03-24_ctx1
-## 5  5 2019-03-24 12:55:24 1379.2844 343.0853 2019-03-24_ctx1
-## 6  6 2019-03-24 12:55:24 1137.1378 174.5110 2019-03-24_ctx1</code></pre>
+## Table class:  data frame
+##   id                   t         x        y
+## 1  1 2020-02-01 12:00:21  629.3839 882.4783
+## 2  2 2020-02-01 12:00:21 1056.1692 656.5207
+## 3  3 2020-02-01 12:00:21  508.0092 375.2451
+## 4  4 2020-02-01 12:00:21 1277.6466 373.7491
+## 5  5 2020-02-01 12:00:21 1379.2844 343.0853
+## 6  6 2020-02-01 12:00:21 1137.1378 174.5110
+##               set
+## 1 2020-02-01_ctx1
+## 2 2020-02-01_ctx1
+## 3 2020-02-01_ctx1
+## 4 2020-02-01_ctx1
+## 5 2020-02-01_ctx1
+## 6 2020-02-01_ctx1</code></pre>
 <p>With this dataset, we can move on into analyzing the collective
 motion in the data.</p>
 </div>

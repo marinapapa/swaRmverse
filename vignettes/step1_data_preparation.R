@@ -30,8 +30,8 @@ data_df <- set_data_format(raw_x = raw$x,
                           raw_y = raw$y,
                           raw_t = raw$frame,
                           raw_id = raw$track_fixed,
-                          origin = "2019-03-24 12:55:23",
-                          period = "1 sec",
+                          origin = "2020-02-1 12:00:21",
+                          period = "0.04 seconds",
                           tz = "America/New_York",
                           raw_context = raw$context
                           )

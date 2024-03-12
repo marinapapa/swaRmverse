@@ -23,7 +23,7 @@ head(raw)
 
 ## 1.2 Transform data
 
-`trackdf` takes as input a vector for each positional time series (x,y) along with an vector of ids and time. Time will be transformed to date-time POSIXct format. Without additional information, the package uses UTC as timezone, current time as the origin of the experiment, and 1 second as the sampling step (time between observations). For more details, see https://swarm-lab.github.io/trackdf/index.html. For now, let's specify these attributes and create our main dataset (as a dataframe):
+`trackdf` takes as input a vector for each positional time series (x,y) along with an vector of ids and time. Time will be transformed to date-time POSIXct format. Without additional information, the package uses UTC as timezone, current time as the origin of the experiment, and 1 second as the sampling step (time between observations). If your _t_ column corresponds to real time (and not frames or sampling steps, e.g., _c(1, 2, 3, 4)_), then the period doesn't have to be specified. For more details, see https://swarm-lab.github.io/trackdf/index.html. For now, let's specify these attributes and create our main dataset (as a dataframe):
 
 ```{r message=FALSE, warning=FALSE}
 
@@ -58,8 +58,8 @@ data_df <- set_data_format(raw_x = raw$x,
                           raw_y = raw$y,
                           raw_t = raw$frame,
                           raw_id = raw$track_fixed,
-                          origin = "2019-03-24 12:55:23",
-                          period = "1 sec",
+                          origin = "2020-02-1 12:00:21",
+                          period = "0.04 seconds",
                           tz = "America/New_York",
                           raw_context = raw$context
                           )
