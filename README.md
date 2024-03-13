@@ -11,5 +11,11 @@ Based on the packages [`trackdf`](https://github.com/swarm-lab/trackdf) and [`sw
 
 [`swaRmverse`](https://github.com/marinapapa/swaRmverse) is a work in progress, functions are likely to change as the package gets developed. 
 
+## Publication
+
+Further information on the functionality of the package, along with some use cases, will be soon available in our accompanying publication: 
+_Papadopoulou M, Garnier S, King AJ. swaRmverse: an R package for the comparative analysis of collective motion. In prep._
+
 ### Acknowledgements
 The development of this package was supported by the [2G-SWARM](https://www.shoalgroup.org/2g-swarm) ONR grant awarded to Dr. Andrew J. King at Swansea University (UK).
+
