@@ -20,7 +20,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 URL: https://marinapapa.github.io/swaRmverse/,
-  https://github.com/marinapapa/swaRmverse
+    https://github.com/marinapapa/swaRmverse
 BugReports: https://github.com/marinapapa/swaRmverse/issues
 RoxygenNote: 7.3.1
 Depends: 
