@@ -10,10 +10,10 @@ Authors@R: c(
     comment = c(ORCID = "0000-0002-3886-3974"))
   )
 Maintainer: Marina Papadopoulou <m.papadopoulou.rug@gmail.com>
-Description: The package provides a pipeline for the comparative analysis of 
+Description: A function library that provides a pipeline for the comparative analysis of 
   collective movement data (e.g. fish schools, bird flocks, baboon troops) by 
   processing 2-dimensional positional data (x,y,t) from GPS trackers or computer
-  vision tracking systems, discretizing events of collecitve motion, calculating
+  vision tracking systems, discretizing events of collective motion, calculating
   a set of established metrics that characterize each event, and placing the
   events in a multi-dimensional 'swarm space' constructed from these metrics.
 License: GPL-3

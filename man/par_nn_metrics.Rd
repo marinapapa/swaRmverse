@@ -11,8 +11,6 @@ par_nn_metrics(per_time, geo = FALSE)
 Columns must include: \code{id}, \code{t}, \code{head}, \code{x}, \code{y}.}
 
 \item{geo}{Logical, whether positions are geographic coordinates, default = FALSE.}
-
-\item{verbose}{Logical,whether to post updates on progress}
 }
 \value{
 The input dataframe with new columns for \code{nnd} (nearest neighbor distance),

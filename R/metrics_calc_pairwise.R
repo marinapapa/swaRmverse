@@ -157,8 +157,6 @@ nn_metrics <- function(data,
 #'
 #' @param geo Logical, whether positions are geographic coordinates, default = FALSE.
 #'
-#' @param verbose Logical,whether to post updates on progress
-#'
 #' @return The input dataframe with new columns for \code{nnd} (nearest neighbor distance),
 #'  \code{nn_id} (its id) and  \code{bangl} (nearest neighbor bearing angle).
 #'

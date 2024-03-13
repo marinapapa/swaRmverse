@@ -7,9 +7,9 @@
 perIdVels(per_id, geo)
 }
 \arguments{
-\item{geo}{whether positions are geographic coordinates, default = FALSE.}
+\item{per_id}{Time series of 1 individual's positional data.}
 
-\item{data}{Time series of 1 individual's positional data.}
+\item{geo}{whether positions are geographic coordinates, default = FALSE.}
 }
 \value{
 the input dataframe with a new speed and heading (rotational) column.

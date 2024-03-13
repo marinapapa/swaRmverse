@@ -1,11 +1,14 @@
 citHeader("To cite swaRmverse in publications use:")
 
-citEntry(
-  entry    = "Manual",
-  title    = "swaRmverse: an R package for the analysis of collective motion.",
-  author   = "Papadopoulou M.",
+bibentry(
+  key      = "swarmverse",
+  bibtype  = "Manual",
+  title    = "swaRmverse: an R package for the analysis of collective motion",
+  author = c(person("Marina", "Papadopoulou"),
+             person("Simon", "Garnier")),
   year     = "2024",
-  note     = "https://github.com/marinapapa/swaRmverse",
-  textVersion = "Marina Papadopoulou (2024). swaRmverse: an R package for the analysis of collective motion. https://github.com/marinapapa/swaRmverse "
+  note  = "R package version 0.1.0",
+  url     = "https://github.com/marinapapa/swaRmverse",
+  textVersion = "Marina Papadopoulou, Simon Garnier (2024). swaRmverse: an R package for the analysis of collective motion. R package v.0.1, https://github.com/marinapapa/swaRmverse"
 )
 

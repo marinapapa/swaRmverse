@@ -190,8 +190,6 @@ parAddVels <- function(
 #'
 #' @param geo Logical, whether positions are geographic coordinates, default = FALSE.
 #'
-#' @param verbose Logical, whether to post updates on progress.
-#'
 #' @return the input dataframe with a new speed and heading (rotational) column.
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
@@ -259,7 +257,7 @@ do_add_vels <- function(
 #' consecutive locations of 1 individual. Based on the \code{heading} and the
 #' \code{linear_speed} functions of \code{swaRm}.
 #'
-#' @param data Time series of 1 individual's positional data.
+#' @param per_id Time series of 1 individual's positional data.
 #'
 #' @param geo whether positions are geographic coordinates, default = FALSE.
 #'

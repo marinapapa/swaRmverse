@@ -11,8 +11,6 @@ parAddVelsVerb(per_id, geo = FALSE)
 Columns must include: \code{t}, \code{id}, \code{x}, \code{y}.}
 
 \item{geo}{Logical, whether positions are geographic coordinates, default = FALSE.}
-
-\item{verbose}{Logical, whether to post updates on progress.}
 }
 \value{
 the input dataframe with a new speed and heading (rotational) column.
