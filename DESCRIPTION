@@ -10,12 +10,16 @@ Authors@R: c(
     comment = c(ORCID = "0000-0002-3886-3974"))
   )
 Maintainer: Marina Papadopoulou <m.papadopoulou.rug@gmail.com>
-Description: A function library that provides a pipeline for the comparative analysis of 
+Description: Provides a pipeline for the comparative analysis of 
   collective movement data (e.g. fish schools, bird flocks, baboon troops) by 
   processing 2-dimensional positional data (x,y,t) from GPS trackers or computer
   vision tracking systems, discretizing events of collective motion, calculating
   a set of established metrics that characterize each event, and placing the
-  events in a multi-dimensional 'swarm space' constructed from these metrics.
+  events in a multi-dimensional swarm space constructed from these metrics.
+  The swarm space concept, the metrics and data sets included are described in:
+  Papadopoulou Marina, Furtbauer Ines, O'Bryan Lisa R., Garnier Simon, 
+  Georgopoulou Dimitra G., Bracken Anna M., Christensen Charlotte and King
+  Andrew J. (2023) <doi:10.1098/rstb.2022.0068>.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

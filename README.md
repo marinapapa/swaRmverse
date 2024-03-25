@@ -14,7 +14,12 @@ Based on the packages [`trackdf`](https://github.com/swarm-lab/trackdf) and [`sw
 ## Publication
 
 Further information on the functionality of the package, along with some use cases, will be soon available in our accompanying publication: 
+
 _Papadopoulou M, Garnier S, King AJ. swaRmverse: an R package for the comparative analysis of collective motion. In prep._
+
+The swarm space and the included metrics are first described here:  
+
+_Papadopoulou M., Furtbauer I., O'Bryan L.R., Garnier S., Georgopoulou D.G., Bracken A.M., Christensen C. and King A.J. (2023) Dynamics of collective motion across time and species. Philosophical Transactions of the Royal Society B 378.1874 <doi:10.1098/rstb.2022.0068>._
 
 ### Acknowledgements
 The development of this package was supported by the [2G-SWARM](https://www.shoalgroup.org/2g-swarm) ONR grant awarded to Dr. Andrew J. King at Swansea University (UK).

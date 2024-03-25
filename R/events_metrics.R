@@ -51,7 +51,7 @@ event_metrics <- function(global_df, pairwise_df) {
   }
 
   if (nrow(global_df) < 1) {
-    print("No collective motion events identified with given thresholds.")
+    message("Note: No collective motion events identified with given thresholds, an empty dataframe is being returned.")
     empt_ret <- as.data.frame(matrix(NA, ncol = 13, nrow = 0))
     colnames(empt_ret) <- c(
       "event", "N", "set", "mean_mean_nnd",

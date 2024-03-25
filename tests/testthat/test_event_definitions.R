@@ -25,7 +25,7 @@ test_that("event threshold picking works", {
   testthat::expect_error(pick_threshold(data_distr = c(1,2,3,4,5),
                                                var = 'something',
                                                threshold = 'not a number'))
-  testthat::expect_warning(pick_threshold(data_distr = c(1,2,3,4,5),
+  testthat::expect_message(pick_threshold(data_distr = c(1,2,3,4,5),
                                                var = 'something',
                                                threshold = 6))
 })

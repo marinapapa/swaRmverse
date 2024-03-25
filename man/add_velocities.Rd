@@ -29,17 +29,15 @@ over time in the dataset, and splits it in a list of dataframes based
 on the defined sets.
 }
 \examples{
-\dontrun{
 data <- data.frame(
 set = rep(1, 25),
 x = rnorm(25, sd = 3),
 y = rnorm(25, sd = 3),
-t = 1:25,
+t = as.POSIXct(1:25, origin = Sys.time()),
 id = rep(1, 25)
 )
 
-data_list <- add_velocities(data, FALSE)
-}
+data_list <- add_velocities(data, geo = FALSE)
 
 }
 \seealso{

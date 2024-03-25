@@ -30,10 +30,8 @@
 #' the_threshold <- 0
 #' pick_threshold(d, d_variable_name, threshold = the_threshold)
 #'
-#' ## Or if the threshold is not known, run the interactive version:
-#' \dontrun{
-#' pick_threshold(d, d_variable_name)
-#' }
+#' ## If the threshold is not known, run the interactive version
+#' ## without giving a threshold as input.
 #' @export
 pick_threshold <- function(data_distr,
                            var,
@@ -43,15 +41,13 @@ pick_threshold <- function(data_distr,
   }
 
   if (is.na(threshold)) {
+    cat(paste0("Given these quantiles of ", var, ":\n"))
     print(round(stats::quantile(data_distr, seq(0, 1, 0.05), na.rm = TRUE), 2))
-    threshold_chosen <- readline(paste0(
-      "Given the above quantiles of ", var, ",\n
-       please input a threshold value for the events definition\n
-       (input should be numeric): "
-    ))
+    cat("Please input a threshold value for the \nevents definition (input should be numeric):\n ")
+    threshold_chosen <- readline()
+
     while (is.na(as.numeric(threshold_chosen))) {
-      threshold_chosen <- readline("Input not numeric,
-       please try again (or type \'abort\' to exit): ")
+      threshold_chosen <- readline("Input not numeric,\nplease try again (or type \'abort\' to exit): ")
       if (regexpr(threshold_chosen, "abort", ignore.case = TRUE) == 1) {
         stop("Aborting threshold selection from user.")
       }
@@ -65,14 +61,14 @@ pick_threshold <- function(data_distr,
   }
 
   if (threshold_chosen > max(data_distr, na.rm = T)) {
-    warning(paste0(
-      "The chosen threshold is larger than the max value of ", var,
+    message(paste0(
+      "Note: the chosen threshold is larger than the max value of\n", var,
       " in the data, no events will be identified."
     ))
   }
   if (threshold_chosen < min(data_distr, na.rm = T)) {
-    warning(paste0(
-      "The chosen threshold is smaller than the min value of ", var,
+    message(paste0(
+      "Note: the chosen threshold is smaller than the min value of\n ", var,
       " in the data, each set will consist of a single event."
     ))
   }
@@ -140,8 +136,8 @@ define_events <- function(df,
   }, rl = rlengths)
   df$keep[unlist(idxs)] <- TRUE
 
-  print("Given thresholds return a total of:")
-  print(paste0(
+  message(paste0(
+    "Given thresholds return a total of:\n",
     events_n(df),
     " events, over ",
     events_dur(df, step2time = step2time) / 60,
