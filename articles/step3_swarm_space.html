@@ -222,11 +222,9 @@ datasets together and run the swarm spaces as above:</p>
 <span>                                speed_lim <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                                pol_lim <span class="op">=</span> <span class="fl">0.3</span>,</span>
 <span>                                parallelize_all <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span>                                <span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "Given thresholds return a total of:"</span></span>
-<span><span class="co">## [1] "34 events, over 57.1 min."</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">another_species</span><span class="op">$</span><span class="va">species</span> <span class="op">&lt;-</span> <span class="st">"new_species_2"</span></span>
+<span>                                <span class="op">)</span></span>
+<span></span>
+<span><span class="va">another_species</span><span class="op">$</span><span class="va">species</span> <span class="op">&lt;-</span> <span class="st">"new_species_2"</span></span>
 <span></span>
 <span><span class="co">## Bind all the datasets you want to compare here</span></span>
 <span><span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">another_species</span>, <span class="va">new_species_metrics</span><span class="op">)</span></span>

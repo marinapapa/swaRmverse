@@ -134,17 +134,30 @@ to be considered the same event. Default value is 0 (no event merging).</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>set <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">25</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">25</span>, sd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">25</span>, sd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>t <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">25</span>,</span></span>
-<span class="r-in"><span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">25</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span> set <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">75</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">75</span>, sd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">75</span>, sd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span>, <span class="fl">3</span><span class="op">)</span>, origin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">25</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">25</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">metrics</span> <span class="op">&lt;-</span> <span class="fu">col_motion_metrics_from_raw</span><span class="op">(</span><span class="va">data</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">metrics</span> <span class="op">&lt;-</span> <span class="fu">col_motion_metrics_from_raw</span><span class="op">(</span><span class="va">data</span>,</span></span>
+<span class="r-in"><span> mov_av_time_window <span class="op">=</span> <span class="fl">5</span>,</span></span>
+<span class="r-in"><span> step2time <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span> geo <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span> speed_lim <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span> pol_lim <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span> noise_thresh <span class="op">=</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span> <span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Note: the chosen threshold is smaller than the min value of</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  speed in the data, each set will consist of a single event.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Note: the chosen threshold is smaller than the min value of</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  pol in the data, each set will consist of a single event.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Given thresholds return a total of:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 1 events, over 0.416666666666667 min.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Calculating metrics for each event, this might take a while...</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

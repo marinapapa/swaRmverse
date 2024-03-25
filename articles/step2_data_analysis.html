@@ -131,8 +131,8 @@ For this, we need to specify whether the data correspond to geo data
 <span>                           verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                           parallelize <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>                           <span class="op">)</span> <span class="co">## A list of dataframes</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "Adding velocity info to every set of the dataset.."</span></span>
-<span><span class="co">## [1] "Done!"</span></span></code></pre>
+<pre><code><span><span class="co">## Adding velocity info to every set of the dataset..</span></span>
+<span><span class="co">## Done!</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#head(data_dfs[[1]])</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Velocity information added for"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">data_dfs</span><span class="op">)</span>, <span class="st">"sets."</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -212,7 +212,7 @@ as columns to the positional timeseries dataframe:</p>
 <span>                            parallelize <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                            add_coords <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># could be set to TRUE if the relative positions of neighbors are needed </span></span>
 <span>                            <span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "Pairwise analysis started.."</span></span></code></pre>
+<pre><code><span><span class="co">## Pairwise analysis started..</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#tail(data_df)</span></span></code></pre></div>
 </div>
@@ -250,16 +250,14 @@ timeseries are calculated, one can calculate the metrics per event:</p>
 <span>                                           verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                           speed_lim <span class="op">=</span> <span class="fl">150</span>,</span>
 <span>                                           pol_lim <span class="op">=</span> <span class="fl">0.3</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "Given thresholds return a total of:"</span></span>
-<span><span class="co">## [1] "60 events, over 1.24066666666667 min."</span></span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># summary(new_species_metrics)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># summary(new_species_metrics)</span></span></code></pre></div>
 <p>The number of events and their total duration given the input
 thresholds is also printed. If we are not interested in inspecting the
 timeseries of the measurements, on can calculate the metrics directly
 from the formatted dataset:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_species_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/col_motion_metrics_from_raw.html">col_motion_metrics_from_raw</a></span><span class="op">(</span><span class="va">data_df</span>,</span>
 <span>                                mov_av_time_window <span class="op">=</span> <span class="va">smoothing_time_window</span>,</span>
 <span>                                step2time <span class="op">=</span> <span class="va">sampling_timestep</span>,</span>
@@ -269,15 +267,13 @@ from the formatted dataset:</p>
 <span>                                pol_lim <span class="op">=</span> <span class="fl">0.3</span>,</span>
 <span>                                parallelize_all <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>                                <span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "Adding velocity info to every set of the dataset.."</span></span>
-<span><span class="co">## [1] "Done!"</span></span>
-<span><span class="co">## [1] "Given thresholds return a total of:"</span></span>
-<span><span class="co">## [1] "60 events, over 1.24066666666667 min."</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## Adding velocity info to every set of the dataset..</span></span>
+<span><span class="co">## Done!</span></span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># summary(new_species_metrics)</span></span></code></pre></div>
 <p>Since we are interested in comparing different datasets across
 species or contexts, a new species id column should be added:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_species_metrics</span><span class="op">$</span><span class="va">species</span> <span class="op">&lt;-</span> <span class="st">"new_species_1"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">new_species_metrics</span><span class="op">)</span></span></code></pre></div>
@@ -302,7 +298,7 @@ species or contexts, a new species id column should be added:</p>
 <span><span class="co">## 4  1.1002695        NA      0.04 new_species_1</span></span>
 <span><span class="co">## 5  1.0568951 0.3726853      0.32 new_species_1</span></span>
 <span><span class="co">## 6  0.9988084 0.3790848      7.80 new_species_1</span></span></code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Un-comment bellow to save the output in order to combine it with other datasets (replace 'path2file' with appropriate local path and name).</span></span>
 <span><span class="co"># write.csv(new_species_metrics, file = path2file.csv, row.names = FALSE) # OR R object</span></span>
 <span><span class="co"># save(new_species_metrics, file = path2file.rda) </span></span></code></pre></div>
