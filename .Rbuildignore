@@ -8,3 +8,4 @@ LICENSE
 ^\.github$
 ^codecov\.yml$
 .vscode
+^cran-comments\.md$

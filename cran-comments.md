@@ -13,10 +13,12 @@
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs, only a NOTE about the current file:
+There were no ERRORs or WARNINGs, only a NOTE about mistaken spelling errors in DESCRIPTION: 
 
-_Non-standard file/directory found at top level:
-    'cran-comments.md'_.
+_Dimitra (21:16), Furtbauer (20:24), Garnier (20:57), Georgopoulou (21:3), O'Bryan (20:40), Papadopoulou (20:3), discretizing (16:28)_. 
+
+These words are not misspelled (the first 6 are proper nouns and the last one is correctly spelled).
+
 
 ## Downstream dependencies
 
