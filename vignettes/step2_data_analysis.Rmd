@@ -151,7 +151,7 @@ The duration, starting time and group size (N) of each event are also added to t
 * _sd_mean_nnd_: the temporal standard deviation of the group's average nearest neighbor distance     
 * _mean_pol_: the average of the group's polarization during the event
 * _sd_pol_: the standard deviation of the group's polarization during the event
-* _stdv_speed_: the CV (coefficient of variation) of the group's average speed during the event
+* _cv_speed_: the CV (coefficient of variation) of the group's average speed during the event
 * _mean_sd_front_: the average standard deviation of the individuals' frontness to their nearest neighbor during an event
 * _mean_mean_bangl_: the temporal average of the group's average angle
 * _mean_shape_: the average shape index of the group during an event (0= perfectly wide and 1= perfectly long relative to the heading direction)

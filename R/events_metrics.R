@@ -56,7 +56,7 @@ event_metrics <- function(global_df, pairwise_df) {
     colnames(empt_ret) <- c(
       "event", "N", "set", "mean_mean_nnd",
       "mean_sd_nnd", "sd_mean_nnd", "mean_pol", "sd_pol",
-      "stdv_speed", "mean_sd_front", "mean_mean_bangl",
+      "cv_speed", "mean_sd_front", "mean_mean_bangl",
       "mean_shape", "sd_shape"
     )
     return(empt_ret)
@@ -134,7 +134,7 @@ calc_events_averages <- function(df) {
         sd_mean_nnd = stats::sd(mean_nnd, na.rm = TRUE),
         mean_pol = mean(pol, na.rm = TRUE),
         sd_pol = stats::sd(pol, na.rm = TRUE),
-        stdv_speed = stats::sd(speed, na.rm = TRUE) /
+        cv_speed = stats::sd(speed, na.rm = TRUE) /
           mean(speed, na.rm = TRUE),
         mean_sd_front = mean(sd_front, na.rm = TRUE),
         mean_mean_bangl = mean(mean_bangl, na.rm = TRUE),
