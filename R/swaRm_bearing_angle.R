@@ -19,7 +19,7 @@
 #' @author Simon Garnier, \email{garnier@@njit.edu},
 #'  Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{pdist}}
+#' @seealso \code{\link{swaRm::pdist}}
 #'
 #' @examples
 #' x <- rnorm(25)
