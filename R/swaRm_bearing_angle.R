@@ -19,8 +19,6 @@
 #' @author Simon Garnier, \email{garnier@@njit.edu},
 #'  Marina Papadopoulou, \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{swaRm::pdist}}
-#'
 #' @examples
 #' x <- rnorm(25)
 #' y <- rnorm(25, sd = 3)
