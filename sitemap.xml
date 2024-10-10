@@ -1,171 +1,59 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/404.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/articles/step1_data_preparation.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/articles/step2_data_analysis.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/articles/step3_swarm_space.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/index.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/add_rel_pos_coords.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/add_set_vels.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/add_velocities.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/calc_dur_per_event.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/calc_events_averages.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/calc_global_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/calc_n_events.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/calc_nn_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/calc_obb.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/calc_pairwise_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/col_motion_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/col_motion_metrics_from_raw.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/define_events.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/do_add_set_vels.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/do_add_vels.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/do_pca.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/do_tsne.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/event_ids_per_set.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/event_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/events_dur.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/events_n.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/events_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/expand_pca_swarm_space.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/frontness.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/get_event_ids.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/group_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/group_metrics_per_set.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/group_shape.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/moving_average.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/multi_species_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/multi_species_pca.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/multi_species_pca_data.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/new_species_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/nn_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/nnba.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/normalize_data.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/pairwise_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/parAddVels.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/parAddVelsVerb.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/par_calc_global_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/par_nn_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/perIdVels.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/pick_threshold.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/set_data_format.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/swaRmverse.html</loc>
-  </url>
-  <url>
-    <loc>https://marinapapa.github.io/swaRmverse/reference/swarm_space.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://marinapapa.github.io/swaRmverse/404.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/LICENSE-text.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/articles/index.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/articles/step1_data_preparation.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/articles/step2_data_analysis.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/articles/step3_swarm_space.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/authors.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/index.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/news/index.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/add_rel_pos_coords.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/add_set_vels.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/add_velocities.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/calc_dur_per_event.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/calc_events_averages.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/calc_global_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/calc_n_events.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/calc_nn_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/calc_obb.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/calc_pairwise_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/col_motion_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/col_motion_metrics_from_raw.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/define_events.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/do_add_set_vels.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/do_add_vels.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/do_pca.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/do_tsne.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/event_ids_per_set.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/event_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/events_dur.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/events_n.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/events_summary.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/expand_pca_swarm_space.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/frontness.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/get_event_ids.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/group_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/group_metrics_per_set.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/group_shape.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/index.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/moving_average.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/multi_species_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/multi_species_pca.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/multi_species_pca_data.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/new_species_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/nn_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/nnba.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/normalize_data.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/pairwise_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/parAddVels.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/parAddVelsVerb.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/par_calc_global_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/par_nn_metrics.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/perIdVels.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/pick_threshold.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/set_data_format.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/swaRmverse.html</loc></url>
+<url><loc>https://marinapapa.github.io/swaRmverse/reference/swarm_space.html</loc></url>
 </urlset>
+
