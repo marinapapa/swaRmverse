@@ -49,17 +49,23 @@ A dataframe with metrics of collective motion per event.
 This function calculates metrics of collective motion across sets and events.
 }
 \examples{
-\dontrun{
 data <- data.frame(
-set = rep(1, 25),
-x = rnorm(25, sd = 3),
-y = rnorm(25, sd = 3),
-t = 1:25,
-id = rep(1, 25)
-)
+ set = rep(1, 75),
+ x = rnorm(75, sd = 3),
+ y = rnorm(75, sd = 3),
+ t = as.POSIXct(rep(1:25, 3), origin = Sys.time()),
+ id = c(rep(1, 25), rep(2, 25), rep(3, 25))
+ )
 
-metrics <- col_motion_metrics_from_raw(data, 3, 1, FALSE)
-}
+metrics <- col_motion_metrics_from_raw(data,
+ mov_av_time_window = 5,
+ step2time = 1,
+ geo = FALSE,
+ speed_lim = 0,
+ pol_lim = 0,
+ noise_thresh = 1
+ )
+
 }
 \seealso{
 \code{\link{add_velocities}, \link{group_metrics}, \link{pairwise_metrics}, \link{moving_average}}

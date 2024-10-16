@@ -59,10 +59,23 @@ A track dataframe table, which is a colloquial term for an
 This function is a wrapper for the  \code{track} function of the \code{trackdf} package.
 }
 \examples{
-\dontrun{
-data(raw_df)
-t_df <- set_data_format(x = raw_df$x,
- y = raw_df$y, t = raw_df$t, id = raw_df$id)
+\donttest{
+raw_data <- data.frame(
+ frame = rep(1:25, 3),
+ x = rnorm(75),
+ y = rnorm(75),
+ id = c(rep(1, 25), rep(2, 25), rep(3, 25))
+ )
+
+data <- set_data_format(
+ raw_x = raw_data$x,
+ raw_y = raw_data$y,
+ raw_t = raw_data$frame,
+ raw_id = raw_data$id,
+ period = 1,
+ origin = Sys.time(),
+ tz = "Africa/Windhoek"
+ )
 }
 }
 \author{

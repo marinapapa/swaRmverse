@@ -41,20 +41,22 @@ This function calculates the timeseries of average speed,
  polarization and shape of all set in a dataset
 }
 \examples{
-\dontrun{
 
-#' data <- data.frame(
-set = rep('1', 50),
-t = rep(1:25, 2),
-id = c(rep(1, 25), rep(2, 25)),
-x = rnorm(50),
-y = rnorm(50),
-head = runif(50, 0, 2 * pi),
-speed = rnorm(50)
-)
-gm <- group_metrics_per_set(list(data), 2, FALSE, 1)
-}
+data <- data.frame(
+ set = rep("1", 50),
+ t = as.POSIXct(rep(1:25, 2), origin = Sys.time()),
+ id = c(rep(1, 25), rep(2, 25)),
+ x = rnorm(50),
+ y = rnorm(50),
+ head = runif(50, 0, 2 * pi),
+ speed = rnorm(50)
+ )
 
+gm <- group_metrics_per_set(list(data),
+ mov_av_time_window = 5,
+ geo = FALSE,
+ step2time = 1
+ )
 }
 \seealso{
 \code{\link{group_metrics}}, \code{\link{moving_average}}

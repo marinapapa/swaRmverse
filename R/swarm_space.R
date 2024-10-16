@@ -54,7 +54,7 @@ swarm_space <- function(metrics_data,
   }
 
   if (!('species' %in% colnames(metrics_data))){
-    warning('A column with species id is needed in the input dataframe, currently missing. A generic id has been added.')
+    message('A column with species id is needed in the input dataframe, currently missing. A generic id has been added.')
     metrics_data$species <- 'species_NA'
   }
 
@@ -178,8 +178,8 @@ expand_pca_swarm_space <- function(metrics_data,
                                    event_dur_limit = NA
                         ) {
   if (!(is.na(event_dur_limit))) {
-    if (!(any(colnames(metrics_data) == "event_dur_s"))) {
-      stop("A column named 'event_dur_s' is
+    if (!(any(colnames(metrics_data) == "event_dur"))) {
+      stop("A column named 'event_dur' is
             needed to apply an event duration limit.")
     }
     metrics_data <- metrics_data[

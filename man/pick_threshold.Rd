@@ -35,10 +35,8 @@ d_variable_name <- "a variable"
 the_threshold <- 0
 pick_threshold(d, d_variable_name, threshold = the_threshold)
 
-## Or if the threshold is not known, run the interactive version:
-\dontrun{
-pick_threshold(d, d_variable_name)
-}
+## If the threshold is not known, run the interactive version
+## without giving a threshold as input.
 }
 \seealso{
 \code{\link{define_events}}

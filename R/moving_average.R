@@ -26,8 +26,8 @@ moving_average <- function(timeseries,
   mov_av <- rep(NA, length(timeseries))
 
   if (window / 2 > length(timeseries)) {
-    warning("Found a time series that is shorter than the smoothing window,
-             NAs returned for that set.")
+    message("Note: a time series is shorter than the moving average/smoothing window,
+             NAs are returned for that set.")
     return(mov_av)
   }
   for (t in (1 + window / 2):(length(timeseries) - window / 2)) {

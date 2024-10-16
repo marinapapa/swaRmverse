@@ -24,17 +24,15 @@
 #' @seealso \code{\link{add_set_vels}}, \code{\link{set_data_format}}
 #'
 #' @examples
-#' \dontrun{
 #' data <- data.frame(
 #' set = rep(1, 25),
 #' x = rnorm(25, sd = 3),
 #' y = rnorm(25, sd = 3),
-#' t = 1:25,
+#' t = as.POSIXct(1:25, origin = Sys.time()),
 #' id = rep(1, 25)
 #' )
 #'
-#' data_list <- add_velocities(data, FALSE)
-#' }
+#' data_list <- add_velocities(data, geo = FALSE)
 #'
 #' @export
 add_velocities <- function(data,
@@ -51,23 +49,99 @@ add_velocities <- function(data,
   splitted_data <- split(data, data$set)
 
   if (verbose) {
-    print("Adding velocity info to every set of the dataset..")
+    cat("Adding velocity info to every set of the dataset..\n")
   }
   toret <- lapply(X = splitted_data,
                   FUN = add_set_vels,
                   verbose = verbose,
                   geo = geo,
-                  parallelize = parallelize
+                  parallelize = parallelize,
+                  independent_call = FALSE
   )
-  if (verbose) {
-    print("Done!")
+
+  sets_torep <- lapply(toret, function(x){
+    if (!is.na(x$message)){
+      return(x$data$set[1])
+    }})
+  sets_torep <- unlist(sets_torep)
+  if (length(sets_torep) > 0){
+    sets <- paste(sets_torep, collapse = ", ")
+    message(paste0("Note: in sets ",
+                   sets,
+                   " there are individuals with not-moving instances. Their headings have been set to NA for these timesteps."))
   }
 
-  toret
+  if (verbose) {
+    cat("Done!\n")
+  }
+
+  lapply(toret, function(x){ x$data})
+}
+
+#' @title Add Velocity Timeseries
+#'
+#' @description This function calculates the headings and speeds of individuals based on
+#' two location points and the time taken to travel between those points.
+#'
+#' @param data A dataframe with the time series of individuals' positions.
+#' Columns must include: \code{t}, \code{id}, \code{x}, \code{y}.
+#'
+#' @param geo Logical, whether positions are geographic coordinates, default = TRUE.
+#'
+#' @param verbose Logical, whether to post updates on progress, default = FALSE.
+#'
+#' @param parallelize Logical, whether to run the function in parallel, default = FALSE.
+#'
+#' @param independent_call Logical, whether the function is called by itself or
+#' as part of the package pipeline (through \code{\link{add_velocities}}). The default is
+#' set to TRUE, reflecting the direct call of the function by the user.
+#'
+#' @return The input dataframe with a new speed and heading (rotational, in rads) columns.
+#'
+#' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
+#'
+#' @seealso \code{\link{add_velocities}}
+#'
+#' @examples
+#'
+#' data <- data.frame(
+#' x = rnorm(25, sd = 3),
+#' y = rnorm(25, sd = 3),
+#' t = as.POSIXct(1:25, origin = Sys.time()),
+#' id = rep(1, 25)
+#' )
+#'
+#' data <- add_set_vels(data, geo = FALSE)
+#'
+#' @export
+add_set_vels <- function(
+    data,
+    geo = FALSE,
+    verbose = FALSE,
+    parallelize = FALSE,
+    independent_call = TRUE
+    ) {
+
+  if (!(all(c("t", "x", "y", "id") %in% colnames(data)))) {
+    stop("Input dataframe should include columns: t, x, y, and id.")
+    }
+
+  res <- do_add_set_vels(data, geo, verbose, parallelize)
+
+  if (independent_call){
+    if (!is.na(res$message)){
+      message(paste0("Individuals ",
+                     res$message,
+                     " have not-moving instances. Their headings have been set to NA for these timesteps."))
+    }
+    return(res$data)
+  }
+
+  res
 }
 
 
-#' @title Add Velocity Timeseries
+#' @title Call Add Velocity Timeseries
 #'
 #' @description This function calculates the headings and speeds of individuals based on
 #' two location points and the time taken to travel between those points.
@@ -85,32 +159,13 @@ add_velocities <- function(data,
 #'
 #' @author Marina Papadopoulou \email{m.papadopoulou.rug@@gmail.com}
 #'
-#' @seealso \code{\link{add_velocities}}
-#'
-#' @examples
-#' \dontrun{
-#'
-#' data <- data.frame(
-#' x = rnorm(25, sd = 3),
-#' y = rnorm(25, sd = 3),
-#' t = 1:25,
-#' id = rep(1, 25)
-#' )
-#'
-#' data_list <- add_set_vels(data, FALSE)
-#' }
-#'
-#' @export
-add_set_vels <- function(
+#' @keywords internal
+do_add_set_vels <- function(
     data,
     geo = FALSE,
     verbose = FALSE,
     parallelize = FALSE
-    ) {
-
-  if (!(all(c("t", "x", "y", "id") %in% colnames(data)))) {
-    stop("Input dataframe should include columns: t, x, y, and id.")
-    }
+) {
 
   data$head <- data$speed <- rep(NA_real_, nrow(data))
   per_id <- split(data, data$id)
@@ -130,16 +185,15 @@ add_set_vels <- function(
 
   ## headings of 0 (from not moving) being replaced with NA for safety in group properties calculations
   idx_without_head <- which(abs(data[, "head"]) < 0.00000000001)
+
+  mess_ids <- NA
   if (length(idx_without_head) > 0){
-    warning(paste0("Individuals ",
-                   paste(unique(data[idx_without_head,"id"]), collapse = ", "),
-                   " have not-moving instances. Their headings have been set to NA for these timesteps."))
+    mess_ids <- paste(unique(data[idx_without_head,"id"]), collapse = ", ")
     data[idx_without_head ,"head"] <- NA
   }
 
-  data
+  list(data = data, message = mess_ids)
 }
-
 
 #' @title Adding Motion Properties in Parallel without Progress Updates
 #'
@@ -199,7 +253,7 @@ parAddVelsVerb <- function(
     per_id,
     geo = FALSE
     ) {
-  print(paste0("Calculating heading timeseries in parallel for set ", per_id[[1]][1, "set"],
+  message(paste0("Calculating heading timeseries in parallel for set ", per_id[[1]][1, "set"],
                " with ", length(per_id), " individuals..."))
 
   num_cores <- parallel::detectCores()
@@ -218,7 +272,7 @@ parAddVelsVerb <- function(
     })
 
   parallel::stopCluster(cl)
-  print("Parallel computation done!")
+  message("Parallel computation done!")
 
   names(res) <- NULL
   res
@@ -273,7 +327,7 @@ perIdVels <- function(
     per_id <- as.data.frame(per_id)
 
     if (nrow(per_id) < 2) {
-      warning(paste0("Id ", per_id[,"id"], " has only one data point, returning NA for its heading.
+      message(paste0("Id ", per_id[,"id"], " has only one data point, returning NA for its heading.
                      We recommend cleaning your data before continuing."))
       return(per_id)
     }

@@ -32,9 +32,6 @@ hs <- rnorm(25, sd = 1)
 nnba(x, y, hs)
 
 }
-\seealso{
-\code{\link{pdist}}
-}
 \author{
 Simon Garnier, \email{garnier@njit.edu},
  Marina Papadopoulou, \email{m.papadopoulou.rug@gmail.com}

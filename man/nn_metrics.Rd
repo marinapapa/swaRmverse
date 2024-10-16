@@ -39,19 +39,18 @@ This function calculates the bearing angle and distance from
 all focal individuals in a group to their nearest neighbor over time.
 }
 \examples{
-\dontrun{
 
-#' data <- data.frame(
-set = rep('1', 50),
-t = rep(1:25, 2),
-id = c(rep(1, 25), rep(2, 25)),
-x = rnorm(50),
-y = rnorm(50),
-head = runif(50, 0, 2 * pi),
-)
-gm <- nn_metrics(data)
+data <- data.frame(
+ set = rep("1", 50),
+ t = as.POSIXct(rep(1:25, 2), origin = Sys.time()),
+ id = c(rep(1, 25), rep(2, 25)),
+ x = rnorm(50),
+ y = rnorm(50),
+ head = runif(50, 0, 2 * pi)
+ )
 
-}
+nnm <- nn_metrics(data, geo = FALSE)
+
 }
 \seealso{
 \code{\link{add_rel_pos_coords}, \link{group_metrics}}

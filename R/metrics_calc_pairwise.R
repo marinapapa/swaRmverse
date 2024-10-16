@@ -28,19 +28,18 @@
 #' @seealso \code{\link{nn_metrics}, \link{group_metrics_per_set}}
 #'
 #' @examples
-#' \dontrun{
 #'
-#' #' data <- data.frame(
-#' set = rep('1', 50),
-#' t = rep(1:25, 2),
-#' id = c(rep(1, 25), rep(2, 25)),
-#' x = rnorm(50),
-#' y = rnorm(50),
-#' head = runif(50, 0, 2 * pi),
-#' )
-#' gm <- pairwise_metrics(list(data), FALSE)
+#' data <- data.frame(
+#'  set = rep("1", 50),
+#'  t = as.POSIXct(rep(1:25, 2), origin = Sys.time()),
+#'  id = c(rep(1, 25), rep(2, 25)),
+#'  x = rnorm(50),
+#'  y = rnorm(50),
+#'  head = runif(50, 0, 2 * pi)
+#'  )
 #'
-#' }
+#' pm <- pairwise_metrics(list(data), geo = FALSE)
+#'
 #' @export
 pairwise_metrics <- function(data_list,
                              geo = FALSE,
@@ -48,7 +47,7 @@ pairwise_metrics <- function(data_list,
                              parallelize = FALSE,
                              add_coords = FALSE
                              ) {
-  if (verbose) print("Pairwise analysis started..")
+  if (verbose) cat("Pairwise analysis started..")
 
   toret <- lapply(X = data_list,
                   FUN = nn_metrics,
@@ -94,19 +93,18 @@ pairwise_metrics <- function(data_list,
 #' @seealso \code{\link{add_rel_pos_coords}, \link{group_metrics}}
 #'
 #' @examples
-#' \dontrun{
 #'
-#' #' data <- data.frame(
-#' set = rep('1', 50),
-#' t = rep(1:25, 2),
-#' id = c(rep(1, 25), rep(2, 25)),
-#' x = rnorm(50),
-#' y = rnorm(50),
-#' head = runif(50, 0, 2 * pi),
-#' )
-#' gm <- nn_metrics(data)
+#' data <- data.frame(
+#'  set = rep("1", 50),
+#'  t = as.POSIXct(rep(1:25, 2), origin = Sys.time()),
+#'  id = c(rep(1, 25), rep(2, 25)),
+#'  x = rnorm(50),
+#'  y = rnorm(50),
+#'  head = runif(50, 0, 2 * pi)
+#'  )
 #'
-#' }
+#' nnm <- nn_metrics(data, geo = FALSE)
+#'
 #' @export
 nn_metrics <- function(data,
                        add_coords = FALSE,
@@ -124,11 +122,11 @@ nn_metrics <- function(data,
 
   if (parallelize) {
    if (verbose) {
-      print("Calculating nearest neighbor metrics in parallel...")
+      cat("Calculating nearest neighbor metrics in parallel...\n")
     }
     nm <- par_nn_metrics(per_time, geo)
     if (verbose) {
-      print("Done!")
+      cat("Done!\n")
     }
   } else {
     nm <- lapply(X = per_time,
