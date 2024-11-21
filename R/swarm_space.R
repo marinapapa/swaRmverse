@@ -60,7 +60,7 @@ swarm_space <- function(metrics_data,
 
   metrics_data <- metrics_data[stats::complete.cases(metrics_data), ]
   df <- metrics_data[, !(
-            names(metrics_data) %in% c("event_dur", "N", "start_time", "set")
+            names(metrics_data) %in% c("event_dur", "N", "Nvar", "start_time", "set")
             )]
 
   if (space_type == "pca") {
@@ -70,7 +70,7 @@ swarm_space <- function(metrics_data,
     swarm_space <- do_tsne(df, tsne_rand_seed, tsne_perplexity)
   }
 
-  swarm_space$ref <- metrics_data[, names(metrics_data) %in% c("species", "event", "set", "start_time", "event_dur", "N")]
+  swarm_space$ref <- metrics_data[, names(metrics_data) %in% c("species", "event", "set", "start_time", "event_dur", "N", "Nvar")]
 
   swarm_space
 }
@@ -188,7 +188,7 @@ expand_pca_swarm_space <- function(metrics_data,
 
   metrics_data <- metrics_data[stats::complete.cases(metrics_data), ]
   topca <- metrics_data[, !(names(metrics_data) %in%
-                            c("species", "event", "event_dur", "N", "start_time"))]
+                            c("species", "event", "event_dur", "N", "Nvar", "start_time"))]
 
   newpca <- as.data.frame(stats::predict(pca_space, topca))
   newpca$species <- metrics_data$species

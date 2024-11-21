@@ -126,7 +126,8 @@ calc_events_averages <- function(df) {
       df,
       data.frame(
         event = event[[1]],
-        N = N[[1]],
+        N = mean(N, na.rm = TRUE),
+        Nvar = (length(unique(N)) > 1),
         set = set[[1]],
         start_time = min(t),
         mean_mean_nnd = mean(mean_nnd, na.rm = TRUE),
